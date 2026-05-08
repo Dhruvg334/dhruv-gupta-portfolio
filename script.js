@@ -20,6 +20,17 @@ if (yearElement) {
   yearElement.textContent = new Date().getFullYear();
 }
 
+const backToTop = document.getElementById("backToTop");
+if (backToTop) {
+  backToTop.addEventListener("click", (event) => {
+    event.preventDefault();
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  });
+}
+
 const revealElements = document.querySelectorAll(".reveal");
 
 const revealObserver = new IntersectionObserver(

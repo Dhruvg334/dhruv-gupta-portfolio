@@ -2,7 +2,7 @@
 
 I am a final-year B.Tech Computer Science student focused on building practical AI-powered systems using RAG pipelines, agentic workflows, vector databases, APIs, and user-facing interfaces.
 
-This portfolio presents my academic background, technical skills, projects, achievements, resume, and contact details.
+This portfolio presents my academic background, technical skills, projects, achievements, and contact details.
 
 ## Tech Stack
 
@@ -45,8 +45,6 @@ A full-stack sustainability analytics platform built with Node.js, Express.js, F
 ├── script.js
 ├── README.md
 └── assets/
-    ├── resume/
-    │   └── Dhruv-Gupta-Resume.pdf
     └── screenshots/
         ├── agentic-rag-physics.png
         ├── multimodal-ai-assistant.png
