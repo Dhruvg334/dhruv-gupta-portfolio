@@ -43,3 +43,7 @@ In the repository settings, set **Pages → Build and deployment → Source** to
 - GitHub: https://github.com/Dhruvg334
 - LinkedIn: https://www.linkedin.com/in/dhruv-gupta-7a7500287/
 - Email: dhruvg3304@gmail.com
+
+## Resume requests
+
+The resume is intentionally not stored as a public site asset or exposed through a direct-download link. Recruiters can use **Request resume** on the site, which opens the contact form with the request context prefilled. I review the message and send the current resume personally by email when appropriate.

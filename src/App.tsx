@@ -4,8 +4,6 @@ import {
   CheckCircle2,
   ChevronDown,
   ExternalLink,
-  Github,
-  Linkedin,
   Mail,
   Menu,
   Play,
@@ -126,6 +124,24 @@ const principles = [
   ['Evaluation over vibes', 'A polished demo is useful; repeatable tests and failure analysis are more convincing.'],
 ]
 
+function GitHubMark({ size = 16 }: { size?: number }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" aria-hidden="true" fill="currentColor">
+      <path d="M12 .7a11.3 11.3 0 0 0-3.57 22.02c.57.1.78-.24.78-.55v-2.16c-3.18.69-3.85-1.35-3.85-1.35-.52-1.32-1.27-1.67-1.27-1.67-1.04-.71.08-.7.08-.7 1.15.08 1.75 1.18 1.75 1.18 1.02 1.75 2.68 1.24 3.33.95.1-.74.4-1.24.73-1.53-2.54-.29-5.21-1.27-5.21-5.59 0-1.24.44-2.24 1.17-3.03-.12-.29-.51-1.45.11-2.99 0 0 .96-.31 3.12 1.16A10.9 10.9 0 0 1 12 6.06c.96 0 1.93.13 2.84.38 2.16-1.47 3.11-1.16 3.11-1.16.63 1.54.24 2.7.12 2.99.73.79 1.17 1.79 1.17 3.03 0 4.33-2.68 5.29-5.23 5.58.41.36.78 1.06.78 2.14v3.16c0 .31.2.66.79.55A11.3 11.3 0 0 0 12 .7Z" />
+    </svg>
+  )
+}
+
+function LinkedInMark({ size = 16 }: { size?: number }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" aria-hidden="true" fill="currentColor">
+      <path d="M20.45 20.45h-3.56v-5.57c0-1.33-.03-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.94v5.67H9.34V8.98h3.42v1.57h.05c.47-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.29ZM5.32 7.41a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12ZM7.1 20.45H3.54V8.98H7.1v11.47Z" />
+    </svg>
+  )
+}
+
+type ContactMode = 'contact' | 'resume'
+
 function ProjectVisual({ tone }: { tone: Project['tone'] }) {
   const labels = useMemo(() => {
     if (tone === 'graph') return ['ASSET', 'EVIDENCE', 'GRAPH', 'TRACE']
@@ -160,7 +176,7 @@ function ProjectVisual({ tone }: { tone: Project['tone'] }) {
   )
 }
 
-function ContactModal({ open, onClose }: { open: boolean; onClose: () => void }) {
+function ContactModal({ open, mode, onClose }: { open: boolean; mode: ContactMode; onClose: () => void }) {
   useEffect(() => {
     if (!open) return
     document.body.classList.add('modal-open')
@@ -194,16 +210,21 @@ function ContactModal({ open, onClose }: { open: boolean; onClose: () => void })
           >
             <button className="modal-close" onClick={onClose} aria-label="Close contact form"><X size={19} /></button>
             <div className="modal-intro">
-              <p className="section-label">Contact</p>
-              <h2 id="contact-title">Let’s talk about the work.</h2>
-              <p>If you’re reaching out about an AI engineering role, internship, project, or collaboration, send the context and I’ll get back to you.</p>
+              <p className="section-label">{mode === 'resume' ? 'Resume request' : 'Contact'}</p>
+              <h2 id="contact-title">{mode === 'resume' ? 'Request my resume.' : 'Let’s talk about the work.'}</h2>
+              <p>
+                {mode === 'resume'
+                  ? 'I do not publish my resume as an open download. Share who you are and the role or opportunity you are hiring for; I’ll review the request and send the current resume to your email personally.'
+                  : 'If you’re reaching out about an AI engineering role, internship, project, or collaboration, send the context and I’ll get back to you.'}
+              </p>
               <div className="modal-links">
                 <a href={links.email}><Mail size={16} /> Email</a>
-                <a href={links.linkedin} target="_blank" rel="noreferrer"><Linkedin size={16} /> LinkedIn</a>
-                <a href={links.github} target="_blank" rel="noreferrer"><Github size={16} /> GitHub</a>
+                <a href={links.linkedin} target="_blank" rel="noreferrer"><LinkedInMark /> LinkedIn</a>
+                <a href={links.github} target="_blank" rel="noreferrer"><GitHubMark /> GitHub</a>
               </div>
             </div>
             <form className="contact-form" action="https://formspree.io/f/xbdwaved" method="POST">
+              <input type="hidden" name="request_type" value={mode === 'resume' ? 'Resume request' : 'General contact'} />
               <div className="field-pair">
                 <label>
                   <span>Name</span>
@@ -214,15 +235,27 @@ function ContactModal({ open, onClose }: { open: boolean; onClose: () => void })
                   <input name="email" type="email" autoComplete="email" placeholder="you@company.com" required />
                 </label>
               </div>
+              {mode === 'resume' && (
+                <div className="field-pair">
+                  <label>
+                    <span>Company / organisation</span>
+                    <input name="company" type="text" autoComplete="organization" placeholder="Company or organisation" required />
+                  </label>
+                  <label>
+                    <span>Role / opportunity</span>
+                    <input name="role" type="text" placeholder="e.g. AI Systems Intern" required />
+                  </label>
+                </div>
+              )}
               <label>
                 <span>Subject</span>
-                <input name="subject" type="text" placeholder="Role, project, or collaboration" required />
+                <input name="subject" type="text" defaultValue={mode === 'resume' ? 'Resume request' : ''} placeholder="Role, project, or collaboration" required />
               </label>
               <label>
                 <span>Message</span>
-                <textarea name="message" rows={6} placeholder="A little context helps me respond properly." required />
+                <textarea name="message" rows={6} defaultValue={mode === 'resume' ? 'I would like to request your current resume. Role / opportunity: ' : ''} placeholder="A little context helps me respond properly." required />
               </label>
-              <button className="button button--dark form-submit" type="submit">Send message <Send size={16} /></button>
+              <button className="button button--dark form-submit" type="submit">{mode === 'resume' ? 'Submit resume request' : 'Send message'} <Send size={16} /></button>
             </form>
           </motion.div>
         </motion.div>
@@ -234,6 +267,12 @@ function ContactModal({ open, onClose }: { open: boolean; onClose: () => void })
 export function App() {
   const [menuOpen, setMenuOpen] = useState(false)
   const [contactOpen, setContactOpen] = useState(false)
+  const [contactMode, setContactMode] = useState<ContactMode>('contact')
+
+  const openContact = (mode: ContactMode = 'contact') => {
+    setContactMode(mode)
+    setContactOpen(true)
+  }
   const [scrolled, setScrolled] = useState(false)
   const reduceMotion = useReducedMotion()
 
@@ -266,7 +305,7 @@ export function App() {
             <a href="#work" onClick={() => setMenuOpen(false)}>Work</a>
             <a href="#approach" onClick={() => setMenuOpen(false)}>Approach</a>
             <a href="#about" onClick={() => setMenuOpen(false)}>About</a>
-            <button className="nav-contact" onClick={() => { setContactOpen(true); setMenuOpen(false) }}>Contact <ArrowRight size={14} /></button>
+            <button className="nav-contact" onClick={() => { openContact('contact'); setMenuOpen(false) }}>Contact <ArrowRight size={14} /></button>
           </nav>
           <button className="menu-button" onClick={() => setMenuOpen((value) => !value)} aria-label="Toggle navigation" aria-expanded={menuOpen}>
             {menuOpen ? <X size={20} /> : <Menu size={20} />}
@@ -293,7 +332,8 @@ export function App() {
               </p>
               <div className="hero-actions">
                 <a className="button button--light" href="#work">See selected work <ArrowRight size={17} /></a>
-                <button className="button button--ghost" onClick={() => setContactOpen(true)}>Start a conversation <Mail size={17} /></button>
+                <button className="button button--ghost" onClick={() => openContact('contact')}>Start a conversation <Mail size={17} /></button>
+                <button className="hero-text-action" onClick={() => openContact('resume')}>Request resume <ArrowRight size={15} /></button>
               </div>
               <div className="hero-meta" aria-label="Profile highlights">
                 <span>Final-year B.Tech CSE · KIIT</span>
@@ -342,8 +382,8 @@ export function App() {
           <div className="shell intro-strip__inner">
             <p>My strongest work sits at the intersection of <strong>AI systems, retrieval, workflow design, backend engineering, and evaluation.</strong></p>
             <div className="intro-links">
-              <a href={links.github} target="_blank" rel="noreferrer"><Github size={16} /> GitHub</a>
-              <a href={links.linkedin} target="_blank" rel="noreferrer"><Linkedin size={16} /> LinkedIn</a>
+              <a href={links.github} target="_blank" rel="noreferrer"><GitHubMark /> GitHub</a>
+              <a href={links.linkedin} target="_blank" rel="noreferrer"><LinkedInMark /> LinkedIn</a>
             </div>
           </div>
         </section>
@@ -378,7 +418,7 @@ export function App() {
                         {project.stack.map((tech) => <span key={tech}>{tech}</span>)}
                       </div>
                       <div className="project-links">
-                        <a href={project.repo} target="_blank" rel="noreferrer"><Github size={16} /> Code</a>
+                        <a href={project.repo} target="_blank" rel="noreferrer"><GitHubMark /> Code</a>
                         {project.live && <a href={project.live} target="_blank" rel="noreferrer"><ExternalLink size={16} /> Live</a>}
                         {project.demo && <a href={project.demo} target="_blank" rel="noreferrer"><Play size={16} /> Demo</a>}
                       </div>
@@ -464,7 +504,8 @@ export function App() {
               <h2>If the role involves building serious AI systems, I’d like to hear about it.</h2>
             </motion.div>
             <motion.div className="contact-cta__actions" {...reveal}>
-              <button className="button button--light" onClick={() => setContactOpen(true)}>Contact me <ArrowRight size={17} /></button>
+              <button className="button button--light" onClick={() => openContact('contact')}>Contact me <ArrowRight size={17} /></button>
+              <button className="text-button-light" onClick={() => openContact('resume')}>Request resume <ArrowRight size={15} /></button>
               <a href={links.github} target="_blank" rel="noreferrer">Browse GitHub <ExternalLink size={15} /></a>
             </motion.div>
           </div>
@@ -486,7 +527,7 @@ export function App() {
         </div>
       </footer>
 
-      <ContactModal open={contactOpen} onClose={() => setContactOpen(false)} />
+      <ContactModal key={contactMode} open={contactOpen} mode={contactMode} onClose={() => setContactOpen(false)} />
     </>
   )
 }
