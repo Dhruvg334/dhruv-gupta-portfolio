@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { NavLink, Link } from 'react-router-dom'
-import { Menu, X, FileText, ArrowRight } from 'lucide-react'
+import { Menu, X, ArrowRight } from 'lucide-react'
 import avatarSvg from '../assets/avatar.svg'
 
 export function Navbar() {
@@ -50,13 +50,6 @@ export function Navbar() {
 
           <div className="nav-actions-mobile">
             <Link
-              to="/contact?tab=resume"
-              className="btn btn--secondary"
-              onClick={() => setMenuOpen(false)}
-            >
-              <FileText size={14} /> Request Resume
-            </Link>
-            <Link
               to="/contact"
               className="btn btn--primary"
               onClick={() => setMenuOpen(false)}
@@ -67,9 +60,6 @@ export function Navbar() {
         </nav>
 
         <div className="header-desktop-actions">
-          <Link to="/contact?tab=resume" className="header-resume-btn">
-            <FileText size={13} /> Resume
-          </Link>
           <Link to="/contact" className="header-contact-btn">
             Get in Touch
           </Link>
