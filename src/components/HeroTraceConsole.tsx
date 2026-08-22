@@ -15,7 +15,7 @@ import { TracePreset, TraceStep } from '../types'
 
 export function HeroTraceConsole() {
   const [activePresetIndex, setActivePresetIndex] = useState(0)
-  const [activeStepIndex, setActiveStepIndex] = useState(3) // all steps visible by default
+  const [activeStepIndex, setActiveStepIndex] = useState(3)
   const [isSimulating, setIsSimulating] = useState(false)
   const [inspectedStep, setInspectedStep] = useState<number | null>(null)
 
@@ -27,10 +27,10 @@ export function HeroTraceConsole() {
     setActiveStepIndex(0)
     setInspectedStep(null)
 
-    const timer1 = setTimeout(() => setActiveStepIndex(1), 300)
-    const timer2 = setTimeout(() => setActiveStepIndex(2), 650)
-    const timer3 = setTimeout(() => setActiveStepIndex(3), 1050)
-    const timer4 = setTimeout(() => setIsSimulating(false), 1200)
+    const timer1 = setTimeout(() => setActiveStepIndex(1), 250)
+    const timer2 = setTimeout(() => setActiveStepIndex(2), 550)
+    const timer3 = setTimeout(() => setActiveStepIndex(3), 850)
+    const timer4 = setTimeout(() => setIsSimulating(false), 1000)
 
     return () => {
       clearTimeout(timer1)
@@ -41,7 +41,6 @@ export function HeroTraceConsole() {
   }
 
   useEffect(() => {
-    // Initial mount subtle pulse
     setActiveStepIndex(3)
   }, [])
 
@@ -49,65 +48,66 @@ export function HeroTraceConsole() {
     switch (status) {
       case 'passed':
         return (
-          <span className="trace-status-pill trace-status--passed">
-            <CheckCircle2 size={12} /> PASS
+          <span className="trace-pill trace-pill--passed">
+            <CheckCircle2 size={11} /> PASS
           </span>
         )
       case 'flagged':
         return (
-          <span className="trace-status-pill trace-status--flagged">
-            <AlertTriangle size={12} /> FLAGGED
+          <span className="trace-pill trace-pill--flagged">
+            <AlertTriangle size={11} /> FLAGGED
           </span>
         )
       case 'human_review':
         return (
-          <span className="trace-status-pill trace-status--review">
-            <ShieldCheck size={12} /> GATE
+          <span className="trace-pill trace-pill--review">
+            <ShieldCheck size={11} /> GATE
           </span>
         )
       case 'verified':
         return (
-          <span className="trace-status-pill trace-status--verified">
-            <CheckCircle2 size={12} /> 100% PROVENANCE
+          <span className="trace-pill trace-pill--verified">
+            <CheckCircle2 size={11} /> PROVENANCE
           </span>
         )
     }
   }
 
   return (
-    <div className="hero-console-wrapper" aria-label="Interactive AI system trace console">
-      <div className="console-nav-tabs">
+    <div className="hero-console-card" aria-label="Interactive AI system execution monitor">
+      {/* Console Tab Switcher */}
+      <div className="console-tabs-bar">
         {heroTracePresets.map((preset, idx) => (
           <button
             key={preset.id}
-            className={`console-tab-btn ${activePresetIndex === idx ? 'active' : ''}`}
+            className={`console-tab ${activePresetIndex === idx ? 'active' : ''}`}
             onClick={() => triggerSimulation(idx)}
             disabled={isSimulating}
           >
-            <span>{preset.name.split(' ')[0]}</span>
-            <small>{preset.systemTag.split(' / ')[1]}</small>
+            <span className="tab-name">{preset.name.split(' ')[0]}</span>
+            <span className="tab-type">{preset.systemTag.split(' / ')[1]}</span>
           </button>
         ))}
       </div>
 
-      <div className="hero-console">
+      <div className="console-main">
         {/* Terminal Header */}
-        <div className="console-header">
-          <div className="console-header-left">
-            <div className="terminal-dots">
-              <span className="dot dot--red" />
-              <span className="dot dot--amber" />
-              <span className="dot dot--green" />
+        <div className="console-header-bar">
+          <div className="header-left">
+            <div className="traffic-lights">
+              <span className="light light--red" />
+              <span className="light light--amber" />
+              <span className="light light--green" />
             </div>
-            <div className="console-title">
-              <Terminal size={14} />
-              <span>system_trace::{activePreset.id}</span>
+            <div className="header-title">
+              <Terminal size={13} />
+              <span>trace::{activePreset.id.split('-')[0]}</span>
             </div>
           </div>
 
-          <div className="console-header-right">
-            <span className="metric-pill">
-              <Activity size={12} /> {activePreset.totalLatency}
+          <div className="header-right">
+            <span className="latency-badge">
+              <Activity size={11} /> {activePreset.totalLatency}
             </span>
             <button
               className={`replay-btn ${isSimulating ? 'spinning' : ''}`}
@@ -115,22 +115,22 @@ export function HeroTraceConsole() {
               title="Re-run trace simulation"
               aria-label="Re-run trace"
             >
-              <RotateCw size={13} />
+              <RotateCw size={12} />
             </button>
           </div>
         </div>
 
-        {/* Console Subheader / Context */}
-        <div className="console-subhead">
-          <div className="console-subhead-info">
-            <span className="system-tag">{activePreset.systemTag}</span>
-            <p>{activePreset.description}</p>
+        {/* Console Subhead */}
+        <div className="console-sub-bar">
+          <div className="sub-info">
+            <strong className="sub-tag">{activePreset.systemTag}</strong>
+            <p className="sub-desc">{activePreset.description}</p>
           </div>
-          <span className="deterministic-tag">{activePreset.deterministicRatio}</span>
+          <span className="ratio-tag">{activePreset.deterministicRatio}</span>
         </div>
 
         {/* Steps Stream */}
-        <div className="console-body">
+        <div className="console-stream-body">
           <AnimatePresence mode="wait">
             <motion.div
               key={activePreset.id}
@@ -138,7 +138,7 @@ export function HeroTraceConsole() {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.15 }}
-              className="trace-steps-container"
+              className="steps-wrapper"
             >
               {activePreset.steps.map((step, idx) => {
                 const isVisible = idx <= activeStepIndex
@@ -147,60 +147,58 @@ export function HeroTraceConsole() {
                 if (!isVisible) return null
 
                 return (
-                  <motion.div
+                  <div
                     key={step.stepNumber + step.name}
-                    className={`trace-row ${isInspected ? 'trace-row--inspected' : ''}`}
-                    initial={{ opacity: 0, x: -8 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 0.25 }}
+                    className={`step-item ${isInspected ? 'inspected' : ''}`}
                   >
-                    <div className="trace-row-main" onClick={() => setInspectedStep(isInspected ? null : idx)}>
-                      <div className="trace-idx-col">
-                        <span className="step-num">{step.stepNumber}</span>
-                        <span className="step-layer">{step.layer}</span>
+                    <div
+                      className="step-row"
+                      onClick={() => setInspectedStep(isInspected ? null : idx)}
+                    >
+                      <div className="step-idx-tag">
+                        <span className="idx-num">{step.stepNumber}</span>
+                        <span className="idx-layer">{step.layer}</span>
                       </div>
 
-                      <div className="trace-info-col">
-                        <div className="step-title-row">
-                          <strong className="step-name">{step.name}</strong>
-                          <span className="step-latency">+{step.latencyMs}ms</span>
+                      <div className="step-content">
+                        <div className="step-headline">
+                          <span className="name">{step.name}</span>
+                          <span className="duration">+{step.latencyMs}ms</span>
                         </div>
-                        <p className="step-detail">{step.detail}</p>
+                        <p className="detail">{step.detail}</p>
                       </div>
 
-                      <div className="trace-status-col">
+                      <div className="step-status-wrap">
                         {getStatusBadge(step.status)}
                         {step.inspectableData && (
                           <button
-                            className="inspect-toggle-btn"
+                            className="inspect-btn"
                             title="Inspect step payload"
                             aria-label="Inspect step payload"
                           >
-                            <Code2 size={13} />
+                            <Code2 size={12} />
                           </button>
                         )}
                       </div>
                     </div>
 
-                    {/* Inspectable Payload Drawer */}
                     {isInspected && step.inspectableData && (
                       <motion.div
-                        className="step-inspect-payload"
+                        className="step-payload-drawer"
                         initial={{ opacity: 0, height: 0 }}
                         animate={{ opacity: 1, height: 'auto' }}
                         exit={{ opacity: 0, height: 0 }}
                       >
-                        <div className="payload-header">
-                          <span>
-                            <ChevronRight size={12} /> inspectable_payload::{step.layer.toLowerCase().replace(/\s+/g, '_')}
-                          </span>
+                        <div className="payload-top">
+                          <ChevronRight size={11} />
+                          <span>payload::{step.layer.toLowerCase().replace(/\s+/g, '_')}</span>
                         </div>
-                        <pre className="payload-code">
+                        <pre className="payload-json">
                           {JSON.stringify(step.inspectableData, null, 2)}
                         </pre>
                       </motion.div>
                     )}
-                  </motion.div>
+                  </div>
                 )
               })}
             </motion.div>
@@ -208,14 +206,12 @@ export function HeroTraceConsole() {
         </div>
 
         {/* Terminal Footer */}
-        <div className="console-footer">
+        <div className="console-footer-bar">
           <div className="footer-status">
-            <span className="status-live-dot" />
-            <span>Multi-Layer Execution Complete</span>
+            <span className="live-dot" />
+            <span>Execution Verified & Traceable</span>
           </div>
-          <div className="footer-inspect-hint">
-            <span>Click any node to inspect payload</span>
-          </div>
+          <span className="footer-hint">Click any step to inspect payload</span>
         </div>
       </div>
     </div>

@@ -14,16 +14,12 @@ export function Header({ onOpenContact, onCopyEmail, copiedEmail }: HeaderProps)
 
   useEffect(() => {
     const handleScroll = () => {
-      setScrolled(window.scrollY > 20)
+      setScrolled(window.scrollY > 15)
     }
     handleScroll()
     window.addEventListener('scroll', handleScroll, { passive: true })
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
-
-  const handleNavClick = () => {
-    setMenuOpen(false)
-  }
 
   return (
     <header className={`site-header ${scrolled ? 'site-header--scrolled' : ''}`}>
@@ -32,34 +28,34 @@ export function Header({ onOpenContact, onCopyEmail, copiedEmail }: HeaderProps)
           <span className="brand-mark">DG</span>
           <div className="brand-text">
             <span className="brand-name">Dhruv Gupta</span>
-            <span className="brand-tag">AI Systems Engineer</span>
+            <span className="brand-role">AI Systems Engineer</span>
           </div>
         </a>
 
-        <div className="header-status-pill" title="Current Status">
-          <span className="pulse-dot" />
-          <span>Final-Year CS · Open to Roles</span>
+        <div className="header-status-pill" title="Status">
+          <span className="status-live-beacon" />
+          <span>KIIT CSE '26 · Open to Roles</span>
         </div>
 
         <nav className={`nav-links ${menuOpen ? 'nav-links--open' : ''}`} aria-label="Primary navigation">
-          <a href="#work" onClick={handleNavClick}>Systems</a>
-          <a href="#sandbox" onClick={handleNavClick}>Sandbox</a>
-          <a href="#architecture" onClick={handleNavClick}>12-Layer Matrix</a>
-          <a href="#approach" onClick={handleNavClick}>Philosophy</a>
-          <a href="#about" onClick={handleNavClick}>About</a>
+          <a href="#work" onClick={() => setMenuOpen(false)}>Systems</a>
+          <a href="#architecture" onClick={() => setMenuOpen(false)}>Architecture</a>
+          <a href="#approach" onClick={() => setMenuOpen(false)}>Philosophy</a>
+          <a href="#about" onClick={() => setMenuOpen(false)}>About</a>
+          <a href="#archive" onClick={() => setMenuOpen(false)}>Archive</a>
 
           <div className="nav-actions-mobile">
             <button
-              className="nav-btn-secondary"
+              className="btn btn--secondary"
               onClick={() => {
                 onOpenContact('resume')
                 setMenuOpen(false)
               }}
             >
-              <FileText size={15} /> Request Resume
+              <FileText size={14} /> Request Resume
             </button>
             <button
-              className="nav-contact"
+              className="btn btn--primary"
               onClick={() => {
                 onOpenContact('contact')
                 setMenuOpen(false)
@@ -72,27 +68,27 @@ export function Header({ onOpenContact, onCopyEmail, copiedEmail }: HeaderProps)
 
         <div className="header-desktop-actions">
           <button
-            className="quick-copy-btn"
+            className="quick-email-btn"
             onClick={onCopyEmail}
-            title="Copy email to clipboard"
+            title="Copy email address to clipboard"
             aria-label="Copy email address"
           >
-            {copiedEmail ? <Check size={14} className="text-emerald" /> : <Copy size={14} />}
-            <span>{copiedEmail ? 'Copied!' : 'dhruvg3304@gmail.com'}</span>
+            {copiedEmail ? <Check size={13} className="text-emerald" /> : <Copy size={13} />}
+            <span>{copiedEmail ? 'Copied' : 'dhruvg3304@gmail.com'}</span>
           </button>
 
           <button
-            className="nav-btn-secondary"
+            className="header-resume-btn"
             onClick={() => onOpenContact('resume')}
           >
-            <FileText size={15} /> Resume
+            <FileText size={14} /> Resume
           </button>
 
           <button
-            className="nav-contact"
+            className="header-contact-btn"
             onClick={() => onOpenContact('contact')}
           >
-            Contact <ArrowRight size={14} />
+            Get in touch
           </button>
         </div>
 
@@ -102,7 +98,7 @@ export function Header({ onOpenContact, onCopyEmail, copiedEmail }: HeaderProps)
           aria-label="Toggle navigation menu"
           aria-expanded={menuOpen}
         >
-          {menuOpen ? <X size={22} /> : <Menu size={22} />}
+          {menuOpen ? <X size={20} /> : <Menu size={20} />}
         </button>
       </div>
     </header>
