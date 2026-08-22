@@ -19,7 +19,6 @@
   --accent-red: #e65345;
   --accent-crimson: #a82027;
   --accent-ruby: #e11d48;
-  --accent-ruby-glow: rgba(225, 29, 72, 0.15);
   
   /* Status Colors */
   --emerald: #10b981;
@@ -40,7 +39,7 @@
   /* Fonts & Geometry */
   --mono: 'DM Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
   --sans: 'Plus Jakarta Sans', Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  --shell: 1200px;
+  --shell: 1180px;
   --radius-sm: 6px;
   --radius-md: 12px;
   --radius-lg: 18px;
@@ -119,7 +118,7 @@ button {
 }
 
 .section {
-  padding: 90px 0;
+  padding: 84px 0;
 }
 
 .section-label {
@@ -134,7 +133,7 @@ button {
 }
 
 .section-heading {
-  margin-bottom: 48px;
+  margin-bottom: 44px;
 }
 
 .section-heading h2 {
@@ -155,7 +154,7 @@ button {
 
 /* Standard Buttons */
 .btn {
-  min-height: 42px;
+  min-height: 40px;
   border-radius: 999px;
   padding: 0 18px;
   display: inline-flex;
@@ -205,7 +204,7 @@ button {
   background: rgba(255, 255, 255, 0.05);
 }
 
-/* Header & Navigation */
+/* Header & Minimal Navigation */
 .site-header {
   position: fixed;
   inset: 0 0 auto;
@@ -222,7 +221,7 @@ button {
 
 .nav-shell {
   width: min(var(--shell), calc(100% - 40px));
-  height: 68px;
+  height: 64px;
   margin: 0 auto;
   display: flex;
   align-items: center;
@@ -236,69 +235,26 @@ button {
   gap: 10px;
 }
 
-.brand-mark {
+.brand-avatar {
   width: 32px;
   height: 32px;
-  display: inline-grid;
-  place-items: center;
-  border: 1px solid var(--border-medium);
-  border-radius: 8px;
-  font-family: var(--mono);
-  font-size: 0.75rem;
-  font-weight: 700;
-  background: linear-gradient(135deg, rgba(230, 83, 69, 0.25), rgba(255, 255, 255, 0.05));
-  color: #fff;
-}
-
-.brand-text {
-  display: flex;
-  flex-direction: column;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 }
 
 .brand-name {
-  font-size: 0.9rem;
+  font-size: 0.92rem;
   font-weight: 700;
   letter-spacing: -0.02em;
   color: #fff;
 }
 
-.brand-role {
-  font-family: var(--mono);
-  font-size: 0.62rem;
-  color: var(--text-muted);
-}
-
-.header-status-pill {
-  display: inline-flex;
-  align-items: center;
-  gap: 7px;
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid var(--border-subtle);
-  padding: 5px 12px;
-  border-radius: 999px;
-  font-family: var(--mono);
-  font-size: 0.68rem;
-  color: var(--text-secondary);
-}
-
-.status-live-beacon {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: var(--emerald);
-  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.2);
-  animation: beacon-pulse 2s infinite ease-in-out;
-}
-
-@keyframes beacon-pulse {
-  0%, 100% { opacity: 0.6; transform: scale(1); }
-  50% { opacity: 1; transform: scale(1.2); }
-}
-
 .nav-links {
   display: flex;
   align-items: center;
-  gap: 22px;
+  gap: 24px;
   color: var(--text-secondary);
   font-size: 0.84rem;
   font-weight: 600;
@@ -319,33 +275,13 @@ button {
 .header-desktop-actions {
   display: flex;
   align-items: center;
-  gap: 10px;
-}
-
-.quick-email-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 6px 11px;
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid var(--border-subtle);
-  color: var(--text-secondary);
-  font-family: var(--mono);
-  font-size: 0.68rem;
-  transition: all 0.18s ease;
-}
-
-.quick-email-btn:hover {
-  background: rgba(255, 255, 255, 0.1);
-  color: #fff;
-  border-color: var(--border-medium);
+  gap: 8px;
 }
 
 .header-resume-btn {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
+  gap: 5px;
   padding: 6px 12px;
   border-radius: 999px;
   background: rgba(255, 255, 255, 0.06);
@@ -385,7 +321,7 @@ button {
 .hero {
   position: relative;
   overflow: hidden;
-  padding: 130px 0 70px;
+  padding: 120px 0 60px;
   background: radial-gradient(circle at 20% 25%, rgba(168, 32, 39, 0.22), transparent 45%),
               radial-gradient(circle at 80% 75%, rgba(225, 29, 72, 0.15), transparent 40%),
               #09080a;
@@ -427,6 +363,22 @@ button {
   max-width: 600px;
 }
 
+.hero-badge-wrap {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 18px;
+}
+
+.hero-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid var(--accent-red);
+  box-shadow: 0 0 14px rgba(230, 83, 69, 0.3);
+}
+
 .hero-badge {
   display: inline-flex;
   align-items: center;
@@ -439,7 +391,6 @@ button {
   font-family: var(--mono);
   font-size: 0.7rem;
   letter-spacing: 0.06em;
-  margin-bottom: 20px;
 }
 
 .badge-dot {
@@ -2013,6 +1964,14 @@ button {
   gap: 10px;
 }
 
+.footer-avatar {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1px solid var(--border-medium);
+}
+
 .footer-brand strong {
   color: #fff;
   display: block;
@@ -2594,7 +2553,7 @@ button {
     padding: 64px 0;
   }
 
-  .header-status-pill, .header-desktop-actions {
+  .header-desktop-actions {
     display: none;
   }
 

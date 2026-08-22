@@ -5,7 +5,7 @@
 ## Summary
 - **Name**: Dhruv Gupta
 - **Role**: AI Systems Builder & Full-Stack Engineer
-- **Education**: Final-Year B.Tech in Computer Science and Engineering (KIIT Bhubaneswar, CGPA 9.45)
+- **Education**: Final-Year B.Tech in Computer Science and Engineering (CGPA 9.45)
 - **Competitive Ranking**: AIR 1109 in GATE DA (Data Science & AI) 2026
 - **Contact**: dhruvg3304@gmail.com
 - **GitHub**: https://github.com/Dhruvg334
