@@ -1,0 +1,54 @@
+# Dhruv Gupta — AI Systems Engineer Portfolio
+
+> Profile and system architectures for Dhruv Gupta, an AI systems builder focused on deterministic software architectures around LLMs, retrieval, evaluation, safety gates, and full-stack workflows.
+
+## Summary
+- **Name**: Dhruv Gupta
+- **Role**: AI Systems Builder & Full-Stack Engineer
+- **Education**: Final-Year B.Tech in Computer Science and Engineering (KIIT Bhubaneswar, CGPA 9.45)
+- **Competitive Ranking**: AIR 1109 in GATE DA (Data Science & AI) 2026
+- **Contact**: dhruvg3304@gmail.com
+- **GitHub**: https://github.com/Dhruvg334
+- **LinkedIn**: https://www.linkedin.com/in/dhruv-gupta-7a7500287/
+
+## Engineering Core Philosophy
+1. **Evidence Before Confidence**: Output must trace back to vector retrieval, knowledge graphs, or explicit assumptions rather than ungrounded model completion.
+2. **Deterministic Where It Matters**: Guardrails, release gates, and validation schemas must be deterministic; models should be used for linguistic transformation and contextual extraction.
+3. **Human Review for Consequential Actions**: Consequential mutations require explicit human review states, permission scopes, and immutable audit logs.
+4. **Evaluation Over Vibes**: Rigorous deterministic test harnesses (retrieval recall, concept extraction accuracy, gate precision) over subjective demo reviews.
+
+## Flagship Systems
+
+### 1. Mnemos — Industrial GraphRAG & Operational Intelligence
+- **Focus**: Turning complex industrial maintenance records, manuals, and field knowledge into evidence-backed investigation traces.
+- **Tech Stack**: Next.js, FastAPI, PostgreSQL, pgvector, Neo4j, LangChain.
+- **Key Architecture**: Hybrid vector-graph retrieval, entity-relationship extraction, provenance node inspection, governed agent traces.
+- **Repository**: https://github.com/Dhruvg334/mnemos
+- **Live Demo**: https://mnemos-lake.vercel.app
+
+### 2. A-DAP-T — AI Agent Safety & Release Readiness Review
+- **Focus**: Pre-release audit scanner for agentic applications surfacing risky tools, missing approval gates, prompt injection risks, and credential exposures.
+- **Tech Stack**: Next.js, TypeScript, FastAPI, Firebase, Gemini API.
+- **Key Architecture**: Deterministic AST & rule-based review engine, ALLOW/REVIEW/BLOCK release decisions, human-in-the-loop review reports.
+- **Repository**: https://github.com/Dhruvg334/a-dap-t
+- **Live Demo**: https://a-dap-t.vercel.app
+
+### 3. Tessarion — RAG Evaluation & Evidence-Linked Learning Workspace
+- **Focus**: Active recall workspace where users teach concepts back, receive source-grounded diagnosis, and inspect concept relationships with full evaluation suites.
+- **Tech Stack**: Next.js, Supabase, Qdrant, Neo4j, Vitest.
+- **Key Architecture**: Deterministic evaluation suite measuring retrieval precision, concept extraction accuracy, diagnosis validity, and mastery recovery.
+- **Repository**: https://github.com/Dhruvg334/Tessarion
+- **Live Demo**: https://tessarion.vercel.app
+
+### 4. ChronOS — Controlled Agentic Planning & Execution Recovery
+- **Focus**: Adaptive execution system converting commitments, calendar constraints, and working preferences into realistic plans with approval-based recovery.
+- **Tech Stack**: React, FastAPI, Supabase, pgvector, Google Calendar API.
+- **Key Architecture**: Model-assisted planning bounded by deterministic collision, capacity, dependency, and protected-time validators.
+- **Repository**: https://github.com/Dhruvg334/chronos
+
+### 5. Niswarth AI — Full-Stack AI Workflows & NGO Governance
+- **Focus**: NGO campaign, volunteer, and field update coordination platform with human-reviewed impact reporting inside tenant-isolated workspaces.
+- **Tech Stack**: React, Vite, Supabase (Row-Level Security), Gemini API, GitHub Actions.
+- **Key Architecture**: RLS multi-tenant security, draft/review/approval states, immutable AI action logs, automated deployment CI.
+- **Repository**: https://github.com/Dhruvg334/niswarth-ai
+- **Live Demo**: https://niswarth-ai.vercel.app

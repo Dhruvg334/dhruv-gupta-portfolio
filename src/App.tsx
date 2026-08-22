@@ -1,128 +1,23 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useState, useMemo } from 'react'
+import { motion, useReducedMotion } from 'motion/react'
 import {
   ArrowRight,
-  CheckCircle2,
+  Mail,
+  FileText,
   ChevronDown,
   ExternalLink,
-  Mail,
-  Menu,
-  Play,
-  Send,
-  ShieldCheck,
-  X,
 } from 'lucide-react'
-import { AnimatePresence, motion, useReducedMotion } from 'motion/react'
-
-const links = {
-  github: 'https://github.com/Dhruvg334',
-  linkedin: 'https://www.linkedin.com/in/dhruv-gupta-7a7500287/',
-  email: 'mailto:dhruvg3304@gmail.com',
-}
-
-type Project = {
-  number: string
-  name: string
-  category: string
-  summary: string
-  detail: string
-  stack: string[]
-  signals: string[]
-  repo: string
-  live?: string
-  demo?: string
-  tone: 'graph' | 'safety' | 'learning' | 'planning' | 'workflow'
-}
-
-const projects: Project[] = [
-  {
-    number: '01',
-    name: 'Mnemos',
-    category: 'Industrial GraphRAG · Operational Intelligence',
-    summary:
-      'An asset-centric operational memory that turns maintenance records, inspections, manuals, and field knowledge into evidence-backed investigation workflows.',
-    detail:
-      'Built around hybrid retrieval, graph context, evidence provenance, operational timelines, and governed agent traces rather than a generic chat layer.',
-    stack: ['Next.js', 'FastAPI', 'PostgreSQL', 'pgvector', 'Neo4j'],
-    signals: ['GraphRAG', 'Evidence provenance', 'Agent traces'],
-    repo: 'https://github.com/Dhruvg334/mnemos',
-    live: 'https://mnemos-lake.vercel.app',
-    demo: 'https://youtu.be/fs54N2vzHsM',
-    tone: 'graph',
-  },
-  {
-    number: '02',
-    name: 'A-DAP-T',
-    category: 'AI Agent Safety · Release Readiness',
-    summary:
-      'A pre-release review system for agentic applications that surfaces risky tool access, missing approval gates, weak auditability, exposed secrets, and prompt-injection-prone workflows.',
-    detail:
-      'Deterministic review logic drives findings and ALLOW / REVIEW / BLOCK decisions; model calls are reserved for explanation and remediation guidance.',
-    stack: ['Next.js', 'TypeScript', 'FastAPI', 'Firebase', 'Gemini'],
-    signals: ['Static review', 'Release gates', 'Human approval'],
-    repo: 'https://github.com/Dhruvg334/a-dap-t',
-    live: 'https://a-dap-t.vercel.app/',
-    demo: 'https://www.youtube.com/watch?v=VzN88xAFiDA',
-    tone: 'safety',
-  },
-  {
-    number: '03',
-    name: 'Tessarion',
-    category: 'RAG Evaluation · Evidence-linked Learning',
-    summary:
-      'A learning workspace where users teach concepts back, receive source-grounded diagnosis, inspect concept relationships, and recover through guided tutoring.',
-    detail:
-      'The stronger engineering story is the evaluation layer: deterministic suites cover retrieval quality, concept extraction, diagnosis, mastery state, review scheduling, tutoring policy, and resilience.',
-    stack: ['Next.js', 'Supabase', 'Qdrant', 'Neo4j', 'Vitest'],
-    signals: ['Teach-back', 'RAG evaluation', 'Concept graph'],
-    repo: 'https://github.com/Dhruvg334/Tessarion',
-    live: 'https://tessarion.vercel.app',
-    demo: 'https://www.youtube.com/watch?v=wEGKEA1_CVE',
-    tone: 'learning',
-  },
-  {
-    number: '04',
-    name: 'ChronOS',
-    category: 'Controlled Agentic Planning · Execution Recovery',
-    summary:
-      'An adaptive execution system that converts commitments, projects, routines, calendar constraints, and working preferences into realistic plans with approval-based recovery.',
-    detail:
-      'Model-assisted planning is bounded by deterministic validators for feasibility, overlap, protected time, dependencies, capacity, ownership, and persistence.',
-    stack: ['React', 'FastAPI', 'Supabase', 'pgvector', 'Google Calendar'],
-    signals: ['Planning validators', 'Approval flow', 'Failure handling'],
-    repo: 'https://github.com/Dhruvg334/chronos',
-    tone: 'planning',
-  },
-  {
-    number: '05',
-    name: 'Niswarth AI',
-    category: 'Full-stack AI Workflows · Human Review',
-    summary:
-      'A full-stack workflow platform for NGOs to manage campaigns, field updates, volunteers, and human-reviewed impact reports inside organization-scoped workspaces.',
-    detail:
-      'The product combines RLS-backed data isolation, role-specific workflows, report drafting, evidence context, revision history, review states, AI logs, and deployment checks.',
-    stack: ['React', 'Vite', 'Supabase', 'Gemini', 'GitHub Actions'],
-    signals: ['RLS isolation', 'Review workflow', 'CI / deployment'],
-    repo: 'https://github.com/Dhruvg334/niswarth-ai',
-    live: 'https://niswarth-ai.vercel.app/',
-    tone: 'workflow',
-  },
-]
-
-const supporting = [
-  ['Daedalus', 'Career navigation product', 'https://github.com/Dhruvg334/Daedalus'],
-  ['Shodhak', 'Travel discovery and booking', 'https://github.com/shyaaaa/Shodhak'],
-  ['AIDYN', 'Explainable disaster decision support', 'https://github.com/Akkshita06/AIDYN-AI-Disaster-Yield-Network-'],
-  ['Physics Study Buddy', 'Earlier LangGraph RAG system', 'https://github.com/Dhruvg334/Physics-Study-Buddy'],
-  ['Closira', 'SOP-grounded support workflows', 'https://github.com/Dhruvg334/closira-smb-support-agent'],
-  ['Carbonly', 'Carbon tracking and ML-service integration', 'https://github.com/Dhruvg334/Carbonly'],
-]
-
-const principles = [
-  ['Evidence before confidence', 'Answers should trace back to retrieval, state, rules, or explicit assumptions.'],
-  ['Deterministic where it matters', 'Use models for judgment and language; keep critical gates inspectable when rules can do the job.'],
-  ['Human review for consequential actions', 'Approval is part of the workflow design, not an afterthought.'],
-  ['Evaluation over vibes', 'A polished demo is useful; repeatable tests and failure analysis are more convincing.'],
-]
+import { projects, supportingProjects } from './data/projects'
+import { engineeringPrinciples } from './data/competencies'
+import { Project, ProjectDomain, ContactMode } from './types'
+import { Header } from './components/Header'
+import { HeroTraceConsole } from './components/HeroTraceConsole'
+import { ProjectCard } from './components/ProjectCard'
+import { ProjectModal } from './components/ProjectModal'
+import { ArchitectureSandbox } from './components/ArchitectureSandbox'
+import { SystemMatrix } from './components/SystemMatrix'
+import { ContactModal } from './components/ContactModal'
+import { Toast } from './components/Toast'
 
 function GitHubMark({ size = 16 }: { size?: number }) {
   return (
@@ -140,394 +35,384 @@ function LinkedInMark({ size = 16 }: { size?: number }) {
   )
 }
 
-type ContactMode = 'contact' | 'resume'
-
-function ProjectVisual({ tone }: { tone: Project['tone'] }) {
-  const labels = useMemo(() => {
-    if (tone === 'graph') return ['ASSET', 'EVIDENCE', 'GRAPH', 'TRACE']
-    if (tone === 'safety') return ['SCAN', 'FINDING', 'GATE', 'REVIEW']
-    if (tone === 'learning') return ['SOURCE', 'CONCEPT', 'DIAGNOSE', 'REVIEW']
-    if (tone === 'planning') return ['CAPTURE', 'VALIDATE', 'FOCUS', 'RECOVER']
-    return ['FIELD', 'DRAFT', 'REVIEW', 'APPROVE']
-  }, [tone])
-
-  return (
-    <div className={`system-visual system-visual--${tone}`} aria-hidden="true">
-      <div className="visual-topline">
-        <span>system / flow</span>
-        <span>04 nodes</span>
-      </div>
-      <div className="visual-flow">
-        {labels.map((label, index) => (
-          <div className="visual-node-wrap" key={label}>
-            <div className="visual-node">
-              <span>{String(index + 1).padStart(2, '0')}</span>
-              <strong>{label}</strong>
-            </div>
-            {index < labels.length - 1 && <div className="visual-connector"><i /></div>}
-          </div>
-        ))}
-      </div>
-      <div className="visual-footer">
-        <span><i className="status-dot" /> inspectable path</span>
-        <span>Dhruv Gupta</span>
-      </div>
-    </div>
-  )
-}
-
-function ContactModal({ open, mode, onClose }: { open: boolean; mode: ContactMode; onClose: () => void }) {
-  useEffect(() => {
-    if (!open) return
-    document.body.classList.add('modal-open')
-    const handleKey = (event: KeyboardEvent) => event.key === 'Escape' && onClose()
-    window.addEventListener('keydown', handleKey)
-    return () => {
-      document.body.classList.remove('modal-open')
-      window.removeEventListener('keydown', handleKey)
-    }
-  }, [open, onClose])
-
-  return (
-    <AnimatePresence>
-      {open && (
-        <motion.div
-          className="modal-backdrop"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          onMouseDown={(event) => event.target === event.currentTarget && onClose()}
-        >
-          <motion.div
-            className="contact-modal"
-            role="dialog"
-            aria-modal="true"
-            aria-labelledby="contact-title"
-            initial={{ opacity: 0, y: 24, scale: 0.98 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: 12, scale: 0.99 }}
-            transition={{ duration: 0.24, ease: [0.22, 1, 0.36, 1] }}
-          >
-            <button className="modal-close" onClick={onClose} aria-label="Close contact form"><X size={19} /></button>
-            <div className="modal-intro">
-              <p className="section-label">{mode === 'resume' ? 'Resume request' : 'Contact'}</p>
-              <h2 id="contact-title">{mode === 'resume' ? 'Request my resume.' : 'Let’s talk about the work.'}</h2>
-              <p>
-                {mode === 'resume'
-                  ? 'I do not publish my resume as an open download. Share who you are and the role or opportunity you are hiring for; I’ll review the request and send the current resume to your email personally.'
-                  : 'If you’re reaching out about an AI engineering role, internship, project, or collaboration, send the context and I’ll get back to you.'}
-              </p>
-              <div className="modal-links">
-                <a href={links.email}><Mail size={16} /> Email</a>
-                <a href={links.linkedin} target="_blank" rel="noreferrer"><LinkedInMark /> LinkedIn</a>
-                <a href={links.github} target="_blank" rel="noreferrer"><GitHubMark /> GitHub</a>
-              </div>
-            </div>
-            <form className="contact-form" action="https://formspree.io/f/xbdwaved" method="POST">
-              <input type="hidden" name="request_type" value={mode === 'resume' ? 'Resume request' : 'General contact'} />
-              <div className="field-pair">
-                <label>
-                  <span>Name</span>
-                  <input name="name" type="text" autoComplete="name" placeholder="Your name" required />
-                </label>
-                <label>
-                  <span>Email</span>
-                  <input name="email" type="email" autoComplete="email" placeholder="you@company.com" required />
-                </label>
-              </div>
-              {mode === 'resume' && (
-                <div className="field-pair">
-                  <label>
-                    <span>Company / organisation</span>
-                    <input name="company" type="text" autoComplete="organization" placeholder="Company or organisation" required />
-                  </label>
-                  <label>
-                    <span>Role / opportunity</span>
-                    <input name="role" type="text" placeholder="e.g. AI Systems Intern" required />
-                  </label>
-                </div>
-              )}
-              <label>
-                <span>Subject</span>
-                <input name="subject" type="text" defaultValue={mode === 'resume' ? 'Resume request' : ''} placeholder="Role, project, or collaboration" required />
-              </label>
-              <label>
-                <span>Message</span>
-                <textarea name="message" rows={6} defaultValue={mode === 'resume' ? 'I would like to request your current resume. Role / opportunity: ' : ''} placeholder="A little context helps me respond properly." required />
-              </label>
-              <button className="button button--dark form-submit" type="submit">{mode === 'resume' ? 'Submit resume request' : 'Send message'} <Send size={16} /></button>
-            </form>
-          </motion.div>
-        </motion.div>
-      )}
-    </AnimatePresence>
-  )
-}
-
 export function App() {
-  const [menuOpen, setMenuOpen] = useState(false)
   const [contactOpen, setContactOpen] = useState(false)
   const [contactMode, setContactMode] = useState<ContactMode>('contact')
+  const [selectedDomain, setSelectedDomain] = useState<ProjectDomain>('all')
+  const [modalProject, setModalProject] = useState<Project | null>(null)
+  const [toastMessage, setToastMessage] = useState<string | null>(null)
+  const [copiedEmail, setCopiedEmail] = useState(false)
+
+  const reduceMotion = useReducedMotion()
+
+  const showToast = (message: string) => {
+    setToastMessage(message)
+    setTimeout(() => {
+      setToastMessage(null)
+    }, 2800)
+  }
+
+  const handleCopyEmail = () => {
+    navigator.clipboard.writeText('dhruvg3304@gmail.com')
+    setCopiedEmail(true)
+    showToast('Email address copied: dhruvg3304@gmail.com')
+    setTimeout(() => setCopiedEmail(false), 3000)
+  }
 
   const openContact = (mode: ContactMode = 'contact') => {
     setContactMode(mode)
     setContactOpen(true)
   }
-  const [scrolled, setScrolled] = useState(false)
-  const reduceMotion = useReducedMotion()
 
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 24)
-    onScroll()
-    window.addEventListener('scroll', onScroll, { passive: true })
-    return () => window.removeEventListener('scroll', onScroll)
-  }, [])
+  const filteredProjects = useMemo(() => {
+    if (selectedDomain === 'all') return projects
+    return projects.filter((p) => p.domain === selectedDomain)
+  }, [selectedDomain])
 
   const reveal = reduceMotion
     ? {}
     : {
-        initial: { opacity: 0, y: 28 },
+        initial: { opacity: 0, y: 24 },
         whileInView: { opacity: 1, y: 0 },
-        viewport: { once: true, amount: 0.14 },
-        transition: { duration: 0.65, ease: [0.22, 1, 0.36, 1] as const },
+        viewport: { once: true, amount: 0.12 },
+        transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] as const },
       }
 
   return (
     <>
-      <a className="skip-link" href="#main">Skip to content</a>
-      <header className={`site-header ${scrolled ? 'site-header--scrolled' : ''}`}>
-        <div className="nav-shell">
-          <a className="brand" href="#top" aria-label="Dhruv Gupta home">
-            <span className="brand-mark">DG</span>
-            <span>Dhruv Gupta</span>
-          </a>
-          <nav className={`nav-links ${menuOpen ? 'nav-links--open' : ''}`} aria-label="Primary navigation">
-            <a href="#work" onClick={() => setMenuOpen(false)}>Work</a>
-            <a href="#approach" onClick={() => setMenuOpen(false)}>Approach</a>
-            <a href="#about" onClick={() => setMenuOpen(false)}>About</a>
-            <button className="nav-contact" onClick={() => { openContact('contact'); setMenuOpen(false) }}>Contact <ArrowRight size={14} /></button>
-          </nav>
-          <button className="menu-button" onClick={() => setMenuOpen((value) => !value)} aria-label="Toggle navigation" aria-expanded={menuOpen}>
-            {menuOpen ? <X size={20} /> : <Menu size={20} />}
-          </button>
-        </div>
-      </header>
+      <a className="skip-link" href="#main">Skip to main content</a>
+
+      {/* Global Navigation Header */}
+      <Header
+        onOpenContact={openContact}
+        onCopyEmail={handleCopyEmail}
+        copiedEmail={copiedEmail}
+      />
 
       <main id="main">
+        {/* Hero Section */}
         <section className="hero" id="top">
           <div className="hero-noise" />
-          <div className="hero-orbit hero-orbit--one" />
-          <div className="hero-orbit hero-orbit--two" />
+          <div className="hero-grid-pattern" />
+
           <div className="shell hero-layout">
             <motion.div
               className="hero-copy"
-              initial={reduceMotion ? undefined : { opacity: 0, y: 24 }}
+              initial={reduceMotion ? undefined : { opacity: 0, y: 20 }}
               animate={reduceMotion ? undefined : { opacity: 1, y: 0 }}
               transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
             >
-              <p className="hero-kicker"><span /> AI Systems · Agentic AI · RAG</p>
-              <h1>I build systems <em>around</em> AI.</h1>
-              <p className="hero-lede">
-                I’m Dhruv Gupta, a final-year Computer Science student building practical AI products where models sit inside retrieval, rules, state, validation, permissions, traces, evaluation, fallback paths, and human review.
-              </p>
-              <div className="hero-actions">
-                <a className="button button--light" href="#work">See selected work <ArrowRight size={17} /></a>
-                <button className="button button--ghost" onClick={() => openContact('contact')}>Start a conversation <Mail size={17} /></button>
-                <button className="hero-text-action" onClick={() => openContact('resume')}>Request resume <ArrowRight size={15} /></button>
+              <div className="hero-kicker-pill">
+                <span>AI Systems Engineering · RAG · Guardrails</span>
               </div>
-              <div className="hero-meta" aria-label="Profile highlights">
-                <span>Final-year B.Tech CSE · KIIT</span>
-                <span>GATE DA 2026 · AIR 1109</span>
-                <span>Deployed systems + demos</span>
+
+              <h1>
+                I build deterministic systems <em>around</em> AI.
+              </h1>
+
+              <p className="hero-lede">
+                I’m Dhruv Gupta, a final-year Computer Science student building production-grade AI systems where models operate inside retrieval graphs, deterministic validation schemas, state machines, permission scopes, and human review gates.
+              </p>
+
+              <div className="hero-actions">
+                <a className="button button--light" href="#work">
+                  Inspect Flagship Systems <ArrowRight size={17} />
+                </a>
+                <button
+                  className="button button--ghost"
+                  onClick={() => openContact('resume')}
+                >
+                  <FileText size={17} /> Request Resume
+                </button>
+                <button
+                  className="button button--ghost"
+                  onClick={() => openContact('contact')}
+                >
+                  <Mail size={17} /> Start Conversation
+                </button>
+              </div>
+
+              <div className="hero-metrics-strip" aria-label="Key Academic and Project Metrics">
+                <div className="hero-stat-card">
+                  <strong>9.45</strong>
+                  <span>B.Tech CSE CGPA · KIIT</span>
+                </div>
+                <div className="hero-stat-card">
+                  <strong>1109</strong>
+                  <span>GATE DA 2026 AIR</span>
+                </div>
+                <div className="hero-stat-card">
+                  <strong>5</strong>
+                  <span>Flagship AI Architectures</span>
+                </div>
               </div>
             </motion.div>
 
+            {/* Interactive Hero Trace Console */}
             <motion.div
-              className="hero-console"
-              initial={reduceMotion ? undefined : { opacity: 0, x: 28 }}
+              className="hero-console-col"
+              initial={reduceMotion ? undefined : { opacity: 0, x: 24 }}
               animate={reduceMotion ? undefined : { opacity: 1, x: 0 }}
-              transition={{ duration: 0.8, delay: 0.08, ease: [0.22, 1, 0.36, 1] }}
-              aria-label="AI system architecture motif"
+              transition={{ duration: 0.8, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
             >
-              <div className="console-header">
-                <span><i /> system_trace</span>
-                <span>live portfolio</span>
-              </div>
-              <div className="console-body">
-                <p className="console-comment">// model output is only one layer</p>
-                {['retrieval', 'state + rules', 'validation', 'human review', 'evaluation'].map((item, index) => (
-                  <motion.div
-                    className="console-row"
-                    key={item}
-                    initial={reduceMotion ? undefined : { opacity: 0, x: 10 }}
-                    animate={reduceMotion ? undefined : { opacity: 1, x: 0 }}
-                    transition={{ delay: 0.36 + index * 0.09 }}
-                  >
-                    <span className="console-index">0{index + 1}</span>
-                    <span>{item}</span>
-                    <CheckCircle2 size={15} />
-                  </motion.div>
-                ))}
-              </div>
-              <div className="console-footer">
-                <span>status</span>
-                <strong>inspectable</strong>
-              </div>
+              <HeroTraceConsole />
             </motion.div>
           </div>
-          <a className="scroll-cue" href="#work" aria-label="Scroll to selected work"><ChevronDown size={18} /></a>
         </section>
 
+        {/* Intro Strip */}
         <section className="intro-strip">
           <div className="shell intro-strip__inner">
-            <p>My strongest work sits at the intersection of <strong>AI systems, retrieval, workflow design, backend engineering, and evaluation.</strong></p>
+            <p>
+              My core engineering focus sits at the intersection of <strong>GraphRAG, agent safety gates, RAG evaluation harnesses, deterministic planning, and full-stack cloud workflows.</strong>
+            </p>
             <div className="intro-links">
-              <a href={links.github} target="_blank" rel="noreferrer"><GitHubMark /> GitHub</a>
-              <a href={links.linkedin} target="_blank" rel="noreferrer"><LinkedInMark /> LinkedIn</a>
+              <a href="https://github.com/Dhruvg334" target="_blank" rel="noreferrer">
+                <GitHubMark size={16} /> GitHub
+              </a>
+              <a href="https://www.linkedin.com/in/dhruv-gupta-7a7500287/" target="_blank" rel="noreferrer">
+                <LinkedInMark size={16} /> LinkedIn
+              </a>
             </div>
           </div>
         </section>
 
+        {/* Flagship Work Section */}
         <section className="section work-section" id="work">
           <div className="shell">
             <motion.div className="section-heading" {...reveal}>
-              <p className="section-label">Selected work</p>
+              <p className="section-label">Selected Flagship Systems</p>
               <div>
-                <h2>Five systems worth opening.</h2>
-                <p>Curated by engineering signal and proof quality, not by chronology.</p>
+                <h2>Five production architectures worth inspecting.</h2>
+                <p>
+                  Curated by engineering rigor, deterministic safety boundaries, and empirical evaluation proof rather than superficial demo wrappers.
+                </p>
               </div>
             </motion.div>
 
-            <div className="project-list">
-              {projects.map((project, index) => (
-                <motion.article className="project" key={project.name} {...reveal}>
-                  <div className="project-head">
-                    <span className="project-number">{project.number}</span>
-                    <p>{project.category}</p>
-                  </div>
-                  <div className="project-grid">
-                    <ProjectVisual tone={project.tone} />
-                    <div className="project-copy">
-                      <h3>{project.name}</h3>
-                      <p className="project-summary">{project.summary}</p>
-                      <p className="project-detail">{project.detail}</p>
-                      <div className="signal-row">
-                        {project.signals.map((signal) => <span key={signal}><ShieldCheck size={13} /> {signal}</span>)}
-                      </div>
-                      <div className="stack-row">
-                        {project.stack.map((tech) => <span key={tech}>{tech}</span>)}
-                      </div>
-                      <div className="project-links">
-                        <a href={project.repo} target="_blank" rel="noreferrer"><GitHubMark /> Code</a>
-                        {project.live && <a href={project.live} target="_blank" rel="noreferrer"><ExternalLink size={16} /> Live</a>}
-                        {project.demo && <a href={project.demo} target="_blank" rel="noreferrer"><Play size={16} /> Demo</a>}
-                      </div>
-                    </div>
-                  </div>
-                  {index < projects.length - 1 && <div className="project-divider" />}
-                </motion.article>
+            {/* Domain Filter Bar */}
+            <div className="project-filter-bar" role="tablist" aria-label="Filter systems by technical domain">
+              {[
+                { id: 'all', label: 'All Systems (5)' },
+                { id: 'graph', label: 'Industrial GraphRAG' },
+                { id: 'safety', label: 'Agent Safety & Gatekeeping' },
+                { id: 'eval', label: 'RAG Evaluation Suite' },
+                { id: 'planning', label: 'Controlled Planning' },
+                { id: 'workflow', label: 'Full-Stack NGO Governance' },
+              ].map((filter) => (
+                <button
+                  key={filter.id}
+                  className={`filter-pill-btn ${selectedDomain === filter.id ? 'active' : ''}`}
+                  onClick={() => setSelectedDomain(filter.id as ProjectDomain)}
+                  role="tab"
+                  aria-selected={selectedDomain === filter.id}
+                >
+                  {filter.label}
+                </button>
+              ))}
+            </div>
+
+            {/* Project Cards Stack */}
+            <div className="project-cards-stack">
+              {filteredProjects.map((project) => (
+                <motion.div key={project.id} {...reveal}>
+                  <ProjectCard
+                    project={project}
+                    onOpenModal={(proj) => setModalProject(proj)}
+                  />
+                </motion.div>
               ))}
             </div>
           </div>
         </section>
 
+        {/* Interactive Architecture Sandbox */}
+        <ArchitectureSandbox />
+
+        {/* 12-Layer System Architecture Matrix */}
+        <SystemMatrix />
+
+        {/* Engineering Philosophy Section */}
         <section className="section approach-section" id="approach">
           <div className="shell">
             <motion.div className="section-heading section-heading--light" {...reveal}>
-              <p className="section-label">How I work</p>
+              <p className="section-label">Engineering Philosophy</p>
               <div>
-                <h2>The model is not the architecture.</h2>
-                <p>I care about what happens before, around, and after the model call.</p>
+                <h2>The model is only one component in the machine.</h2>
+                <p>
+                  How I approach the software architecture before, around, and after model invocation.
+                </p>
               </div>
             </motion.div>
+
             <div className="principle-grid">
-              {principles.map(([title, text], index) => (
-                <motion.article className="principle-card" key={title} {...reveal} transition={{ duration: 0.58, delay: index * 0.05 }}>
-                  <span>0{index + 1}</span>
-                  <h3>{title}</h3>
-                  <p>{text}</p>
+              {engineeringPrinciples.map((principle, index) => (
+                <motion.article
+                  className="principle-card"
+                  key={principle.title}
+                  {...reveal}
+                  transition={{ duration: 0.55, delay: index * 0.06 }}
+                >
+                  <span>{principle.number}</span>
+                  <h3>{principle.title}</h3>
+                  <p>{principle.summary}</p>
+                  <small>{principle.detail}</small>
                 </motion.article>
               ))}
             </div>
           </div>
         </section>
 
+        {/* About Section */}
         <section className="section about-section" id="about">
           <div className="shell about-layout">
             <motion.div className="about-title" {...reveal}>
-              <p className="section-label">About</p>
-              <h2>I’m building toward AI systems engineering, one real system at a time.</h2>
+              <p className="section-label">About the Builder</p>
+              <h2>Engineering dependable AI systems, one architectural problem at a time.</h2>
             </motion.div>
+
             <motion.div className="about-copy" {...reveal}>
               <p>
-                I’m a final-year B.Tech Computer Science student at KIIT. I’m most interested in products where the LLM is only one component: surrounded by retrieval, state, permissions, validation, evaluation, and human judgment.
+                I am a final-year B.Tech Computer Science and Engineering student at Kalinga Institute of Industrial Technology (KIIT), graduating in 2026 with a 9.45 CGPA.
               </p>
               <p>
-                My projects span industrial GraphRAG, agent safety review, source-grounded learning, controlled planning, and full-stack workflow systems. I like the parts that force engineering decisions: failure paths, traceability, data boundaries, approval flows, and how to test something non-deterministic without hand-waving.
+                I am deeply focused on systems engineering for AI: bridging the gap between non-deterministic models and mission-critical software requirements. My work centers on hybrid graph-vector retrieval (Neo4j, pgvector, Qdrant), deterministic security gatekeepers (A-DAP-T), regression evaluation harnesses (Vitest), and multi-tenant RLS isolation.
               </p>
+              <p>
+                I ranked AIR 1109 in GATE DA (Data Science & Artificial Intelligence) 2026, backing practical product engineering with rigorous mathematical foundations in multivariable calculus, linear algebra, probability, and database internals.
+              </p>
+
               <div className="about-facts">
-                <div><strong>9.45</strong><span>CGPA</span></div>
-                <div><strong>1109</strong><span>GATE DA AIR</span></div>
-                <div><strong>5</strong><span>Flagship systems</span></div>
+                <div>
+                  <strong>9.45</strong>
+                  <span>B.Tech CSE CGPA</span>
+                </div>
+                <div>
+                  <strong>AIR 1109</strong>
+                  <span>GATE DA 2026</span>
+                </div>
+                <div>
+                  <strong>5</strong>
+                  <span>Flagship AI Architectures</span>
+                </div>
               </div>
             </motion.div>
           </div>
         </section>
 
+        {/* Supporting Projects / Archive */}
         <section className="section more-work-section">
           <div className="shell">
             <motion.div className="section-heading" {...reveal}>
-              <p className="section-label">More work</p>
+              <p className="section-label">Engineering Archive</p>
               <div>
-                <h2>Earlier builds and supporting projects.</h2>
-                <p>Useful context, kept secondary so the strongest systems stay easy to find.</p>
+                <h2>Supporting systems and specialized tools.</h2>
+                <p>
+                  Additional projects and earlier exploratory builds showcasing full-stack integration and experimentation.
+                </p>
               </div>
             </motion.div>
+
             <div className="more-work-grid">
-              {supporting.map(([name, description, href]) => (
-                <motion.a className="more-work-card" href={href} target="_blank" rel="noreferrer" key={name} {...reveal}>
+              {supportingProjects.map((proj) => (
+                <motion.a
+                  key={proj.name}
+                  className="more-work-card"
+                  href={proj.href}
+                  target="_blank"
+                  rel="noreferrer"
+                  {...reveal}
+                >
                   <div>
-                    <h3>{name}</h3>
-                    <p>{description}</p>
+                    <h3>{proj.name}</h3>
+                    <p>{proj.description}</p>
+                    <div className="more-work-tags">
+                      {proj.tags.map((tag) => (
+                        <span key={tag} className="more-work-tag">
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
                   </div>
-                  <ArrowRight size={18} />
+                  <ArrowRight size={20} />
                 </motion.a>
               ))}
             </div>
           </div>
         </section>
 
+        {/* Contact CTA Section */}
         <section className="contact-cta">
           <div className="shell contact-cta__inner">
             <motion.div {...reveal}>
-              <p className="section-label">Open to the right opportunities</p>
-              <h2>If the role involves building serious AI systems, I’d like to hear about it.</h2>
+              <p className="section-label">Open for Opportunities</p>
+              <h2>Building a serious AI system? Let’s talk architecture.</h2>
             </motion.div>
+
             <motion.div className="contact-cta__actions" {...reveal}>
-              <button className="button button--light" onClick={() => openContact('contact')}>Contact me <ArrowRight size={17} /></button>
-              <button className="text-button-light" onClick={() => openContact('resume')}>Request resume <ArrowRight size={15} /></button>
-              <a href={links.github} target="_blank" rel="noreferrer">Browse GitHub <ExternalLink size={15} /></a>
+              <button
+                className="button button--light"
+                onClick={() => openContact('contact')}
+              >
+                Start Conversation <ArrowRight size={17} />
+              </button>
+              <button
+                className="cta-resume-link"
+                onClick={() => openContact('resume')}
+              >
+                <FileText size={15} /> Request Gated Resume <ArrowRight size={14} />
+              </button>
             </motion.div>
           </div>
         </section>
       </main>
 
+      {/* Footer */}
       <footer className="site-footer">
         <div className="shell footer-inner">
-          <div>
-            <span className="brand-mark brand-mark--footer">DG</span>
-            <p>Dhruv Gupta · AI Systems Builder</p>
+          <div className="footer-brand-wrap">
+            <span className="brand-mark">DG</span>
+            <div>
+              <strong style={{ color: '#fff' }}>Dhruv Gupta</strong>
+              <p style={{ margin: 0, fontSize: '0.72rem' }}>AI Systems Builder · KIIT CSE</p>
+            </div>
           </div>
+
           <div className="footer-links">
-            <a href={links.email}>Email</a>
-            <a href={links.github} target="_blank" rel="noreferrer">GitHub</a>
-            <a href={links.linkedin} target="_blank" rel="noreferrer">LinkedIn</a>
+            <button onClick={handleCopyEmail} style={{ color: 'inherit', font: 'inherit', cursor: 'pointer' }}>
+              Email
+            </button>
+            <a href="https://github.com/Dhruvg334" target="_blank" rel="noreferrer">
+              GitHub
+            </a>
+            <a href="https://www.linkedin.com/in/dhruv-gupta-7a7500287/" target="_blank" rel="noreferrer">
+              LinkedIn
+            </a>
           </div>
-          <p className="footer-note">Built to make the engineering work easier to inspect.</p>
+
+          <p className="footer-note">
+            Built to make AI system architectures inspectable and verifiable.
+          </p>
         </div>
       </footer>
 
-      <ContactModal key={contactMode} open={contactOpen} mode={contactMode} onClose={() => setContactOpen(false)} />
+      {/* Case Study Deep Dive Modal */}
+      <ProjectModal
+        project={modalProject}
+        onClose={() => setModalProject(null)}
+      />
+
+      {/* Contact & Resume Modal */}
+      <ContactModal
+        open={contactOpen}
+        mode={contactMode}
+        onClose={() => setContactOpen(false)}
+        onCopyEmail={handleCopyEmail}
+        copiedEmail={copiedEmail}
+      />
+
+      {/* Floating Toast Notification */}
+      <Toast message={toastMessage} />
     </>
   )
 }

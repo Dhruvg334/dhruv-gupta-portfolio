@@ -1,0 +1,15 @@
+{
+  "short_name": "Dhruv Gupta",
+  "name": "Dhruv Gupta — AI Systems Builder Portfolio",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "type": "image/svg+xml",
+      "sizes": "any"
+    }
+  ],
+  "start_url": "/",
+  "background_color": "#120607",
+  "theme_color": "#120607",
+  "display": "standalone"
+}

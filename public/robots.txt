@@ -1,0 +1,21 @@
+# robots.txt for Dhruv Gupta Portfolio
+User-agent: *
+Allow: /
+
+# AI Crawlers & LLM Indexers
+User-agent: Google-Extended
+Allow: /
+
+User-agent: GPTBot
+Allow: /
+
+User-agent: Claude-Web
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Amazonbot
+Allow: /
+
+Sitemap: https://dhruvg334.github.io/dhruv-gupta-portfolio/sitemap.xml
