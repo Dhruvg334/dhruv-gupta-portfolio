@@ -10,7 +10,6 @@ import {
   CheckCircle2,
   ExternalLink,
 } from 'lucide-react'
-import avatarSvg from '../assets/avatar.svg'
 import { projects } from '../data/projects'
 import { engineeringPrinciples } from '../data/competencies'
 
@@ -45,7 +44,7 @@ export function HomePage() {
 
   return (
     <div className="page-wrapper">
-      {/* Hero Section */}
+      {/* Centered Hero Section */}
       <section className="home-hero">
         <div className="hero-glow hero-glow--left" />
         <div className="hero-glow hero-glow--right" />
@@ -57,12 +56,10 @@ export function HomePage() {
             animate={reduceMotion ? undefined : { opacity: 1, y: 0 }}
             transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
           >
-            <div className="hero-profile-badge">
-              <img src={avatarSvg} alt="Dhruv Gupta" className="hero-avatar" />
-              <div className="profile-badge-text">
-                <span className="profile-name">Dhruv Gupta</span>
-                <span className="profile-subtitle">B.Tech CSE @ KIIT · July 2027</span>
-              </div>
+            {/* Clean Pill without duplicate avatar */}
+            <div className="hero-status-pill">
+              <span className="status-dot-emerald" />
+              <span>B.Tech CSE @ KIIT · Graduating July 2027</span>
             </div>
 
             <h1 className="home-hero-title">
@@ -85,16 +82,18 @@ export function HomePage() {
               </Link>
             </div>
 
-            {/* Credential Metrics */}
+            {/* Credential Metrics Strip */}
             <div className="hero-stats-row">
               <div className="hero-stat-card">
                 <strong>9.45</strong>
-                <span>CGPA in B.Tech CSE</span>
+                <span>CGPA · B.Tech CSE</span>
               </div>
+              <div className="hero-stat-divider" />
               <div className="hero-stat-card">
                 <strong>July 2027</strong>
                 <span>Graduation Year</span>
               </div>
+              <div className="hero-stat-divider" />
               <div className="hero-stat-card">
                 <strong>5</strong>
                 <span>Architectures Built</span>
