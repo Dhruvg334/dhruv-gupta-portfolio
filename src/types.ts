@@ -47,8 +47,11 @@ export interface Project {
   repo: string
   live?: string
   demo?: string
+  videoUrl?: string
+  docsUrl?: string
   tone: ProjectTone
   caseStudy: CaseStudySection
+  mermaidDiagram: string
 }
 
 export interface TraceStep {

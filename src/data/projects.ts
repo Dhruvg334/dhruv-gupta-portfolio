@@ -19,7 +19,7 @@ export const projects: Project[] = [
         step: '01',
         name: 'Asset Resolution',
         type: 'deterministic',
-        description: 'Resolves raw equipment tags (e.g. PU-101A) against the organizational taxonomy and active revisions.',
+        description: 'Resolves raw equipment tags (e.g. PU-101A) against organizational taxonomies, sites, and active procedure revisions.',
         outputSignature: 'ResolvedScope { org_id, site_id, asset_id, valid_revisions }',
       },
       {
@@ -88,7 +88,33 @@ export const projects: Project[] = [
     repo: 'https://github.com/Dhruvg334/Mnemos',
     live: 'https://mnemos-lake.vercel.app',
     demo: 'https://youtu.be/fs54N2vzHsM',
+    videoUrl: 'https://youtu.be/fs54N2vzHsM',
+    docsUrl: 'https://github.com/Dhruvg334/Mnemos/tree/main/docs',
     tone: 'graph',
+    mermaidDiagram: `flowchart TD
+    User([Reliability Engineer]) --> UI[Next.js 16 Dashboard]
+    UI --> API[FastAPI Gateway]
+    API --> Auth[JWT & Site Scope Resolver]
+    Auth --> Supervisor[LangGraph Investigation Supervisor]
+    
+    subgraph MultiStageRuntime [11-Stage Bounded Runtime]
+      Supervisor --> Router[Query Router & Asset Resolver]
+      Router --> Plan[Retrieval Planner]
+      Plan --> ParallelRet[Parallel Multi-Hop Retrieval]
+      ParallelRet --> Verifier[Evidence Verifier]
+      Verifier -->|Insufficient| Fallback[Abstention & Gap Disclosure]
+      Verifier -->|Verified| Specialist[Specialist Diagnostic Agents]
+      Specialist --> Synthesis[RCA Report Composer]
+      Synthesis --> GateCheck{Critical Action?}
+    end
+    
+    ParallelRet --> PG[(PostgreSQL + pgvector)]
+    ParallelRet --> Neo[(Neo4j Asset Graph)]
+    
+    GateCheck -->|Yes: Lockout / Overrides| Pause[(Durable Pause in PostgreSQL)]
+    Pause --> HumanReview([Plant Supervisor Sign-off])
+    HumanReview --> FinalReport[Immutable Verified Report]
+    GateCheck -->|No| FinalReport`,
     caseStudy: {
       problemStatement:
         'In industrial process plants, equipment maintenance data is fragmented across computerized maintenance management systems (CMMS), PDF work manuals, vendor specification sheets, shift turnover notes, and inspection records. When unexpected failures occur, reliability engineers must manually correlate error logs against revision-controlled SOPs. Conventional naive RAG pipelines fail because they lack asset hierarchy awareness, confuse alphanumeric part numbers, retrieve superseded procedures, and cannot pause execution for required human safety sign-offs.',
@@ -180,7 +206,28 @@ export const projects: Project[] = [
     repo: 'https://github.com/Dhruvg334/A-DAP-T',
     live: 'https://a-dap-t.vercel.app',
     demo: 'https://www.youtube.com/watch?v=1r-QIjQmbbo',
+    videoUrl: 'https://www.youtube.com/watch?v=1r-QIjQmbbo',
+    docsUrl: 'https://adapt-3s27.onrender.com/docs',
     tone: 'safety',
+    mermaidDiagram: `flowchart TD
+    Repo([GitHub Repo / ZIP Bundle]) --> SafeIngest[Safe Text Ingestion & Size Sandbox]
+    SafeIngest --> ASTParser[Python & TypeScript AST Parser]
+    
+    subgraph StaticAnalysisEngine [Deterministic Scanner & Surface Mapper]
+      ASTParser --> Inventory[File & Framework Inventory]
+      ASTParser --> ToolSinks[Agent Tool Execution Sinks]
+      ASTParser --> Routes[API Route & Auth Posture]
+      ASTParser --> MemorySec[Memory / Context Isolation]
+      ASTParser --> TrustBoundaries[Trust Boundary Flow Mapper]
+    end
+    
+    Inventory & ToolSinks & Routes & MemorySec & TrustBoundaries --> GuardrailMatrix[16-Point Guardrail Evaluation Matrix]
+    GuardrailMatrix --> PolicyEngine[Deployment Gate Policy Engine]
+    
+    PolicyEngine --> Verdict{Gate Verdict}
+    Verdict -->|Critical Sinks / Missing Auth| Block[BLOCK + Fix-First Remediation Plan]
+    Verdict -->|Manual Review Items| Review[REVIEW + Scoped Checklist]
+    Verdict -->|Passed All Policies| Allow[ALLOW + Signed Deployment Artifact]`,
     caseStudy: {
       problemStatement:
         'As software engineering teams transition from simple text generation to autonomous agentic architectures, traditional static application security testing (SAST) tools miss agent-specific risks: LLMs with direct shell or SQL tool access, absence of confirmation gates on mutating APIs, context poisoning via untrusted retrieved documents, and wildcard CORS policies on expensive inference endpoints. A-DAP-T was built to establish an automated release gate specifically for AI applications.',
@@ -274,7 +321,26 @@ export const projects: Project[] = [
     repo: 'https://github.com/Dhruvg334/Tessarion',
     live: 'https://tessarion.vercel.app',
     demo: 'https://youtu.be/wEGKEA1_CVE',
+    videoUrl: 'https://youtu.be/wEGKEA1_CVE',
+    docsUrl: 'https://tessarion.vercel.app/demo/notebook',
     tone: 'learning',
+    mermaidDiagram: `flowchart TD
+    Doc([Study Material / Textbooks]) --> ChunkEngine[Bounded Chunking & Entity Extraction]
+    ChunkEngine --> Postgres[(Supabase PostgreSQL: Canonical Store)]
+    
+    Postgres -->|Async Projection| Qdrant[(Qdrant Cloud: Hybrid Vectors)]
+    Postgres -->|Async Projection| Neo4j[(Neo4j AuraDB: Concept Graph)]
+    
+    Learner([Learner]) --> TeachBack[Teach-Back Explanation in Plain English]
+    TeachBack --> Retrieval[Weighted Rank Fusion: Qdrant + Neo4j]
+    Retrieval --> DiagnosisEngine[Grounding & Gap Diagnosis Engine]
+    
+    DiagnosisEngine --> Outcome{Understanding State}
+    Outcome -->|Misconceptions / Gaps| SocraticTutor[One-Question Socratic State Machine]
+    Outcome -->|Verified Mastery| MasteryLedger[Spaced Repetition Review Ledger]
+    
+    SocraticTutor --> InngestJobs[Inngest Background Workflows]
+    DiagnosisEngine --> ArizeAX[Arize AX OTLP Telemetry]`,
     caseStudy: {
       problemStatement:
         'Standard digital learning products measure engagement through shallow proxies: page views, completion checkmarks, multiple-choice quizzes, and daily streaks. These metrics fail to detect illusions of competence—where a learner recognizes technical vocabulary but cannot explain how underlying concepts interact. Tessarion was created to operationalize the Feynman technique and Socratic inquiry through verifiable retrieval and concept graph modeling.',
@@ -283,7 +349,7 @@ export const projects: Project[] = [
       guardrailArchitecture:
         'To prevent model hallucinations from corrupting diagnostic scores, Tessarion enforces strict evidence grounding: every diagnosis item (omission, misconception, or shallow explanation) must cite specific chunk IDs and concept nodes. The Socratic tutor is governed by a finite state machine that permits only one targeted probe per turn before requiring user response, preventing the agent from drifting into monologue or giving away answers directly.',
       evaluationAndMetrics:
-        'The repository features 13 automated evaluation suites (`npm run eval:*`), benchmarking retrieval precision, concept extraction F1, gap detection accuracy, mastery calculation repeatability, and workflow fault tolerance. The public demo notebook demonstrates this pipeline live on a full computer architecture curriculum without requiring account registration.',
+        'The repository features 13 automated evaluation suites (\`npm run eval:*\`), benchmarking retrieval precision, concept extraction F1, gap detection accuracy, mastery calculation repeatability, and workflow fault tolerance. The public demo notebook demonstrates this pipeline live on a full computer architecture curriculum without requiring account registration.',
     },
   },
   {
@@ -369,7 +435,32 @@ export const projects: Project[] = [
     repo: 'https://github.com/Dhruvg334/chronos',
     live: 'https://chronos-dhruv.netlify.app',
     demo: 'https://chronos-dhruv.netlify.app/demo',
+    videoUrl: 'https://youtu.be/D_iNyoHNXs0',
+    docsUrl: 'https://github.com/Dhruvg334/chronos/tree/main/docs',
     tone: 'planning',
+    mermaidDiagram: `flowchart TD
+    User([Knowledge Worker]) --> Intake[Natural Language Task & Routine Intake]
+    Calendar([Google Calendar API]) --> Sync[Read-Only Event Sync]
+    
+    Intake --> GroqGateway[Provider-Neutral Model Gateway]
+    GroqGateway --> StrategyEngine[FastAPI Strategy Engine]
+    Sync --> StrategyEngine
+    
+    subgraph DeterministicEngine [Deterministic Capacity Core]
+      StrategyEngine --> CapacityChecker[Work Hours & Buffer Validator]
+      CapacityChecker --> OverlapFilter[Zero-Overlap Non-Linear Scheduler]
+      OverlapFilter --> FeasibilityCheck{Is Day Workable?}
+    end
+    
+    FeasibilityCheck -->|Yes| Schedule[Realistic Daily Plan + Tradeoff Reasons]
+    FeasibilityCheck -->|Over-capacity / Conflict| Deferral[Bounded Task Deferral Recommendations]
+    
+    Schedule --> Focus[Focus Session Tracking]
+    Focus -->|Overtime / Interruption| RecoveryEngine[Approval-First Plan Repair Proposal]
+    RecoveryEngine --> UserApproval([Atomic 1-Click User Approval])
+    UserApproval --> Schedule
+    
+    Schedule --> Supabase[(Supabase PostgreSQL: RLS & pgvector)]`,
     caseStudy: {
       problemStatement:
         'Knowledge workers regularly experience planning failure: daily to-do lists that ignore fixed calendar commitments, focus fatigue, and unexpected interruptions. When a scheduled block runs overtime or an urgent meeting arises, conventional task apps leave users with a broken schedule and no clear path to recover. ChronOS was built to treat planning as a dynamic, capacity-constrained execution problem.',
@@ -447,6 +538,24 @@ export const projects: Project[] = [
     ],
     repo: 'https://github.com/Dhruvg334/Niswarth-AI',
     tone: 'workflow',
+    mermaidDiagram: `flowchart TD
+    Receipt([Physical Receipt / Expense Voucher]) --> MobileUpload[Volunteer Upload]
+    MobileUpload --> VisionOCR[FastAPI Vision OCR Pipeline]
+    VisionOCR --> Extractor[Structured Line-Item & Tax ID Extractor]
+    
+    Extractor --> LedgerEngine[Double-Entry Reconciliation Engine]
+    LedgerEngine --> ComplianceRules[Statutory Cap & Balance Validator]
+    
+    ComplianceRules --> AnomalyCheck{Anomaly Detected?}
+    AnomalyCheck -->|Yes: Mismatch| EscrowQueue[Escrow Review Queue for Trustee]
+    AnomalyCheck -->|No: Balanced| VerifiedLedger[PostgreSQL Verified Ledger]
+    
+    EscrowQueue --> TrusteeApproval([Trustee Sign-Off])
+    TrusteeApproval --> VerifiedLedger
+    
+    VerifiedLedger --> ReportGen[Immutable Cryptographic Donor Audit PDF]
+    
+    VerifiedLedger --> SupabaseRLS[(Supabase PostgreSQL: Multi-Tenant RLS)]`,
     caseStudy: {
       problemStatement:
         'Grassroots non-governmental organizations (NGOs) often lose up to 30% of their operational bandwidth manually transcribing physical expense slips, reconciling bank statements, and preparing compliance filings for regulatory bodies and institutional donors. Errors in manual spreadsheets risk funding freezes and compliance penalties.',
