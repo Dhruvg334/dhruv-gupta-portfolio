@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { Menu, X, FileText, ArrowRight } from 'lucide-react'
 import { ContactMode } from '../types'
+import avatarSvg from '../assets/avatar.svg'
 
 interface HeaderProps {
   onOpenContact: (mode: ContactMode) => void
@@ -23,7 +24,7 @@ export function Header({ onOpenContact }: HeaderProps) {
     <header className={`site-header ${scrolled ? 'site-header--scrolled' : ''}`}>
       <div className="nav-shell">
         <a className="brand" href="#top" aria-label="Dhruv Gupta home">
-          <img src="/avatar.svg" alt="Dhruv Gupta" className="brand-avatar" />
+          <img src={avatarSvg} alt="Dhruv Gupta" className="brand-avatar" />
           <span className="brand-name">Dhruv Gupta</span>
         </a>
 

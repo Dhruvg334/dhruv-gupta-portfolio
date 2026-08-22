@@ -22,6 +22,13 @@ export interface MetricHighlight {
   context: string
 }
 
+export interface CaseStudySection {
+  problemStatement: string
+  systemDesign: string
+  guardrailArchitecture: string
+  evaluationAndMetrics: string
+}
+
 export interface Project {
   id: string
   number: string
@@ -41,6 +48,7 @@ export interface Project {
   live?: string
   demo?: string
   tone: ProjectTone
+  caseStudy: CaseStudySection
 }
 
 export interface TraceStep {

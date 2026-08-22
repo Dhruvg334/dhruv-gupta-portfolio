@@ -5,6 +5,7 @@ import {
   Mail,
   FileText,
 } from 'lucide-react'
+import avatarSvg from './assets/avatar.svg'
 import { projects, supportingProjects } from './data/projects'
 import { engineeringPrinciples } from './data/competencies'
 import { Project, ProjectDomain, ContactMode } from './types'
@@ -94,7 +95,7 @@ export function App() {
               transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
             >
               <div className="hero-badge-wrap">
-                <img src="/avatar.svg" alt="Dhruv Gupta" className="hero-avatar" />
+                <img src={avatarSvg} alt="Dhruv Gupta" className="hero-avatar" />
                 <div className="hero-badge">
                   <span className="badge-dot" />
                   <span>AI Systems · GraphRAG · Guardrails · Workflows</span>
@@ -106,12 +107,12 @@ export function App() {
               </h1>
 
               <p className="hero-description">
-                I’m Dhruv Gupta, engineering production AI systems where models operate inside deterministic validation rules, graph retrieval, evaluation harnesses, and human review gates.
+                I’m Dhruv Gupta, an engineering student at KIIT focused on building practical AI systems where models operate inside deterministic validation rules, graph retrieval, evaluation harnesses, and human review gates.
               </p>
 
               <div className="hero-cta-group">
                 <a className="btn btn--primary" href="#work">
-                  View Flagship Systems <ArrowRight size={15} />
+                  View Systems <ArrowRight size={15} />
                 </a>
                 <button
                   className="btn btn--secondary"
@@ -135,13 +136,13 @@ export function App() {
                 </div>
                 <div className="credential-divider" />
                 <div className="credential-item">
-                  <strong>AIR 1109</strong>
-                  <span>GATE DA 2026</span>
+                  <strong>July 2027</strong>
+                  <span>Graduation · KIIT</span>
                 </div>
                 <div className="credential-divider" />
                 <div className="credential-item">
                   <strong>5</strong>
-                  <span>Flagship AI Architectures</span>
+                  <span>Production Architectures</span>
                 </div>
               </div>
             </motion.div>
@@ -175,15 +176,15 @@ export function App() {
           </div>
         </section>
 
-        {/* Flagship Systems Section */}
+        {/* Selected Systems Section */}
         <section className="section work-section" id="work">
           <div className="shell">
             <motion.div className="section-heading" {...reveal}>
-              <p className="section-label">Selected Systems</p>
+              <p className="section-label">Selected Projects</p>
               <div>
                 <h2>Five production architectures worth inspecting.</h2>
                 <p>
-                  Curated by engineering rigor, deterministic safety boundaries, and empirical evaluation proof rather than superficial demo wrappers.
+                  Focused on architectural clarity, deterministic safety boundaries, and empirical evaluation rather than superficial demo wrappers.
                 </p>
               </div>
             </motion.div>
@@ -268,10 +269,10 @@ export function App() {
 
             <motion.div className="about-right" {...reveal}>
               <p>
-                I am a Computer Science engineer focused on the deterministic boundaries of AI: combining knowledge graphs (Neo4j), vector stores (pgvector, Qdrant), static AST code analysis (A-DAP-T), and regression test harnesses (Vitest) to make agentic workflows verifiable and safe.
+                I am currently pursuing my B.Tech in Computer Science and Engineering at KIIT Bhubaneswar (graduating in July 2027 with a 9.45 CGPA). My focus is on the deterministic boundaries of AI: combining knowledge graphs (Neo4j), vector stores (pgvector, Qdrant), static AST code analysis (A-DAP-T), and regression test harnesses (Vitest, Pytest) to make agentic workflows verifiable and safe.
               </p>
               <p>
-                I achieved AIR 1109 in GATE DA (Data Science & AI) 2026, backing practical product engineering with rigorous mathematical foundations across linear algebra, calculus, probability, and database internals.
+                I also qualified GATE DA (Data Science & AI) 2026, backing practical product engineering with strong foundations in linear algebra, calculus, probability, and database internals.
               </p>
 
               <div className="about-stats-grid">
@@ -280,12 +281,12 @@ export function App() {
                   <span>CGPA · B.Tech CSE</span>
                 </div>
                 <div className="stat-box">
-                  <strong>AIR 1109</strong>
-                  <span>GATE DA 2026</span>
+                  <strong>July 2027</strong>
+                  <span>Graduation · KIIT</span>
                 </div>
                 <div className="stat-box">
                   <strong>5</strong>
-                  <span>Flagship AI Architectures</span>
+                  <span>Systems Built</span>
                 </div>
               </div>
             </motion.div>
@@ -361,10 +362,10 @@ export function App() {
       <footer className="site-footer">
         <div className="shell footer-grid">
           <div className="footer-brand">
-            <img src="/avatar.svg" alt="Dhruv Gupta" className="footer-avatar" />
+            <img src={avatarSvg} alt="Dhruv Gupta" className="footer-avatar" />
             <div>
               <strong>Dhruv Gupta</strong>
-              <p>AI Systems Builder</p>
+              <p>AI Systems Builder · KIIT CSE '27</p>
             </div>
           </div>
 

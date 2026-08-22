@@ -10,6 +10,9 @@ import {
   Layers,
   ArrowRight,
   GitBranch,
+  BookOpen,
+  FileText,
+  Activity,
 } from 'lucide-react'
 import { Project } from '../types'
 
@@ -95,11 +98,32 @@ export function ProjectModal({ project, onClose }: ProjectModalProps) {
 
             {/* Architectural Deep Dive Grid */}
             <div className="modal-body-sections">
-              {/* Architecture Core Breakdown */}
+              {/* Comprehensive Case Study Narrative */}
+              {project.caseStudy && (
+                <>
+                  <section className="modal-section">
+                    <div className="modal-section-title">
+                      <BookOpen size={18} />
+                      <h3>Problem Statement & Context</h3>
+                    </div>
+                    <p className="modal-section-text">{project.caseStudy.problemStatement}</p>
+                  </section>
+
+                  <section className="modal-section">
+                    <div className="modal-section-title">
+                      <Cpu size={18} />
+                      <h3>System Architecture & Data Flows</h3>
+                    </div>
+                    <p className="modal-section-text">{project.caseStudy.systemDesign}</p>
+                  </section>
+                </>
+              )}
+
+              {/* Pipeline Nodes Flow */}
               <section className="modal-section">
                 <div className="modal-section-title">
-                  <Cpu size={18} />
-                  <h3>Architectural Pipeline & Deterministic Boundary</h3>
+                  <Activity size={18} />
+                  <h3>Execution Pipeline & Contracts</h3>
                 </div>
                 <p className="modal-section-text">{project.architecturalCore}</p>
 
@@ -126,6 +150,27 @@ export function ProjectModal({ project, onClose }: ProjectModalProps) {
                 </div>
               </section>
 
+              {/* Guardrail & Governance Narrative */}
+              {project.caseStudy && (
+                <>
+                  <section className="modal-section">
+                    <div className="modal-section-title">
+                      <ShieldCheck size={18} />
+                      <h3>Governance, Safety & Guardrails</h3>
+                    </div>
+                    <p className="modal-section-text">{project.caseStudy.guardrailArchitecture}</p>
+                  </section>
+
+                  <section className="modal-section">
+                    <div className="modal-section-title">
+                      <FileText size={18} />
+                      <h3>Evaluation & Verifiable Benchmarks</h3>
+                    </div>
+                    <p className="modal-section-text">{project.caseStudy.evaluationAndMetrics}</p>
+                  </section>
+                </>
+              )}
+
               {/* Engineering Tradeoffs */}
               <section className="modal-section">
                 <div className="modal-section-title">
@@ -149,7 +194,7 @@ export function ProjectModal({ project, onClose }: ProjectModalProps) {
               <section className="modal-section">
                 <div className="modal-section-title">
                   <Layers size={18} />
-                  <h3>Stack & Governance Signals</h3>
+                  <h3>Technologies & System Signals</h3>
                 </div>
                 <div className="modal-signals-wrap">
                   {project.signals.map((sig) => (
@@ -174,9 +219,9 @@ export function ProjectModal({ project, onClose }: ProjectModalProps) {
                 href={project.repo}
                 target="_blank"
                 rel="noreferrer"
-                className="button button--dark"
+                className="btn btn--secondary"
               >
-                <GitHubMark size={16} /> View Code on GitHub
+                <GitHubMark size={15} /> Source Code on GitHub
               </a>
 
               {project.live && (
@@ -184,9 +229,9 @@ export function ProjectModal({ project, onClose }: ProjectModalProps) {
                   href={project.live}
                   target="_blank"
                   rel="noreferrer"
-                  className="button button--light"
+                  className="btn btn--primary"
                 >
-                  <ExternalLink size={16} /> Open Live Deployment
+                  <ExternalLink size={15} /> Open Live Application
                 </a>
               )}
 
@@ -195,9 +240,9 @@ export function ProjectModal({ project, onClose }: ProjectModalProps) {
                   href={project.demo}
                   target="_blank"
                   rel="noreferrer"
-                  className="button button--ghost"
+                  className="btn btn--ghost"
                 >
-                  <Play size={16} /> Watch Demo Video
+                  <Play size={15} /> Watch Demo Video
                 </a>
               )}
             </div>
