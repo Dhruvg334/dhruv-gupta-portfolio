@@ -12,6 +12,9 @@ import {
   MessageSquare,
   Sparkles,
   ArrowRight,
+  Briefcase,
+  Users,
+  Cpu,
 } from 'lucide-react'
 import { Toast } from '../components/Toast'
 
@@ -31,11 +34,43 @@ function LinkedInMark({ size = 16 }: { size?: number }) {
   )
 }
 
-const contactIntents = [
-  { id: 'hiring', label: '💼 Full-Time / Internship Role', defaultSubject: 'Engineering Opportunity / Role Discussion', placeholder: 'Hi Dhruv, we came across your work and would love to discuss an engineering role with our team...' },
-  { id: 'collab', label: '🤝 Project Collaboration', defaultSubject: 'Project Collaboration / Research', placeholder: 'Hi Dhruv, I am building something interesting in AI/RAG and would love to collaborate on...' },
-  { id: 'arch', label: '💡 System Architecture Chat', defaultSubject: 'Architecture Discussion / Questions', placeholder: 'Hi Dhruv, I checked out your Mnemos / ChronOS case studies and had a question about...' },
-  { id: 'general', label: '💬 General Inquiry', defaultSubject: 'Saying Hello / Inquiry', placeholder: 'Hi Dhruv, just reaching out to connect...' },
+interface ContactIntent {
+  id: string
+  label: string
+  icon: typeof Briefcase
+  defaultSubject: string
+  placeholder: string
+}
+
+const contactIntents: ContactIntent[] = [
+  {
+    id: 'hiring',
+    label: 'Full-Time / Internship Role',
+    icon: Briefcase,
+    defaultSubject: 'Engineering Opportunity / Role Discussion',
+    placeholder: 'Hi Dhruv, we came across your work and would love to discuss an engineering role with our team...',
+  },
+  {
+    id: 'collab',
+    label: 'Project Collaboration',
+    icon: Users,
+    defaultSubject: 'Project Collaboration / Research',
+    placeholder: 'Hi Dhruv, I am building something interesting in AI/RAG and would love to collaborate on...',
+  },
+  {
+    id: 'arch',
+    label: 'System Architecture Discussion',
+    icon: Cpu,
+    defaultSubject: 'Architecture Discussion / Questions',
+    placeholder: 'Hi Dhruv, I checked out your Mnemos / ChronOS case studies and had a question about...',
+  },
+  {
+    id: 'general',
+    label: 'General Inquiry',
+    icon: MessageSquare,
+    defaultSubject: 'Saying Hello / Inquiry',
+    placeholder: 'Hi Dhruv, just reaching out to connect...',
+  },
 ]
 
 export function ContactPage() {
@@ -60,7 +95,7 @@ export function ContactPage() {
     setTimeout(() => setCopied(false), 2000)
   }
 
-  const handleIntentSelect = (intent: typeof contactIntents[0]) => {
+  const handleIntentSelect = (intent: ContactIntent) => {
     setSelectedIntent(intent)
     setSubject(intent.defaultSubject)
   }
@@ -132,16 +167,21 @@ export function ContactPage() {
                   <Sparkles size={14} className="text-accent" /> What are you reaching out regarding?
                 </span>
                 <div className="intent-chips-grid">
-                  {contactIntents.map((intent) => (
-                    <button
-                      key={intent.id}
-                      type="button"
-                      className={`intent-chip ${selectedIntent.id === intent.id ? 'active' : ''}`}
-                      onClick={() => handleIntentSelect(intent)}
-                    >
-                      {intent.label}
-                    </button>
-                  ))}
+                  {contactIntents.map((intent) => {
+                    const Icon = intent.icon
+                    const isActive = selectedIntent.id === intent.id
+                    return (
+                      <button
+                        key={intent.id}
+                        type="button"
+                        className={`intent-chip ${isActive ? 'active' : ''}`}
+                        onClick={() => handleIntentSelect(intent)}
+                      >
+                        <Icon size={14} className={isActive ? 'text-accent' : 'text-muted'} />
+                        <span>{intent.label}</span>
+                      </button>
+                    )
+                  })}
                 </div>
               </div>
 
@@ -153,6 +193,7 @@ export function ContactPage() {
                     Thank you for reaching out. I review all messages personally and will reply to your email promptly.
                   </p>
                   <button
+                    type="button"
                     className="btn btn--secondary"
                     onClick={() => {
                       setSubmitted(false)

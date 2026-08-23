@@ -9,12 +9,12 @@ This repository is the active, multi-page portfolio representing my software eng
 
 ---
 
-## 🏛️ Site Architecture & Structure
+## Site Architecture & Structure
 
 The site is built as a clean, decoupled multi-page single-page application (SPA) using React Router with Hash routing for reliable static hosting:
 
 1. **Landing Overview (`/#/`)**  
-   A clear, human-readable introduction focused on who I am and what I build (Intelligent search, AI safety guardrails, automated testing, and full-stack software products) without overwhelming technical jargon.
+   A clear, human-readable introduction focused on who I am and what I build (intelligent search, AI safety guardrails, automated testing, and full-stack software products) without overwhelming technical jargon.
 
 2. **Systems & Projects Directory (`/#/projects`)**  
    Central directory categorizing production builds across GraphRAG, AI Agent Safety, RAG Evaluation, Controlled Planning, and Enterprise NGO Workflows. Includes the interactive architecture workspace and engineering archive.
@@ -35,20 +35,20 @@ The site is built as a clean, decoupled multi-page single-page application (SPA)
 
 ---
 
-## 🛠️ Built With
+## Built With
 
 - **Framework & Runtime:** React 19, TypeScript, Vite
 - **Routing:** React Router DOM (HashRouter for seamless GitHub Pages compatibility)
 - **Diagrams & Visualizations:** Mermaid.js (SVG runtime rendering)
 - **Animations:** Motion (`motion/react`)
-- **Icons:** Lucide React
+- **Icons:** Lucide React (flat SVG icons)
 - **Forms & Email Delivery:** Formspree
 - **Typography:** Plus Jakarta Sans & DM Mono
 - **Deployment:** GitHub Actions (`.github/workflows/deploy.yml`)
 
 ---
 
-## 💻 Local Development
+## Local Development
 
 ```bash
 # Clone the repository
@@ -76,7 +76,7 @@ npm run preview
 
 ---
 
-## 📬 Contact & Links
+## Contact & Links
 
 - **Email:** [dhruvg3304@gmail.com](mailto:dhruvg3304@gmail.com)
 - **LinkedIn:** [linkedin.com/in/dhruv-gupta-7a7500287](https://www.linkedin.com/in/dhruv-gupta-7a7500287/)

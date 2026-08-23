@@ -70,9 +70,9 @@ export function ResumePage() {
         <div className="shell resume-toolbar__inner">
           <div className="toolbar-left">
             <span className="toolbar-tag">
-              <Sparkles size={14} className="text-accent" /> Verified Resume
+              Curriculum Vitae
             </span>
-            <span className="toolbar-updated">Updated August 2026 · KIIT CSE '27</span>
+            <span className="toolbar-updated">Dhruv Gupta · KIIT CSE '27</span>
           </div>
 
           <div className="toolbar-actions">

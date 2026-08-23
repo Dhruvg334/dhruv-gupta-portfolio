@@ -86,7 +86,7 @@ export function HomePage() {
             </div>
 
             <h1 className="home-hero-title">
-              I build reliable software systems <span className="highlight-text">powered by AI</span>.
+              I build reliable software systems <span className="highlight-text">around AI models</span>.
             </h1>
 
             <p className="home-hero-intro">

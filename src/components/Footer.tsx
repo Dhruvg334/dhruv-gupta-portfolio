@@ -34,7 +34,6 @@ export function Footer({ onCopyEmail }: FooterProps) {
         </div>
 
         <div className="footer-links-row">
-          <Link to="/">Overview</Link>
           <Link to="/projects">Projects</Link>
           <Link to="/resume">Resume</Link>
           <Link to="/contact">Contact</Link>
