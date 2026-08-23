@@ -15,9 +15,11 @@ import {
   FileText,
   Activity,
   Code2,
+  Navigation,
 } from 'lucide-react'
 import { projects } from '../data/projects'
 import { MermaidDiagram } from '../components/MermaidDiagram'
+import { ReadingProgressBar } from '../components/ReadingProgressBar'
 
 function GitHubMark({ size = 15 }: { size?: number }) {
   return (
@@ -26,6 +28,15 @@ function GitHubMark({ size = 15 }: { size?: number }) {
     </svg>
   )
 }
+
+const sectionAnchors = [
+  { id: 'section-problem', label: '1. Problem & Context', icon: BookOpen },
+  { id: 'section-architecture', label: '2. Architecture Topology', icon: Cpu },
+  { id: 'section-pipeline', label: '3. Execution & Contracts', icon: Activity },
+  { id: 'section-guardrails', label: '4. Governance & Safety', icon: ShieldCheck },
+  { id: 'section-benchmarks', label: '5. Testing & Benchmarks', icon: FileText },
+  { id: 'section-tradeoffs', label: '6. Architectural Tradeoffs', icon: GitBranch },
+]
 
 export function ProjectDetailPage() {
   const { id } = useParams<{ id: string }>()
@@ -54,6 +65,9 @@ export function ProjectDetailPage() {
 
   return (
     <div className="page-wrapper project-detail-page">
+      {/* Dynamic Reading Progress Bar */}
+      <ReadingProgressBar />
+
       {/* Top Breadcrumbs Bar */}
       <div className="detail-top-bar">
         <div className="shell detail-top-bar__inner">
@@ -127,7 +141,7 @@ export function ProjectDetailPage() {
           {/* Main Reading Column */}
           <div className="detail-main-column">
             {/* 1. Problem Statement & Operational Context */}
-            <motion.section className="detail-section" {...reveal}>
+            <motion.section id="section-problem" className="detail-section" {...reveal}>
               <div className="detail-section-title">
                 <BookOpen size={20} />
                 <h2>1. Problem Statement & Real-World Context</h2>
@@ -138,7 +152,7 @@ export function ProjectDetailPage() {
             </motion.section>
 
             {/* 2. Interactive Mermaid Architecture Diagram */}
-            <motion.section className="detail-section" {...reveal}>
+            <motion.section id="section-architecture" className="detail-section" {...reveal}>
               <div className="detail-section-title">
                 <Cpu size={20} />
                 <h2>2. System Architecture & Topology</h2>
@@ -147,7 +161,7 @@ export function ProjectDetailPage() {
                 <p>{project.caseStudy.systemDesign}</p>
               </div>
 
-              {/* Rendered Mermaid Chart */}
+              {/* Rendered Mermaid Chart with Skeleton fallback */}
               <div className="diagram-container-wrap">
                 <MermaidDiagram
                   chart={project.mermaidDiagram}
@@ -157,7 +171,7 @@ export function ProjectDetailPage() {
             </motion.section>
 
             {/* 3. Execution Pipeline & Contracts */}
-            <motion.section className="detail-section" {...reveal}>
+            <motion.section id="section-pipeline" className="detail-section" {...reveal}>
               <div className="detail-section-title">
                 <Activity size={20} />
                 <h2>3. Execution Pipeline & Output Contracts</h2>
@@ -189,7 +203,7 @@ export function ProjectDetailPage() {
             </motion.section>
 
             {/* 4. Governance & Guardrail Architecture */}
-            <motion.section className="detail-section" {...reveal}>
+            <motion.section id="section-guardrails" className="detail-section" {...reveal}>
               <div className="detail-section-title">
                 <ShieldCheck size={20} />
                 <h2>4. Governance, Safety & Guardrail Boundaries</h2>
@@ -200,7 +214,7 @@ export function ProjectDetailPage() {
             </motion.section>
 
             {/* 5. Evaluation & Verifiable Benchmarks */}
-            <motion.section className="detail-section" {...reveal}>
+            <motion.section id="section-benchmarks" className="detail-section" {...reveal}>
               <div className="detail-section-title">
                 <FileText size={20} />
                 <h2>5. Testing, Evaluation & Regression Benchmarks</h2>
@@ -211,7 +225,7 @@ export function ProjectDetailPage() {
             </motion.section>
 
             {/* 6. Key Engineering Decisions & Tradeoffs */}
-            <motion.section className="detail-section" {...reveal}>
+            <motion.section id="section-tradeoffs" className="detail-section" {...reveal}>
               <div className="detail-section-title">
                 <GitBranch size={20} />
                 <h2>6. Key Architectural Tradeoffs</h2>
@@ -231,10 +245,28 @@ export function ProjectDetailPage() {
             </motion.section>
           </div>
 
-          {/* Sidebar Sticky Specs Column */}
+          {/* Sidebar Sticky Specs Column with Section Jump Links */}
           <aside className="detail-sidebar-column">
             <div className="sticky-sidebar-card">
-              <h3>System Specifications</h3>
+              {/* Quick Jump Navigation */}
+              <div className="spec-group">
+                <span className="spec-label">Table of Contents</span>
+                <nav className="sidebar-jump-nav" aria-label="Case study sections">
+                  {sectionAnchors.map((item) => {
+                    const Icon = item.icon
+                    return (
+                      <a
+                        key={item.id}
+                        href={`#${item.id}`}
+                        className="sidebar-jump-link"
+                      >
+                        <Icon size={13} />
+                        <span>{item.label}</span>
+                      </a>
+                    )
+                  })}
+                </nav>
+              </div>
 
               <div className="spec-group">
                 <span className="spec-label">Domain</span>

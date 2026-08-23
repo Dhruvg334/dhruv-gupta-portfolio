@@ -1,6 +1,8 @@
 import { useEffect, useRef, useState } from 'react'
 import mermaid from 'mermaid'
-import { Copy, Check, RefreshCw } from 'lucide-react'
+import { motion } from 'motion/react'
+import { Copy, Check, RefreshCw, Cpu } from 'lucide-react'
+import { SkeletonDiagram } from './Skeleton'
 
 interface MermaidDiagramProps {
   chart: string
@@ -76,37 +78,38 @@ export function MermaidDiagram({ chart, title }: MermaidDiagramProps) {
     <div className="mermaid-card">
       <div className="mermaid-header">
         <div className="mermaid-title">
-          <span className="mermaid-badge">ARCHITECTURE FLOW</span>
+          <span className="mermaid-badge">
+            <Cpu size={12} /> ARCHITECTURE TOPOLOGY
+          </span>
           {title && <h4>{title}</h4>}
         </div>
         <div className="mermaid-actions">
           <button
+            type="button"
             className="mermaid-btn"
             onClick={handleCopyCode}
-            title="Copy Mermaid Code"
+            title="Copy Mermaid source syntax"
             aria-label="Copy Mermaid diagram code"
           >
-            {copied ? <Check size={14} className="text-emerald" /> : <Copy size={14} />}
+            {copied ? <Check size={13} className="text-emerald" /> : <Copy size={13} />}
             <span>{copied ? 'Copied' : 'Copy Code'}</span>
           </button>
         </div>
       </div>
 
       <div className="mermaid-body" ref={containerRef}>
-        {rendering && (
-          <div className="mermaid-loading">
-            <RefreshCw size={18} className="spinning" />
-            <span>Rendering architecture diagram...</span>
-          </div>
-        )}
-
-        {error ? (
+        {rendering ? (
+          <SkeletonDiagram />
+        ) : error ? (
           <div className="mermaid-fallback">
             <pre><code>{chart}</code></pre>
           </div>
         ) : (
-          <div
+          <motion.div
             className="mermaid-svg-wrap"
+            initial={{ opacity: 0, scale: 0.98 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
             dangerouslySetInnerHTML={{ __html: svgContent }}
           />
         )}

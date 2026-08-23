@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { motion, useReducedMotion } from 'motion/react'
 import {
   Mail,
@@ -15,6 +15,7 @@ import {
   Briefcase,
   Users,
   Cpu,
+  Clock,
 } from 'lucide-react'
 import { Toast } from '../components/Toast'
 
@@ -76,12 +77,31 @@ const contactIntents: ContactIntent[] = [
 export function ContactPage() {
   const [selectedIntent, setSelectedIntent] = useState(contactIntents[0])
   const [subject, setSubject] = useState(contactIntents[0].defaultSubject)
+  const [message, setMessage] = useState('')
   const [submitted, setSubmitted] = useState(false)
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [toastMessage, setToastMessage] = useState<string | null>(null)
   const [copied, setCopied] = useState(false)
+  const [currentTime, setCurrentTime] = useState('')
 
   const reduceMotion = useReducedMotion()
+
+  useEffect(() => {
+    const updateTime = () => {
+      const now = new Date()
+      const timeStr = now.toLocaleTimeString('en-US', {
+        timeZone: 'Asia/Kolkata',
+        hour: '2-digit',
+        minute: '2-digit',
+        hour12: true,
+      })
+      setCurrentTime(`${timeStr} IST (UTC+5:30)`)
+    }
+
+    updateTime()
+    const interval = setInterval(updateTime, 10000)
+    return () => clearInterval(interval)
+  }, [])
 
   const showToast = (msg: string) => {
     setToastMessage(msg)
@@ -117,6 +137,7 @@ export function ContactPage() {
         setIsSubmitting(false)
         if (res.ok) {
           setSubmitted(true)
+          setMessage('')
           showToast('Message sent successfully! I will get back to you soon.')
         } else {
           showToast('Failed to send. Please email me directly at dhruvg3304@gmail.com')
@@ -166,7 +187,7 @@ export function ContactPage() {
                 <span className="intent-label">
                   <Sparkles size={14} className="text-accent" /> What are you reaching out regarding?
                 </span>
-                <div className="intent-chips-grid">
+                <div className="intent-chips-grid" role="tablist">
                   {contactIntents.map((intent) => {
                     const Icon = intent.icon
                     const isActive = selectedIntent.id === intent.id
@@ -176,9 +197,18 @@ export function ContactPage() {
                         type="button"
                         className={`intent-chip ${isActive ? 'active' : ''}`}
                         onClick={() => handleIntentSelect(intent)}
+                        role="tab"
+                        aria-selected={isActive}
                       >
+                        {isActive && (
+                          <motion.span
+                            layoutId="activeIntentBubble"
+                            className="intent-chip-highlight"
+                            transition={{ type: 'spring', stiffness: 400, damping: 30 }}
+                          />
+                        )}
                         <Icon size={14} className={isActive ? 'text-accent' : 'text-muted'} />
-                        <span>{intent.label}</span>
+                        <span className="intent-chip-title">{intent.label}</span>
                       </button>
                     )
                   })}
@@ -253,11 +283,16 @@ export function ContactPage() {
                   </div>
 
                   <label>
-                    <span>Message *</span>
+                    <div className="label-top-row">
+                      <span>Message *</span>
+                      <span className="char-counter">{message.length} characters</span>
+                    </div>
                     <textarea
                       name="message"
                       rows={5}
                       required
+                      value={message}
+                      onChange={(e) => setMessage(e.target.value)}
                       placeholder={selectedIntent.placeholder}
                     />
                   </label>
@@ -297,6 +332,7 @@ export function ContactPage() {
                         className="copy-icon-btn"
                         onClick={handleCopyEmail}
                         title="Copy email address"
+                        aria-label="Copy email address"
                       >
                         {copied ? <Check size={14} className="text-emerald" /> : <Copy size={14} />}
                       </button>
@@ -353,6 +389,14 @@ export function ContactPage() {
                     <Building size={15} />
                     <span>Remote or onsite opportunities</span>
                   </li>
+                  {currentTime && (
+                    <li className="live-clock-item">
+                      <Clock size={15} className="text-emerald" />
+                      <span>
+                        Local Time: <strong>{currentTime}</strong>
+                      </span>
+                    </li>
+                  )}
                 </ul>
               </div>
             </div>
