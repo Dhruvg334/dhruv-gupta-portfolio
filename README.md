@@ -1,49 +1,84 @@
-# Dhruv Gupta — Portfolio
+# Dhruv Gupta — Personal Portfolio & Systems Showcase
 
-This repository is my current portfolio site and a temporary replacement for the larger portfolio I am working toward.
+> **Live Deployment:** [https://dhruvg334.github.io/dhruv-gupta-portfolio/](https://dhruvg334.github.io/dhruv-gupta-portfolio/)
 
-I am in my fourth year and currently balancing placements, applications, and a fairly intense run of hackathon and project work. I needed a portfolio that represents my work properly now, rather than leaving an outdated version online while I wait for enough time to build the full site the way I want it.
+This repository is the active, multi-page portfolio representing my software engineering and AI systems work.
 
-The next version is planned as a dynamic, multi-page portfolio with much deeper project case studies, architecture breakdowns, screenshots, demos, contribution notes, engineering decisions, and more detailed writing around each system.
+> **Note on Roadmap:**  
+> This site serves as my current production portfolio during my final year at KIIT (B.Tech CSE '27) while actively managing placements, applications, and system builds. A larger, more sophisticated next-generation portfolio repository is planned on my roadmap to introduce richer interactive visualizations, live telemetry embeds, and broader writing on agentic architectures.
 
-For now, this version focuses on the most important thing: making my strongest work easy to understand and easy to inspect.
+---
 
-## Built with
+## 🏛️ Site Architecture & Structure
 
-- React
-- TypeScript
-- Vite
-- Motion
-- Lucide icons
-- Custom responsive CSS
-- Formspree for the contact form
-- GitHub Actions for Pages deployment
+The site is built as a clean, decoupled multi-page single-page application (SPA) using React Router with Hash routing for reliable static hosting:
 
-## Local development
+1. **Landing Overview (`/#/`)**  
+   A clear, human-readable introduction focused on who I am and what I build (Intelligent search, AI safety guardrails, automated testing, and full-stack software products) without overwhelming technical jargon.
+
+2. **Systems & Projects Directory (`/#/projects`)**  
+   Central directory categorizing production builds across GraphRAG, AI Agent Safety, RAG Evaluation, Controlled Planning, and Enterprise NGO Workflows. Includes the interactive architecture workspace and engineering archive.
+
+3. **In-Depth Architectural Case Studies (`/#/projects/:id`)**  
+   Dedicated deep-dive case studies for each major system featuring:
+   - **Interactive Mermaid Flowcharts** rendered dynamically in dark mode.
+   - Real-world problem statements and operational context.
+   - Step-by-step pipeline nodes and output contract signatures.
+   - Safety guardrails and evaluation benchmarks.
+   - Architectural tradeoffs and design decisions.
+
+4. **Digital Resume & Print Viewer (`/#/resume`)**  
+   An ATS-friendly digital resume sheet matching verified academic credentials (KIIT CSE '27, 9.45 CGPA, GATE DA 2026 AIR 1109), internship experience, project impact bullets, competitive achievements, and technical skill taxonomy. Includes a one-click `Print / Save as PDF` action with clean black-and-white print styles.
+
+5. **Contact Hub (`/#/contact`)**  
+   Direct communication portal with intent-based inquiry routing (roles, collaboration, architecture discussion, general inquiries) and one-click email copy tools.
+
+---
+
+## 🛠️ Built With
+
+- **Framework & Runtime:** React 19, TypeScript, Vite
+- **Routing:** React Router DOM (HashRouter for seamless GitHub Pages compatibility)
+- **Diagrams & Visualizations:** Mermaid.js (SVG runtime rendering)
+- **Animations:** Motion (`motion/react`)
+- **Icons:** Lucide React
+- **Forms & Email Delivery:** Formspree
+- **Typography:** Plus Jakarta Sans & DM Mono
+- **Deployment:** GitHub Actions (`.github/workflows/deploy.yml`)
+
+---
+
+## 💻 Local Development
 
 ```bash
+# Clone the repository
+git clone https://github.com/Dhruvg334/dhruv-gupta-portfolio.git
+cd dhruv-gupta-portfolio
+
+# Install dependencies
 npm install
+
+# Run the local development server
 npm run dev
 ```
 
-Create a production build with:
+Build for production:
 
 ```bash
 npm run build
 ```
 
-## Deployment
+Preview production build:
 
-The repository includes a GitHub Pages workflow under `.github/workflows/deploy.yml`.
+```bash
+npm run preview
+```
 
-In the repository settings, set **Pages → Build and deployment → Source** to **GitHub Actions**. A push to `main` will then build and publish the site.
+---
 
-## Contact
+## 📬 Contact & Links
 
-- GitHub: https://github.com/Dhruvg334
-- LinkedIn: https://www.linkedin.com/in/dhruv-gupta-7a7500287/
-- Email: dhruvg3304@gmail.com
-
-## Resume requests
-
-The resume is intentionally not stored as a public site asset or exposed through a direct-download link. Recruiters can use **Request resume** on the site, which opens the contact form with the request context prefilled. I review the message and send the current resume personally by email when appropriate.
+- **Email:** [dhruvg3304@gmail.com](mailto:dhruvg3304@gmail.com)
+- **LinkedIn:** [linkedin.com/in/dhruv-gupta-7a7500287](https://www.linkedin.com/in/dhruv-gupta-7a7500287/)
+- **GitHub:** [github.com/Dhruvg334](https://github.com/Dhruvg334)
+- **Live Portfolio:** [dhruvg334.github.io/dhruv-gupta-portfolio](https://dhruvg334.github.io/dhruv-gupta-portfolio/)

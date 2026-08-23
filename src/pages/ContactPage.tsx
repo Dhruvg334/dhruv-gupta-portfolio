@@ -1,9 +1,7 @@
-import { useState, useEffect } from 'react'
-import { useSearchParams } from 'react-router-dom'
+import { useState } from 'react'
 import { motion, useReducedMotion } from 'motion/react'
 import {
   Mail,
-  FileText,
   Send,
   CheckCircle2,
   Copy,
@@ -12,6 +10,8 @@ import {
   GraduationCap,
   Calendar,
   MessageSquare,
+  Sparkles,
+  ArrowRight,
 } from 'lucide-react'
 import { Toast } from '../components/Toast'
 
@@ -31,20 +31,22 @@ function LinkedInMark({ size = 16 }: { size?: number }) {
   )
 }
 
+const contactIntents = [
+  { id: 'hiring', label: '💼 Full-Time / Internship Role', defaultSubject: 'Engineering Opportunity / Role Discussion', placeholder: 'Hi Dhruv, we came across your work and would love to discuss an engineering role with our team...' },
+  { id: 'collab', label: '🤝 Project Collaboration', defaultSubject: 'Project Collaboration / Research', placeholder: 'Hi Dhruv, I am building something interesting in AI/RAG and would love to collaborate on...' },
+  { id: 'arch', label: '💡 System Architecture Chat', defaultSubject: 'Architecture Discussion / Questions', placeholder: 'Hi Dhruv, I checked out your Mnemos / ChronOS case studies and had a question about...' },
+  { id: 'general', label: '💬 General Inquiry', defaultSubject: 'Saying Hello / Inquiry', placeholder: 'Hi Dhruv, just reaching out to connect...' },
+]
+
 export function ContactPage() {
-  const [searchParams] = useSearchParams()
-  const [activeTab, setActiveTab] = useState<'contact' | 'resume'>('contact')
+  const [selectedIntent, setSelectedIntent] = useState(contactIntents[0])
+  const [subject, setSubject] = useState(contactIntents[0].defaultSubject)
   const [submitted, setSubmitted] = useState(false)
+  const [isSubmitting, setIsSubmitting] = useState(false)
   const [toastMessage, setToastMessage] = useState<string | null>(null)
   const [copied, setCopied] = useState(false)
 
   const reduceMotion = useReducedMotion()
-
-  useEffect(() => {
-    if (searchParams.get('tab') === 'resume') {
-      setActiveTab('resume')
-    }
-  }, [searchParams])
 
   const showToast = (msg: string) => {
     setToastMessage(msg)
@@ -54,12 +56,18 @@ export function ContactPage() {
   const handleCopyEmail = () => {
     navigator.clipboard.writeText('dhruvg3304@gmail.com')
     setCopied(true)
-    showToast('Copied to clipboard: dhruvg3304@gmail.com')
+    showToast('Copied email to clipboard: dhruvg3304@gmail.com')
     setTimeout(() => setCopied(false), 2000)
+  }
+
+  const handleIntentSelect = (intent: typeof contactIntents[0]) => {
+    setSelectedIntent(intent)
+    setSubject(intent.defaultSubject)
   }
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
+    setIsSubmitting(true)
     const form = e.currentTarget
     const formData = new FormData(form)
 
@@ -71,18 +79,16 @@ export function ContactPage() {
       },
     })
       .then((res) => {
+        setIsSubmitting(false)
         if (res.ok) {
           setSubmitted(true)
-          showToast(
-            activeTab === 'resume'
-              ? 'Resume request received. I will send it over shortly!'
-              : 'Message sent successfully. I will get back to you soon!'
-          )
+          showToast('Message sent successfully! I will get back to you soon.')
         } else {
           showToast('Failed to send. Please email me directly at dhruvg3304@gmail.com')
         }
       })
       .catch(() => {
+        setIsSubmitting(false)
         showToast('Failed to send. Please email me directly at dhruvg3304@gmail.com')
       })
   }
@@ -109,82 +115,56 @@ export function ContactPage() {
             <p className="section-label">Connect & Collaborate</p>
             <h1 className="page-title">Get in Touch</h1>
             <p className="page-subtitle">
-              Whether you are discussing AI system architecture, exploring potential roles, or requesting my technical resume.
+              Whether you are discussing engineering opportunities, exploring technical collaboration, or asking questions about my projects.
             </p>
           </motion.div>
         </div>
       </section>
 
-      {/* Main Form & Info Section */}
+      {/* Main Contact Section */}
       <section className="section contact-main-section">
         <div className="shell contact-grid-layout">
-          {/* Left: Interactive Form Card */}
+          {/* Left: Enhanced Contact Form */}
           <motion.div className="contact-card-wrap" {...reveal}>
             <div className="contact-form-container">
-              {/* Tab Switcher */}
-              <div className="contact-mode-tabs" role="tablist">
-                <button
-                  className={`mode-tab-btn ${activeTab === 'contact' ? 'active' : ''}`}
-                  onClick={() => {
-                    setActiveTab('contact')
-                    setSubmitted(false)
-                  }}
-                  role="tab"
-                  aria-selected={activeTab === 'contact'}
-                >
-                  <MessageSquare size={15} /> Send Message
-                </button>
-                <button
-                  className={`mode-tab-btn ${activeTab === 'resume' ? 'active' : ''}`}
-                  onClick={() => {
-                    setActiveTab('resume')
-                    setSubmitted(false)
-                  }}
-                  role="tab"
-                  aria-selected={activeTab === 'resume'}
-                >
-                  <FileText size={15} /> Request Resume
-                </button>
+              <div className="contact-intent-bar">
+                <span className="intent-label">
+                  <Sparkles size={14} className="text-accent" /> What are you reaching out regarding?
+                </span>
+                <div className="intent-chips-grid">
+                  {contactIntents.map((intent) => (
+                    <button
+                      key={intent.id}
+                      type="button"
+                      className={`intent-chip ${selectedIntent.id === intent.id ? 'active' : ''}`}
+                      onClick={() => handleIntentSelect(intent)}
+                    >
+                      {intent.label}
+                    </button>
+                  ))}
+                </div>
               </div>
 
               {submitted ? (
                 <div className="form-success-state">
-                  <CheckCircle2 size={42} className="text-emerald" />
-                  <h3>
-                    {activeTab === 'resume' ? 'Resume Request Received' : 'Message Sent Successfully'}
-                  </h3>
+                  <CheckCircle2 size={46} className="text-emerald" />
+                  <h3>Message Sent Successfully</h3>
                   <p>
-                    Thank you for reaching out. I personally review every message and will respond to{' '}
-                    <strong>your email</strong> promptly.
+                    Thank you for reaching out. I review all messages personally and will reply to your email promptly.
                   </p>
                   <button
                     className="btn btn--secondary"
-                    onClick={() => setSubmitted(false)}
+                    onClick={() => {
+                      setSubmitted(false)
+                    }}
                   >
                     Send Another Message
                   </button>
                 </div>
               ) : (
                 <form onSubmit={handleSubmit} className="contact-form-body">
-                  <input
-                    type="hidden"
-                    name="_subject"
-                    value={
-                      activeTab === 'resume'
-                        ? 'Resume Request via Portfolio'
-                        : 'New Message via Portfolio'
-                    }
-                  />
-                  <input type="hidden" name="form_type" value={activeTab} />
-
-                  {activeTab === 'resume' && (
-                    <div className="resume-info-banner">
-                      <FileText size={16} />
-                      <p>
-                        My resume contains updated project metrics, engineering leadership, and verified system benchmarks.
-                      </p>
-                    </div>
-                  )}
+                  <input type="hidden" name="_subject" value={`[Portfolio] ${subject}`} />
+                  <input type="hidden" name="intent_type" value={selectedIntent.id} />
 
                   <div className="form-field-pair">
                     <label>
@@ -208,68 +188,49 @@ export function ContactPage() {
                     </label>
                   </div>
 
-                  {activeTab === 'resume' ? (
-                    <>
-                      <div className="form-field-pair">
-                        <label>
-                          <span>Organization / Company</span>
-                          <input
-                            type="text"
-                            name="organization"
-                            placeholder="e.g. Anthropic / Stealth AI / University"
-                          />
-                        </label>
+                  <div className="form-field-pair">
+                    <label>
+                      <span>Company / Organization (Optional)</span>
+                      <input
+                        type="text"
+                        name="organization"
+                        placeholder="e.g. Acme AI / University"
+                      />
+                    </label>
 
-                        <label>
-                          <span>Purpose of Request *</span>
-                          <select name="purpose" required className="form-select">
-                            <option value="Internship / Full-time Role">Internship / Full-Time Engineering</option>
-                            <option value="Technical Collaboration">Technical Collaboration / Research</option>
-                            <option value="Consulting / Architecture Review">System Architecture Review</option>
-                            <option value="General Exploration">General Exploration</option>
-                          </select>
-                        </label>
-                      </div>
+                    <label>
+                      <span>Subject *</span>
+                      <input
+                        type="text"
+                        name="subject"
+                        required
+                        value={subject}
+                        onChange={(e) => setSubject(e.target.value)}
+                        placeholder="e.g. Role Discussion / Question about Mnemos"
+                      />
+                    </label>
+                  </div>
 
-                      <label>
-                        <span>Note (Optional)</span>
-                        <textarea
-                          name="message"
-                          rows={3}
-                          placeholder="Any specific context or team details you'd like to share..."
-                        />
-                      </label>
-                    </>
-                  ) : (
-                    <>
-                      <label>
-                        <span>Subject *</span>
-                        <input
-                          type="text"
-                          name="subject"
-                          required
-                          placeholder="e.g. System Architecture / Question about Mnemos"
-                        />
-                      </label>
-
-                      <label>
-                        <span>Message *</span>
-                        <textarea
-                          name="message"
-                          rows={5}
-                          required
-                          placeholder="Hi Dhruv, I wanted to discuss..."
-                        />
-                      </label>
-                    </>
-                  )}
+                  <label>
+                    <span>Message *</span>
+                    <textarea
+                      name="message"
+                      rows={5}
+                      required
+                      placeholder={selectedIntent.placeholder}
+                    />
+                  </label>
 
                   <div className="form-submit-row">
-                    <button type="submit" className="btn btn--primary btn--large">
+                    <button
+                      type="submit"
+                      disabled={isSubmitting}
+                      className="btn btn--primary btn--large"
+                    >
                       <Send size={15} />
-                      {activeTab === 'resume' ? 'Request Resume' : 'Send Message'}
+                      {isSubmitting ? 'Sending...' : 'Send Message'}
                     </button>
-                    <span className="submit-note">Delivered directly to inbox</span>
+                    <span className="submit-note">Delivered directly to dhruvg3304@gmail.com</span>
                   </div>
                 </form>
               )}
@@ -291,6 +252,7 @@ export function ContactPage() {
                     <div className="email-copy-row">
                       <strong>dhruvg3304@gmail.com</strong>
                       <button
+                        type="button"
                         className="copy-icon-btn"
                         onClick={handleCopyEmail}
                         title="Copy email address"
@@ -311,9 +273,10 @@ export function ContactPage() {
                     <GitHubMark size={18} />
                   </div>
                   <div className="channel-detail">
-                    <span className="channel-lbl">GitHub</span>
+                    <span className="channel-lbl">GitHub Profile</span>
                     <strong>github.com/Dhruvg334</strong>
                   </div>
+                  <ArrowRight size={14} className="channel-arrow" />
                 </a>
 
                 <a
@@ -327,8 +290,9 @@ export function ContactPage() {
                   </div>
                   <div className="channel-detail">
                     <span className="channel-lbl">LinkedIn</span>
-                    <strong>linkedin.com/in/dhruv-gupta-7a7500287</strong>
+                    <strong>linkedin.com/in/dhruv-gupta</strong>
                   </div>
+                  <ArrowRight size={14} className="channel-arrow" />
                 </a>
               </div>
 
@@ -342,11 +306,11 @@ export function ContactPage() {
                   </li>
                   <li>
                     <Calendar size={15} />
-                    <span>Open for technical internships, research, and AI systems engineering discussions</span>
+                    <span>Open for technical internships, full-time AI engineering roles, and open-source collaboration</span>
                   </li>
                   <li>
                     <Building size={15} />
-                    <span>Remote or onsite engineering opportunities</span>
+                    <span>Remote or onsite opportunities</span>
                   </li>
                 </ul>
               </div>

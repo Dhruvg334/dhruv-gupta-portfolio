@@ -38,14 +38,21 @@ export function Navbar() {
             className={({ isActive }) => (isActive ? 'active' : '')}
             onClick={() => setMenuOpen(false)}
           >
-            Systems & Projects
+            Projects
+          </NavLink>
+          <NavLink
+            to="/resume"
+            className={({ isActive }) => (isActive ? 'active' : '')}
+            onClick={() => setMenuOpen(false)}
+          >
+            Resume
           </NavLink>
           <NavLink
             to="/contact"
             className={({ isActive }) => (isActive ? 'active' : '')}
             onClick={() => setMenuOpen(false)}
           >
-            Contact & Resume
+            Contact
           </NavLink>
 
           <div className="nav-actions-mobile">

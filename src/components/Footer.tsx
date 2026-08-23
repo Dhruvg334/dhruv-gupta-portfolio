@@ -23,7 +23,7 @@ interface FooterProps {
 
 export function Footer({ onCopyEmail }: FooterProps) {
   return (
-    <footer className="site-footer">
+    <footer className="site-footer no-print">
       <div className="shell footer-grid">
         <div className="footer-brand">
           <img src={avatarSvg} alt="Dhruv Gupta" className="footer-avatar" />
@@ -36,6 +36,7 @@ export function Footer({ onCopyEmail }: FooterProps) {
         <div className="footer-links-row">
           <Link to="/">Overview</Link>
           <Link to="/projects">Projects</Link>
+          <Link to="/resume">Resume</Link>
           <Link to="/contact">Contact</Link>
           {onCopyEmail ? (
             <button onClick={onCopyEmail} className="footer-link-btn">
