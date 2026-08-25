@@ -2617,21 +2617,36 @@ button {
    Contact Page Styles (Upgraded with Intent Bar)
    ========================================================================== */
 
+/* Contact Page Layout & Components */
 .contact-page {
   background: var(--bg-main);
 }
 
 .contact-main-section {
-  padding: 60px 0 90px;
+  padding: 40px 0 80px;
 }
 
+.contact-layout-grid,
 .contact-grid-layout {
   display: grid;
-  grid-template-columns: 1.2fr 0.8fr;
-  gap: 40px;
+  grid-template-columns: 1.25fr 0.85fr;
+  gap: 36px;
   align-items: start;
 }
 
+@media (max-width: 960px) {
+  .contact-layout-grid,
+  .contact-grid-layout {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+}
+
+.contact-form-wrap {
+  width: 100%;
+}
+
+.contact-form-card,
 .contact-form-container {
   background: var(--bg-card);
   border: 1px solid var(--border-subtle);
@@ -2639,73 +2654,97 @@ button {
   padding: 36px 32px;
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: 22px;
+  box-shadow: var(--shadow-card);
 }
 
-.contact-intent-bar {
+@media (max-width: 600px) {
+  .contact-form-card,
+  .contact-form-container {
+    padding: 24px 18px;
+  }
+}
+
+.form-card-header h2 {
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 6px;
+}
+
+.form-card-header p {
+  font-size: 0.88rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+/* Topic Selector Group & Pills */
+.intent-selector-group {
   display: flex;
   flex-direction: column;
   gap: 12px;
-  padding-bottom: 20px;
+  padding: 16px 0 20px;
+  border-top: 1px solid var(--border-subtle);
   border-bottom: 1px solid var(--border-subtle);
 }
 
-.intent-label {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  font-size: 0.84rem;
-  font-weight: 700;
-  color: #fff;
+.intent-group-label {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  letter-spacing: 0.01em;
 }
 
-.intent-chips-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
+.intent-pills-row {
+  display: flex;
+  flex-wrap: wrap;
   gap: 10px;
 }
 
-.intent-chip {
-  position: relative;
-  padding: 10px 14px;
-  border-radius: var(--radius-sm);
-  background: var(--bg-card-elevated);
-  border: 1px solid var(--border-subtle);
-  color: var(--text-secondary);
-  font-size: 0.78rem;
-  font-weight: 600;
-  text-align: left;
+.intent-pill-btn {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  transition: all 0.18s ease;
-  overflow: hidden;
+  padding: 9px 14px;
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  background: var(--bg-card-elevated);
+  border: 1px solid var(--border-medium);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.22, 1, 0.36, 1);
+  user-select: none;
+  line-height: 1.3;
 }
 
-.intent-chip:hover {
+.intent-pill-btn:hover {
   background: var(--bg-card-hover);
   color: #fff;
-  border-color: var(--border-medium);
+  border-color: var(--border-strong);
+  transform: translateY(-1px);
 }
 
-.intent-chip-highlight {
-  position: absolute;
-  inset: 0;
-  background: rgba(168, 32, 39, 0.28);
-  border: 1px solid var(--accent-red);
-  border-radius: var(--radius-sm);
-  z-index: 1;
-}
-
-.intent-chip svg,
-.intent-chip-title {
-  position: relative;
-  z-index: 2;
-}
-
-.intent-chip.active {
+.intent-pill-btn.selected {
+  background: rgba(230, 83, 69, 0.16);
+  border-color: var(--accent-red);
   color: #fff;
-  font-weight: 700;
+  font-weight: 600;
+  box-shadow: 0 0 14px rgba(230, 83, 69, 0.22);
+}
+
+.intent-pill-btn svg {
+  flex-shrink: 0;
+  color: var(--text-muted);
+  transition: color 0.2s ease;
+}
+
+.intent-pill-btn.selected svg {
+  color: var(--accent-red);
+}
+
+.intent-pill-btn:hover svg {
+  color: #fff;
 }
 
 .contact-form-body {
@@ -2740,6 +2779,13 @@ button {
   gap: 16px;
 }
 
+@media (max-width: 600px) {
+  .form-field-pair {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+}
+
 .contact-form-body label {
   display: flex;
   flex-direction: column;
@@ -2761,6 +2807,7 @@ button {
   font-size: 0.88rem;
   outline: none;
   transition: all 0.18s ease;
+  font-family: inherit;
 }
 
 .contact-form-body input:focus,
@@ -2775,7 +2822,8 @@ button {
   align-items: center;
   justify-content: space-between;
   gap: 14px;
-  margin-top: 6px;
+  margin-top: 8px;
+  flex-wrap: wrap;
 }
 
 .submit-note {
@@ -2784,28 +2832,47 @@ button {
   color: var(--text-muted);
 }
 
+.contact-success-box,
 .form-success-state {
   text-align: center;
-  padding: 40px 20px;
+  padding: 36px 20px;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 14px;
+  background: var(--bg-card-elevated);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
 }
 
+.success-icon-wrap {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: rgba(16, 185, 129, 0.12);
+  display: grid;
+  place-items: center;
+}
+
+.contact-success-box h3,
 .form-success-state h3 {
-  font-size: 1.4rem;
+  font-size: 1.3rem;
   color: #fff;
 }
 
+.contact-success-box p,
 .form-success-state p {
-  font-size: 0.92rem;
+  font-size: 0.9rem;
   color: var(--text-secondary);
-  max-width: 480px;
+  max-width: 440px;
   line-height: 1.6;
 }
 
 /* Contact Sidebar Info */
+.contact-sidebar-wrap {
+  width: 100%;
+}
+
 .contact-info-card {
   background: var(--bg-card);
   border: 1px solid var(--border-subtle);
@@ -2813,7 +2880,8 @@ button {
   padding: 32px 28px;
   display: flex;
   flex-direction: column;
-  gap: 26px;
+  gap: 24px;
+  box-shadow: var(--shadow-card);
 }
 
 .contact-info-card h3 {
@@ -2825,7 +2893,7 @@ button {
 .direct-channels-list {
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  gap: 12px;
 }
 
 .channel-item {
@@ -2837,6 +2905,7 @@ button {
   background: var(--bg-card-elevated);
   border: 1px solid var(--border-subtle);
   transition: all 0.18s ease;
+  text-decoration: none;
 }
 
 .channel-item--link:hover {
@@ -2908,7 +2977,7 @@ button {
   padding: 18px;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 12px;
 }
 
 .availability-box h4 {
@@ -2921,7 +2990,7 @@ button {
   list-style: none;
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 10px;
   font-size: 0.78rem;
   color: var(--text-secondary);
 }
@@ -2929,7 +2998,7 @@ button {
 .availability-box li {
   display: flex;
   align-items: flex-start;
-  gap: 8px;
+  gap: 10px;
   line-height: 1.4;
 }
 
@@ -2937,6 +3006,41 @@ button {
   color: var(--accent-red);
   flex-shrink: 0;
   margin-top: 2px;
+}
+
+/* Credentials Mini Box */
+.credentials-mini-box {
+  background: var(--bg-card-elevated);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.credentials-mini-box h4 {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #fff;
+}
+
+.cred-pill-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.cred-pill {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.76rem;
+  color: var(--text-secondary);
+  padding: 6px 10px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-xs);
 }
 
 /* Site Footer */
