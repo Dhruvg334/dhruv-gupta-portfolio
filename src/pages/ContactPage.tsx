@@ -63,7 +63,7 @@ const contactIntents: ContactIntent[] = [
     label: 'System Architecture Discussion',
     icon: Cpu,
     defaultSubject: 'Architecture Discussion / Questions',
-    placeholder: 'Hi Dhruv, I checked out your Mnemos / ChronOS case studies and had a question about...',
+    placeholder: 'Hi Dhruv, I checked out your Civitas / Mnemos / ChronOS case studies and had a question about...',
   },
   {
     id: 'general',
@@ -178,37 +178,32 @@ export function ContactPage() {
       </section>
 
       {/* Main Contact Section */}
-      <section className="section contact-main-section">
-        <div className="shell contact-grid-layout">
-          {/* Left: Enhanced Contact Form */}
-          <motion.div className="contact-card-wrap" {...reveal}>
-            <div className="contact-form-container">
-              <div className="contact-intent-bar">
-                <span className="intent-label">
-                  <Sparkles size={14} className="text-accent" /> What are you reaching out regarding?
-                </span>
-                <div className="intent-chips-grid" role="tablist">
+      <main className="section contact-main-section">
+        <div className="shell contact-layout-grid">
+          {/* Left: Interactive Form */}
+          <motion.div className="contact-form-wrap" {...reveal}>
+            <div className="contact-form-card">
+              <div className="form-card-header">
+                <h2>Send a Message</h2>
+                <p>Pick a topic to tailor your inquiry or compose a direct note below.</p>
+              </div>
+
+              {/* Topic Selector Pills */}
+              <div className="intent-selector-group">
+                <span className="intent-group-label">What would you like to discuss?</span>
+                <div className="intent-pills-row">
                   {contactIntents.map((intent) => {
                     const Icon = intent.icon
-                    const isActive = selectedIntent.id === intent.id
+                    const isSelected = selectedIntent.id === intent.id
                     return (
                       <button
                         key={intent.id}
                         type="button"
-                        className={`intent-chip ${isActive ? 'active' : ''}`}
+                        className={`intent-pill-btn ${isSelected ? 'selected' : ''}`}
                         onClick={() => handleIntentSelect(intent)}
-                        role="tab"
-                        aria-selected={isActive}
                       >
-                        {isActive && (
-                          <motion.span
-                            layoutId="activeIntentBubble"
-                            className="intent-chip-highlight"
-                            transition={{ type: 'spring', stiffness: 400, damping: 30 }}
-                          />
-                        )}
-                        <Icon size={14} className={isActive ? 'text-accent' : 'text-muted'} />
-                        <span className="intent-chip-title">{intent.label}</span>
+                        <Icon size={14} />
+                        <span>{intent.label}</span>
                       </button>
                     )
                   })}
@@ -216,26 +211,25 @@ export function ContactPage() {
               </div>
 
               {submitted ? (
-                <div className="form-success-state">
-                  <CheckCircle2 size={46} className="text-emerald" />
-                  <h3>Message Sent Successfully</h3>
+                <div className="contact-success-box">
+                  <div className="success-icon-wrap">
+                    <CheckCircle2 size={40} className="text-emerald" />
+                  </div>
+                  <h3>Message Sent Successfully!</h3>
                   <p>
-                    Thank you for reaching out. I review all messages personally and will reply to your email promptly.
+                    Thank you for reaching out. Your note has been delivered to <strong>dhruvg3304@gmail.com</strong>. I typically respond within 24 hours.
                   </p>
                   <button
                     type="button"
                     className="btn btn--secondary"
-                    onClick={() => {
-                      setSubmitted(false)
-                    }}
+                    onClick={() => setSubmitted(false)}
                   >
-                    Send Another Message
+                    Send Another Note
                   </button>
                 </div>
               ) : (
                 <form onSubmit={handleSubmit} className="contact-form-body">
-                  <input type="hidden" name="_subject" value={`[Portfolio] ${subject}`} />
-                  <input type="hidden" name="intent_type" value={selectedIntent.id} />
+                  <input type="hidden" name="_intent" value={selectedIntent.label} />
 
                   <div className="form-field-pair">
                     <label>
@@ -245,6 +239,7 @@ export function ContactPage() {
                         name="name"
                         required
                         placeholder="e.g. Sarah Jenkins"
+                        maxLength={100}
                       />
                     </label>
 
@@ -255,6 +250,7 @@ export function ContactPage() {
                         name="email"
                         required
                         placeholder="e.g. sarah@company.com"
+                        maxLength={120}
                       />
                     </label>
                   </div>
@@ -266,6 +262,7 @@ export function ContactPage() {
                         type="text"
                         name="organization"
                         placeholder="e.g. Acme AI / University"
+                        maxLength={100}
                       />
                     </label>
 
@@ -277,7 +274,8 @@ export function ContactPage() {
                         required
                         value={subject}
                         onChange={(e) => setSubject(e.target.value)}
-                        placeholder="e.g. Role Discussion / Question about Mnemos"
+                        placeholder="e.g. Role Discussion / Question about Civitas"
+                        maxLength={150}
                       />
                     </label>
                   </div>
@@ -285,7 +283,7 @@ export function ContactPage() {
                   <label>
                     <div className="label-top-row">
                       <span>Message *</span>
-                      <span className="char-counter">{message.length} characters</span>
+                      <span className="char-counter">{message.length} / 3000 characters</span>
                     </div>
                     <textarea
                       name="message"
@@ -294,6 +292,7 @@ export function ContactPage() {
                       value={message}
                       onChange={(e) => setMessage(e.target.value)}
                       placeholder={selectedIntent.placeholder}
+                      maxLength={3000}
                     />
                   </label>
 
@@ -343,7 +342,7 @@ export function ContactPage() {
                 <a
                   href="https://github.com/Dhruvg334"
                   target="_blank"
-                  rel="noreferrer"
+                  rel="noopener noreferrer"
                   className="channel-item channel-item--link"
                 >
                   <div className="channel-icon">
@@ -359,7 +358,7 @@ export function ContactPage() {
                 <a
                   href="https://www.linkedin.com/in/dhruv-gupta-7a7500287/"
                   target="_blank"
-                  rel="noreferrer"
+                  rel="noopener noreferrer"
                   className="channel-item channel-item--link"
                 >
                   <div className="channel-icon">
@@ -378,31 +377,58 @@ export function ContactPage() {
                 <h4>Availability & Academic Timeline</h4>
                 <ul>
                   <li>
-                    <GraduationCap size={15} />
-                    <span><strong>B.Tech CSE @ KIIT</strong> (Graduating July 2027)</span>
+                    <GraduationCap size={15} className="text-accent" />
+                    <span>
+                      <strong>Current Degree:</strong> B.Tech CSE @ KIIT Bhubaneswar
+                    </span>
                   </li>
                   <li>
-                    <Calendar size={15} />
-                    <span>Open for technical internships, full-time AI engineering roles, and open-source collaboration</span>
+                    <Calendar size={15} className="text-accent" />
+                    <span>
+                      <strong>Graduation:</strong> July 2027 (Currently Final-Year)
+                    </span>
                   </li>
                   <li>
-                    <Building size={15} />
-                    <span>Remote or onsite opportunities</span>
+                    <Building size={15} className="text-accent" />
+                    <span>
+                      <strong>Opportunities:</strong> Open to Full-Time, Technical Internships & Open-Source Research
+                    </span>
                   </li>
-                  {currentTime && (
-                    <li className="live-clock-item">
-                      <Clock size={15} className="text-emerald" />
-                      <span>
-                        Local Time: <strong>{currentTime}</strong>
-                      </span>
-                    </li>
-                  )}
+                  <li>
+                    <Clock size={15} className="text-accent" />
+                    <span>
+                      <strong>Current Local Time:</strong> {currentTime || 'IST (UTC+5:30)'}
+                    </span>
+                  </li>
                 </ul>
+              </div>
+
+              {/* Verified Credentials Quick Summary */}
+              <div className="credentials-mini-box">
+                <h4>Academic & Technical Highlights</h4>
+                <div className="cred-pill-list">
+                  <div className="cred-pill">
+                    <CheckCircle2 size={13} className="text-emerald" />
+                    <span>9.45 / 10.0 CGPA</span>
+                  </div>
+                  <div className="cred-pill">
+                    <CheckCircle2 size={13} className="text-emerald" />
+                    <span>GATE DA 2026 Qualified (AIR 1109)</span>
+                  </div>
+                  <div className="cred-pill">
+                    <CheckCircle2 size={13} className="text-emerald" />
+                    <span>Global Tech Innovation 2026 Winner</span>
+                  </div>
+                  <div className="cred-pill">
+                    <CheckCircle2 size={13} className="text-emerald" />
+                    <span>6 Production Architectural Case Studies</span>
+                  </div>
+                </div>
               </div>
             </div>
           </motion.div>
         </div>
-      </section>
+      </main>
 
       {/* Toast Notification */}
       <Toast message={toastMessage} />

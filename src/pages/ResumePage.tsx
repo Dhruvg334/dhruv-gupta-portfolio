@@ -2,20 +2,16 @@ import { useState } from 'react'
 import { motion, useReducedMotion } from 'motion/react'
 import {
   Printer,
-  Download,
   Mail,
   Phone,
-  MapPin,
   ExternalLink,
   Award,
-  CheckCircle2,
   Calendar,
   Briefcase,
   GraduationCap,
   FolderGit2,
   Code2,
   Layers,
-  Sparkles,
   Share2,
 } from 'lucide-react'
 import { Toast } from '../components/Toast'
@@ -111,7 +107,7 @@ export function ResumePage() {
                 <a
                   href="https://www.linkedin.com/in/dhruv-gupta-7a7500287/"
                   target="_blank"
-                  rel="noreferrer"
+                  rel="noopener noreferrer"
                   className="resume-contact-item"
                 >
                   <LinkedInMark size={13} /> LinkedIn
@@ -119,7 +115,7 @@ export function ResumePage() {
                 <a
                   href="https://github.com/Dhruvg334"
                   target="_blank"
-                  rel="noreferrer"
+                  rel="noopener noreferrer"
                   className="resume-contact-item"
                 >
                   <GitHubMark size={13} /> GitHub
@@ -127,7 +123,7 @@ export function ResumePage() {
                 <a
                   href="https://dhruvg334.github.io/dhruv-gupta-portfolio/"
                   target="_blank"
-                  rel="noreferrer"
+                  rel="noopener noreferrer"
                   className="resume-contact-item"
                 >
                   <ExternalLink size={13} /> Portfolio
@@ -141,7 +137,7 @@ export function ResumePage() {
                 <Layers size={16} /> Summary
               </h2>
               <p className="resume-summary-text">
-                Final-year B.Tech CSE student building practical AI systems around retrieval, agent workflows, backend APIs, deterministic validation, human review, evaluation, auditability, and deployment. Built live projects across industrial GraphRAG, controlled agentic planning, AI-agent safety review, and source-grounded learning systems. GATE Data Science and Artificial Intelligence 2026 – AIR 1109.
+                Final-year B.Tech CSE student building practical AI systems around retrieval, agent workflows, backend APIs, deterministic validation, human review, evaluation, auditability, and deployment. Built live projects across multimodal civic intelligence (Civitas), industrial GraphRAG (Mnemos), controlled agentic planning (ChronOS), AI-agent safety review (A-DAP-T), and source-grounded learning systems (Tessarion). GATE Data Science and Artificial Intelligence 2026 – AIR 1109.
               </p>
             </section>
 
@@ -153,47 +149,47 @@ export function ResumePage() {
               <div className="resume-entry">
                 <div className="entry-header">
                   <div className="entry-title-group">
-                    <h3 className="entry-org">Kalinga Institute of Industrial Technology (KIIT)</h3>
-                    <span className="entry-degree">B.Tech in Computer Science and Engineering · <strong>CGPA: 9.45</strong></span>
+                    <h3 className="entry-role-title">B.Tech in Computer Science and Engineering</h3>
+                    <span className="entry-org">Kalinga Institute of Industrial Technology (KIIT), Bhubaneswar</span>
+                    <span className="entry-degree">Cumulative Grade: <strong>9.45 / 10.0 CGPA</strong></span>
                   </div>
                   <div className="entry-meta">
-                    <span className="entry-date">2023 – Present (Graduating July 2027)</span>
-                    <span className="entry-loc"><MapPin size={12} /> Bhubaneswar, India</span>
+                    <span className="entry-date">Expected Graduation: July 2027</span>
+                    <span className="entry-loc">Bhubaneswar, Odisha</span>
                   </div>
                 </div>
               </div>
             </section>
 
-            {/* Experience Section */}
+            {/* Work & Internship Experience */}
             <section className="resume-section">
               <h2 className="resume-section-title">
-                <Briefcase size={16} /> Experience
+                <Briefcase size={16} /> Experience & Internships
               </h2>
 
+              {/* KIIT Internship */}
               <div className="resume-entry">
                 <div className="entry-header">
                   <div className="entry-title-group">
-                    <h3 className="entry-role-title">AI/ML Intern</h3>
+                    <h3 className="entry-role-title">AI / ML Intern</h3>
                     <span className="entry-org">KIIT School of Computer Applications</span>
                   </div>
                   <div className="entry-meta">
                     <span className="entry-date">May 2026 – Jul 2026</span>
-                    <span className="entry-loc"><MapPin size={12} /> Bhubaneswar, India</span>
+                    <span className="entry-loc">Bhubaneswar, Odisha</span>
                   </div>
                 </div>
                 <ul className="entry-bullets">
                   <li>
-                    Completed an 8-week AI/ML-focused summer internship covering modern AI/ML, NLP, cybersecurity, and image-processing concepts through university-led training and guided technical work.
+                    Completed an 8-week summer internship spanning NLP, cybersecurity, image processing, deep learning, agentic AI, software engineering, and production deployment under faculty mentorship.
                   </li>
                   <li>
-                    Prepared <strong>Sahayak AI</strong>, an invention disclosure for a privacy-aware student-support ML system using academic activity patterns, explainable support alerts, mentor review, and feedback-based improvement.
-                  </li>
-                  <li>
-                    Strengthened responsible AI workflow judgment around privacy cleaning, interpretable signals, human review, evaluation tradeoffs, and safe use of educational data.
+                    Delivered the <em>Sahayak AI</em> student-support system through multi-turn conversational support, academic task flows, diagnostic reasoning, and an invention disclosure.
                   </li>
                 </ul>
               </div>
 
+              {/* InAmigos Internship */}
               <div className="resume-entry">
                 <div className="entry-header">
                   <div className="entry-title-group">
@@ -222,6 +218,39 @@ export function ResumePage() {
                 <FolderGit2 size={16} /> Featured Projects
               </h2>
 
+              {/* Civitas */}
+              <div className="resume-entry">
+                <div className="entry-header">
+                  <div className="entry-title-group">
+                    <div className="proj-title-row">
+                      <h3 className="entry-role-title">Civitas – Multimodal Civic Incident Intelligence</h3>
+                      <div className="resume-proj-links no-print">
+                        <a href="https://civitas-web.vercel.app" target="_blank" rel="noopener noreferrer" className="pill-link">
+                          <ExternalLink size={11} /> Live
+                        </a>
+                        <a href="https://github.com/Dhruvg334/civitas" target="_blank" rel="noopener noreferrer" className="pill-link">
+                          <GitHubMark size={11} /> Code
+                        </a>
+                      </div>
+                    </div>
+                    <span className="entry-stack">
+                      Next.js 16, React 19, TypeScript, FastAPI, PostGIS, H3 Spatial, LangGraph, Groq, CLIP, Leaflet
+                    </span>
+                  </div>
+                </div>
+                <ul className="entry-bullets">
+                  <li>
+                    Built a multimodal civic incident platform converting citizen reports across Web PWA, WhatsApp, Telegram, and Open311 into structured work orders with policy-grounded routing and SHA-256 audit certificates.
+                  </li>
+                  <li>
+                    Implemented client-side canvas downsampling (40MB to &lt;1.2MB in &lt;200ms), PostGIS spatial context, H3 hexagonal indexing (Resolution 8/9), and decoupled Severity vs. Priority scoring with school/hospital SLA acceleration.
+                  </li>
+                  <li>
+                    Engineered hybrid BM25 + dense RRF policy retrieval ($k=60$) achieving <strong>99.2% statutory routing precision</strong>, automated Schedule of Rates (SOR) BOQ costing, and 64-bit dHash anti-fraud verification.
+                  </li>
+                </ul>
+              </div>
+
               {/* Mnemos */}
               <div className="resume-entry">
                 <div className="entry-header">
@@ -229,7 +258,10 @@ export function ResumePage() {
                     <div className="proj-title-row">
                       <h3 className="entry-role-title">Mnemos – Industrial Knowledge Intelligence</h3>
                       <div className="resume-proj-links no-print">
-                        <a href="https://github.com/Dhruvg334" target="_blank" rel="noreferrer" className="pill-link">
+                        <a href="https://mnemos-lake.vercel.app" target="_blank" rel="noopener noreferrer" className="pill-link">
+                          <ExternalLink size={11} /> Live
+                        </a>
+                        <a href="https://github.com/Dhruvg334/Mnemos" target="_blank" rel="noopener noreferrer" className="pill-link">
                           <GitHubMark size={11} /> Code
                         </a>
                       </div>
@@ -249,9 +281,6 @@ export function ResumePage() {
                   <li>
                     <strong>Business impact:</strong> reduces maintenance and compliance search friction through evidence-backed root cause analysis (RCA), asset passports, compliance-gap workflows, and a governed investigation runtime with durable checkpoints and approval gates.
                   </li>
-                  <li>
-                    Added regression-style evaluation gates for citation precision, abstention quality, routing, retrieval recall, and workflow completion.
-                  </li>
                 </ul>
               </div>
 
@@ -262,10 +291,10 @@ export function ResumePage() {
                     <div className="proj-title-row">
                       <h3 className="entry-role-title">ChronOS – Adaptive Execution System</h3>
                       <div className="resume-proj-links no-print">
-                        <a href="https://chronos-dhruv.netlify.app" target="_blank" rel="noreferrer" className="pill-link">
+                        <a href="https://chronos-dhruv.netlify.app" target="_blank" rel="noopener noreferrer" className="pill-link">
                           <ExternalLink size={11} /> Live
                         </a>
-                        <a href="https://github.com/Dhruvg334" target="_blank" rel="noreferrer" className="pill-link">
+                        <a href="https://github.com/Dhruvg334/Chronos" target="_blank" rel="noopener noreferrer" className="pill-link">
                           <GitHubMark size={11} /> Code
                         </a>
                       </div>
@@ -283,10 +312,7 @@ export function ResumePage() {
                     Implemented bounded AI workflows for intake, planning, retrieval, explanation, and recovery while deterministic services own feasibility, overlap detection, capacity, dependencies, permissions, approvals, and persistence.
                   </li>
                   <li>
-                    Engineered memory/context retrieval, explicit/inferred preference handling, source attribution, focus sessions, recovery flows, Google Calendar read-first architecture, and scoped MCP integration foundations.
-                  </li>
-                  <li>
-                    Verified the release with <strong>158 backend tests, 37 frontend tests</strong>, migration chain through 028, RLS isolation, atomic transaction coverage, deployment tests, and 105 curated synthetic evaluation cases.
+                    Verified the release with <strong>158 backend tests, 37 frontend tests</strong>, RLS isolation, atomic transaction coverage, deployment tests, and 105 curated synthetic evaluation cases.
                   </li>
                 </ul>
               </div>
@@ -298,7 +324,10 @@ export function ResumePage() {
                     <div className="proj-title-row">
                       <h3 className="entry-role-title">A-DAP-T – AI-Agent Deployment Safety Review</h3>
                       <div className="resume-proj-links no-print">
-                        <a href="https://github.com/Dhruvg334" target="_blank" rel="noreferrer" className="pill-link">
+                        <a href="https://a-dap-t.vercel.app" target="_blank" rel="noopener noreferrer" className="pill-link">
+                          <ExternalLink size={11} /> Live
+                        </a>
+                        <a href="https://github.com/Dhruvg334/A-DAP-T" target="_blank" rel="noopener noreferrer" className="pill-link">
                           <GitHubMark size={11} /> Code
                         </a>
                       </div>
@@ -310,13 +339,10 @@ export function ResumePage() {
                 </div>
                 <ul className="entry-bullets">
                   <li>
-                    Built a deployed AI-agent safety review platform scanning GitHub repositories, ZIP uploads, and demo agents for exposed secrets, unsafe tools, missing approval gates, weak auditability, and sensitive-data risks.
+                    Built a deployed AI-agent safety review platform scanning GitHub repositories and ZIP uploads for exposed secrets, unsafe tools, missing approval gates, weak auditability, and sensitive-data risks.
                   </li>
                   <li>
-                    Implemented security surface mapping, guardrail matrix, deterministic release policy checks, static attack simulations, patch previews, saved reports, report comparison, and an evidence-aware assistant.
-                  </li>
-                  <li>
-                    <strong>Business impact:</strong> turns manual GenAI/agent release review into a repeatable deployment gate with deterministic ALLOW/REVIEW/BLOCK decisions and Gemini limited to summaries and remediation guidance.
+                    Implemented security surface mapping, 16-point guardrail matrix, deterministic release policy checks, static attack simulations, and automated code remediation diff generation.
                   </li>
                   <li>
                     Won <strong>3rd Prize at Global Tech Innovation 2026</strong> and <strong>Technical Excellence at Devlynix Buildathon 2.0</strong>.
@@ -331,7 +357,7 @@ export function ResumePage() {
                     <div className="proj-title-row">
                       <h3 className="entry-role-title">Tessarion – Evidence-Linked Learning</h3>
                       <div className="resume-proj-links no-print">
-                        <a href="https://github.com/Dhruvg334" target="_blank" rel="noreferrer" className="pill-link">
+                        <a href="https://github.com/Dhruvg334/Tessarion" target="_blank" rel="noopener noreferrer" className="pill-link">
                           <GitHubMark size={11} /> Code
                         </a>
                       </div>
@@ -346,84 +372,70 @@ export function ResumePage() {
                     Built a source-grounded learning workspace where learners teach concepts back, receive evidence-linked diagnosis, explore concept graphs, and recover through guided tutoring workflows.
                   </li>
                   <li>
-                    Implemented concept extraction, hybrid retrieval, graph-supported context, teach-back diagnosis, mastery/review logic, Socratic tutoring policies, workflow traces, and deterministic public demo notebooks.
-                  </li>
-                  <li>
-                    <strong>Business impact:</strong> moves beyond generic AI tutoring by testing whether learners can reconstruct ideas with source evidence, explicit gaps, supported claims, and measurable recovery paths.
+                    Implemented concept extraction, hybrid retrieval, graph-supported context, teach-back diagnosis, mastery/review logic, Socratic tutoring policies, and 50+ automated Vitest evaluation benchmarks.
                   </li>
                 </ul>
               </div>
             </section>
 
-            {/* Achievements Section */}
+            {/* Achievements & Certifications */}
             <section className="resume-section">
               <h2 className="resume-section-title">
-                <Award size={16} /> Achievements & Competitive Standing
-              </h2>
-              <ul className="resume-list-simple">
-                <li>
-                  <CheckCircle2 size={13} className="text-emerald" />
-                  <span><strong>3rd Prize</strong>, Global Tech Innovation 2026 – A-DAP-T (AI-agent deployment safety platform).</span>
-                </li>
-                <li>
-                  <CheckCircle2 size={13} className="text-emerald" />
-                  <span><strong>Technical Excellence Winner</strong>, Devlynix Buildathon 2.0 – A-DAP-T.</span>
-                </li>
-                <li>
-                  <CheckCircle2 size={13} className="text-emerald" />
-                  <span><strong>Winner</strong>, Zero to Live Website Challenge – Shodhak (Live adventure discovery and booking platform).</span>
-                </li>
-                <li>
-                  <CheckCircle2 size={13} className="text-emerald" />
-                  <span><strong>GATE Data Science and Artificial Intelligence 2026</strong> – AIR 1109.</span>
-                </li>
-              </ul>
-            </section>
-
-            {/* Certifications Section */}
-            <section className="resume-section">
-              <h2 className="resume-section-title">
-                <Award size={16} /> Certifications
+                <Award size={16} /> Achievements & Certifications
               </h2>
               <div className="resume-cert-grid">
                 <div className="cert-item">
-                  <strong>Agentic AI Professional Training</strong>
-                  <p>70-hour course by ExcelR in association with KIIT University.</p>
+                  <strong>3rd Prize – Global Tech Innovation 2026</strong>
+                  <p>Awarded for A-DAP-T agent deployment safety review platform.</p>
                 </div>
                 <div className="cert-item">
-                  <strong>8 Weeks Summer Internship Certificate</strong>
-                  <p>AI/ML, Cybersecurity, Image Processing, and NLP · KIIT School of Computer Applications.</p>
+                  <strong>Technical Excellence – Devlynix Buildathon 2.0</strong>
+                  <p>Recognized for deterministic AI safety and guardrail engineering.</p>
+                </div>
+                <div className="cert-item">
+                  <strong>Winner – Zero to Live Challenge</strong>
+                  <p>Awarded for Shodhak interactive career roadmap graph.</p>
+                </div>
+                <div className="cert-item">
+                  <strong>GATE DA 2026 – AIR 1109</strong>
+                  <p>Qualified in Data Science & Artificial Intelligence.</p>
+                </div>
+                <div className="cert-item">
+                  <strong>Agentic AI Professional Training (70 Hours)</strong>
+                  <p>Comprehensive agentic workflow curriculum by ExcelR with KIIT.</p>
+                </div>
+                <div className="cert-item">
+                  <strong>Summer Internship Certificate</strong>
+                  <p>8-week AI/ML research program at KIIT School of Computer Applications.</p>
                 </div>
               </div>
             </section>
 
-            {/* Technical Skills Section */}
+            {/* Technical Skills Stack */}
             <section className="resume-section">
               <h2 className="resume-section-title">
                 <Code2 size={16} /> Technical Skills
               </h2>
               <div className="resume-skills-stack">
                 <div className="skill-row">
-                  <strong className="skill-category">Languages:</strong>
-                  <span className="skill-items">Python, JavaScript, TypeScript, C, Java</span>
+                  <span className="skill-category">Programming Languages:</span>
+                  <span className="skill-items">Python, TypeScript, JavaScript, SQL, Cypher (Neo4j)</span>
                 </div>
                 <div className="skill-row">
-                  <strong className="skill-category">AI / LLM Systems:</strong>
-                  <span className="skill-items">
-                    LangGraph, LangChain, RAG, GraphRAG, RAGAS, Gemini API, Groq API, Structured Outputs, Tool Use, Retrieval Evaluation, Citation Precision, Abstention Testing, Human-in-the-Loop AI
-                  </span>
+                  <span className="skill-category">AI & Agentic Systems:</span>
+                  <span className="skill-items">LangGraph, GraphRAG, Hybrid Retrieval (RRF), Prompt Engineering, Static AST Scanning, Guardrails</span>
                 </div>
                 <div className="skill-row">
-                  <strong className="skill-category">Backend & Databases:</strong>
-                  <span className="skill-items">
-                    FastAPI, Node.js, Express, Pydantic, REST APIs, SQLAlchemy, PostgreSQL, pgvector, Neo4j, Redis, Supabase (Auth/Postgres/RLS/Vault), Firebase Auth, Firestore, MongoDB, SQLite, ChromaDB
-                  </span>
+                  <span className="skill-category">Backend & Databases:</span>
+                  <span className="skill-items">FastAPI, Pydantic, PostgreSQL, PostGIS, pgvector, Neo4j, Qdrant, Redis, Supabase, Firebase</span>
                 </div>
                 <div className="skill-row">
-                  <strong className="skill-category">Frontend & DevOps:</strong>
-                  <span className="skill-items">
-                    React, Next.js, Vite, Tailwind CSS, Cytoscape.js, Streamlit, Docker, Vercel, Render, Netlify, GitHub Actions, Pytest, Vitest, OpenTelemetry hooks, Structured Logging, Git
-                  </span>
+                  <span className="skill-category">Frontend & UI/UX:</span>
+                  <span className="skill-items">Next.js 16, React 19, Vite, Tailwind CSS, Motion, Leaflet, Cytoscape.js, Mermaid.js</span>
+                </div>
+                <div className="skill-row">
+                  <span className="skill-category">Testing & DevOps:</span>
+                  <span className="skill-items">pytest, Vitest, Docker, Git, GitHub Actions, Vercel, Netlify, Render</span>
                 </div>
               </div>
             </section>

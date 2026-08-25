@@ -2,18 +2,17 @@ import { Link } from 'react-router-dom'
 import { motion, useReducedMotion } from 'motion/react'
 import {
   ArrowRight,
+  ExternalLink,
   ShieldCheck,
   Search,
   CheckCircle,
   FileText,
   Mail,
   CheckCircle2,
-  ExternalLink,
-  Code2,
 } from 'lucide-react'
 import { projects } from '../data/projects'
 
-function GitHubMark({ size = 15 }: { size?: number }) {
+function GitHubMark({ size = 16 }: { size?: number }) {
   return (
     <svg width={size} height={size} viewBox="0 0 24 24" aria-hidden="true" fill="currentColor">
       <path d="M12 .7a11.3 11.3 0 0 0-3.57 22.02c.57.1.78-.24.78-.55v-2.16c-3.18.69-3.85-1.35-3.85-1.35-.52-1.32-1.27-1.67-1.27-1.67-1.04-.71.08-.7.08-.7 1.15.08 1.75 1.18 1.75 1.18 1.02 1.75 2.68 1.24 3.33.95.1-.74.4-1.24.73-1.53-2.54-.29-5.21-1.27-5.21-5.59 0-1.24.44-2.24 1.17-3.03-.12-.29-.51-1.45.11-2.99 0 0 .96-.31 3.12 1.16A10.9 10.9 0 0 1 12 6.06c.96 0 1.93.13 2.84.38 2.16-1.47 3.11-1.16 3.11-1.16.63 1.54.24 2.7.12 2.99.73.79 1.17 1.79 1.17 3.03 0 4.33-2.68 5.29-5.23 5.58.41.36.78 1.06.78 2.14v3.16c0 .31.2.66.79.55A11.3 11.3 0 0 0 12 .7Z" />
@@ -21,7 +20,7 @@ function GitHubMark({ size = 15 }: { size?: number }) {
   )
 }
 
-function LinkedInMark({ size = 15 }: { size?: number }) {
+function LinkedInMark({ size = 16 }: { size?: number }) {
   return (
     <svg width={size} height={size} viewBox="0 0 24 24" aria-hidden="true" fill="currentColor">
       <path d="M20.45 20.45h-3.56v-5.57c0-1.33-.03-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.94v5.67H9.34V8.98h3.42v1.57h.05c.47-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.29ZM5.32 7.41a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12ZM7.1 20.45H3.54V8.98H7.1v11.47Z" />
@@ -118,7 +117,7 @@ export function HomePage() {
               </div>
               <div className="hero-stat-divider" />
               <div className="hero-stat-card">
-                <strong>5</strong>
+                <strong>6</strong>
                 <span>Systems Built</span>
               </div>
             </div>
@@ -130,20 +129,20 @@ export function HomePage() {
       <section className="intro-bar">
         <div className="shell intro-bar__inner">
           <p>
-            Specialized in <strong>intelligent search, AI safety scanners, smart planning tools, and full-stack web platforms.</strong>
+            Specialized in <strong>civic intelligence, GraphRAG search, AI safety scanners, smart planning tools, and full-stack web platforms.</strong>
           </p>
           <div className="intro-socials">
-            <a href="https://github.com/Dhruvg334" target="_blank" rel="noreferrer">
+            <a href="https://github.com/Dhruvg334" target="_blank" rel="noopener noreferrer">
               <GitHubMark /> GitHub
             </a>
-            <a href="https://www.linkedin.com/in/dhruv-gupta-7a7500287/" target="_blank" rel="noreferrer">
+            <a href="https://www.linkedin.com/in/dhruv-gupta-7a7500287/" target="_blank" rel="noopener noreferrer">
               <LinkedInMark /> LinkedIn
             </a>
           </div>
         </div>
       </section>
 
-      {/* Core Engineering Pillars (Clear & Jargon-Free) */}
+      {/* 3 Core Focus Pillars */}
       <section className="section pillars-section">
         <div className="shell">
           <motion.div className="section-heading text-center" {...reveal}>
@@ -256,11 +255,11 @@ export function HomePage() {
                     Read Case Study <ArrowRight size={14} />
                   </Link>
                   {p.live && (
-                    <a href={p.live} target="_blank" rel="noreferrer" className="btn btn--secondary">
+                    <a href={p.live} target="_blank" rel="noopener noreferrer" className="btn btn--secondary">
                       <ExternalLink size={14} /> Live App
                     </a>
                   )}
-                  <a href={p.repo} target="_blank" rel="noreferrer" className="btn btn--ghost">
+                  <a href={p.repo} target="_blank" rel="noopener noreferrer" className="btn btn--ghost">
                     <GitHubMark size={14} /> GitHub
                   </a>
                 </div>
@@ -269,21 +268,21 @@ export function HomePage() {
           </div>
 
           <div className="center-cta-wrap">
-            <Link to="/projects" className="btn btn--secondary btn--large">
-              Browse All 5 Projects & Systems Archive <ArrowRight size={16} />
+            <Link to="/projects" className="btn btn--primary btn--large">
+              Explore All 6 Architectural Case Studies <ArrowRight size={16} />
             </Link>
           </div>
         </div>
       </section>
 
-      {/* Engineering Philosophy Snippet */}
+      {/* Engineering Philosophy Section */}
       <section className="section philosophy-section">
         <div className="shell">
           <motion.div className="section-heading text-center" {...reveal}>
-            <p className="section-label">Engineering Philosophy</p>
-            <h2>How I approach building AI software.</h2>
+            <p className="section-label">Core Philosophy</p>
+            <h2>How I approach software engineering.</h2>
             <p>
-              The model is just one piece of the system. Great software engineering is what makes it useful, fast, and safe.
+              Four practical principles I follow when designing applications, APIs, and systems.
             </p>
           </motion.div>
 
@@ -333,7 +332,7 @@ export function HomePage() {
                 <span>Graduation Year</span>
               </div>
               <div className="stat-box">
-                <strong>5</strong>
+                <strong>6</strong>
                 <span>Systems Built</span>
               </div>
             </div>
@@ -341,20 +340,22 @@ export function HomePage() {
         </div>
       </section>
 
-      {/* Bottom CTA Banner */}
+      {/* Contact & Discussion Callout Banner */}
       <section className="contact-banner">
         <div className="shell contact-banner__inner">
           <motion.div {...reveal}>
-            <p className="section-label">Open for Opportunities</p>
-            <h2>Looking to build reliable AI software? Let’s talk.</h2>
+            <p className="section-label">Ready to connect?</p>
+            <h2>Let's build something reliable together.</h2>
+            <p className="page-subtitle">
+              Open to technical internships, engineering roles, and open-source systems collaboration.
+            </p>
           </motion.div>
-
           <motion.div className="contact-banner__actions" {...reveal}>
-            <Link to="/contact" className="btn btn--primary">
-              Send Message <ArrowRight size={15} />
+            <Link to="/contact" className="btn btn--primary btn--large">
+              Start a Conversation <ArrowRight size={15} />
             </Link>
-            <Link to="/resume" className="btn btn--secondary">
-              <FileText size={15} /> View Resume
+            <Link to="/resume" className="btn btn--secondary btn--large">
+              <FileText size={15} /> Resume
             </Link>
           </motion.div>
         </div>

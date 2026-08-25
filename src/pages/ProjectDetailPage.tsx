@@ -9,13 +9,10 @@ import {
   ShieldCheck,
   CheckCircle2,
   Cpu,
-  Layers,
   GitBranch,
   BookOpen,
   FileText,
   Activity,
-  Code2,
-  Navigation,
 } from 'lucide-react'
 import { projects } from '../data/projects'
 import { MermaidDiagram } from '../components/MermaidDiagram'
@@ -75,7 +72,7 @@ export function ProjectDetailPage() {
             <ArrowLeft size={16} /> Back to Systems Directory
           </Link>
           <div className="project-index-pill">
-            Project {project.number} of 05
+            Project {project.number} of 06
           </div>
         </div>
       </div>
@@ -109,24 +106,24 @@ export function ProjectDetailPage() {
 
             {/* Direct Action Links */}
             <div className="detail-actions-row">
-              <a href={project.repo} target="_blank" rel="noreferrer" className="btn btn--primary">
+              <a href={project.repo} target="_blank" rel="noopener noreferrer" className="btn btn--primary">
                 <GitHubMark size={16} /> View Code on GitHub
               </a>
 
               {project.live && (
-                <a href={project.live} target="_blank" rel="noreferrer" className="btn btn--secondary">
+                <a href={project.live} target="_blank" rel="noopener noreferrer" className="btn btn--secondary">
                   <ExternalLink size={16} /> Open Live Product
                 </a>
               )}
 
               {project.demo && (
-                <a href={project.demo} target="_blank" rel="noreferrer" className="btn btn--ghost">
+                <a href={project.demo} target="_blank" rel="noopener noreferrer" className="btn btn--ghost">
                   <Play size={16} /> Watch Video Walkthrough
                 </a>
               )}
 
               {project.docsUrl && (
-                <a href={project.docsUrl} target="_blank" rel="noreferrer" className="btn btn--ghost">
+                <a href={project.docsUrl} target="_blank" rel="noopener noreferrer" className="btn btn--ghost">
                   <FileText size={16} /> Technical Docs
                 </a>
               )}
@@ -296,16 +293,16 @@ export function ProjectDetailPage() {
 
               <div className="spec-group sidebar-links-group">
                 <span className="spec-label">Repository & Links</span>
-                <a href={project.repo} target="_blank" rel="noreferrer" className="sidebar-link">
+                <a href={project.repo} target="_blank" rel="noopener noreferrer" className="sidebar-link">
                   <GitHubMark size={14} /> GitHub Repository
                 </a>
                 {project.live && (
-                  <a href={project.live} target="_blank" rel="noreferrer" className="sidebar-link">
+                  <a href={project.live} target="_blank" rel="noopener noreferrer" className="sidebar-link">
                     <ExternalLink size={14} /> Production Deployment
                   </a>
                 )}
                 {project.demo && (
-                  <a href={project.demo} target="_blank" rel="noreferrer" className="sidebar-link">
+                  <a href={project.demo} target="_blank" rel="noopener noreferrer" className="sidebar-link">
                     <Play size={14} /> Video Demonstration
                   </a>
                 )}
@@ -337,7 +334,7 @@ export function ProjectDetailPage() {
           ) : (
             <Link to="/projects" className="pagination-card pagination-card--next">
               <span className="pag-label">Back to Catalog <ArrowRight size={14} /></span>
-              <strong>All 5 Projects</strong>
+              <strong>All 6 Projects</strong>
               <p>Explore full architectural directory</p>
             </Link>
           )}

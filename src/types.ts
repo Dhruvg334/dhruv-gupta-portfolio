@@ -1,4 +1,4 @@
-export type ProjectTone = 'graph' | 'safety' | 'learning' | 'planning' | 'workflow'
+export type ProjectTone = 'graph' | 'safety' | 'learning' | 'planning' | 'workflow' | 'civic'
 
 export type ProjectDomain = 'all' | 'graph' | 'safety' | 'eval' | 'planning' | 'workflow'
 

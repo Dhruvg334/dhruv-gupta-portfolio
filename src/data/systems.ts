@@ -2,6 +2,71 @@ import { TracePreset, SandboxScenario } from '../types'
 
 export const heroTracePresets: TracePreset[] = [
   {
+    id: 'civitas-trace',
+    name: 'Civitas Multimodal Incident Ingestion Trace',
+    systemTag: 'Civitas / Spatial Decision Engine',
+    description: 'Simulates zero-trust EXIF verification, H3 hexagonal hotspot indexing, BM25+Dense RRF routing, and SHA-256 sealing.',
+    totalLatency: '128ms',
+    deterministicRatio: '85% deterministic gates',
+    steps: [
+      {
+        stepNumber: '01',
+        layer: 'Zero-Trust Ingest',
+        name: 'EXIF Extraction & Privacy Strip',
+        status: 'passed',
+        latencyMs: 22,
+        detail: 'Validated binary magic bytes; extracted GPS (12.9716, 77.5946) & capture timestamp; stripped camera make & device serials.',
+        inspectableData: {
+          mime_type: 'image/jpeg',
+          magic_bytes_verified: true,
+          coordinates: { lat: 12.9716, lng: 77.5946 },
+          privacy_redaction: 'CAMERA_SERIAL_STRIPPED',
+        },
+      },
+      {
+        stepNumber: '02',
+        layer: 'Spatial Engine',
+        name: 'H3 Hexagonal Index & Hotspot',
+        status: 'passed',
+        latencyMs: 34,
+        detail: 'Mapped to H3 index 88618925d3fffff (Res 8); identified 4 historical water main bursts in 6-month window (CHRONIC_FAILURE_ZONE).',
+        inspectableData: {
+          h3_resolution_8: '88618925d3fffff',
+          recurrence_count_6m: 4,
+          zone_classification: 'CHRONIC_FAILURE_ZONE',
+          poi_proximity: 'Elementary School (65m) - SLA ACCELERATED',
+        },
+      },
+      {
+        stepNumber: '03',
+        layer: 'Policy Routing',
+        name: 'Hybrid BM25 + Dense RRF Match',
+        status: 'verified',
+        latencyMs: 41,
+        detail: 'Resolved jurisdiction to Municipal Water Supply & Sewerage Board (BWSSB); matched Schedule of Rates item #SOR-W-104.',
+        inspectableData: {
+          routing_authority: 'BWSSB Division 4',
+          statutory_sla_hours: 4,
+          sor_code: 'SOR-W-104 (Ductile Iron Pipe Sleeve 150mm)',
+          estimated_boq_inr: 18500,
+        },
+      },
+      {
+        stepNumber: '04',
+        layer: 'Audit & Sealing',
+        name: 'Supervisor Review & SHA-256 Digest',
+        status: 'human_review',
+        latencyMs: 31,
+        detail: 'Dispatched work order to Field Crew Alpha; generated tamper-proof SHA-256 audit digest pending supervisor confirmation.',
+        inspectableData: {
+          work_order_id: 'WO-2026-8842',
+          supervisor_gate: 'PENDING_DISPATCH_SIGN_OFF',
+          sha256_digest: 'a8f93e2b10cd832049e7b2304918e92f1b0a8274d6c7b8e90a1b2c3d4e5f6a7b',
+        },
+      },
+    ],
+  },
+  {
     id: 'mnemos-trace',
     name: 'Mnemos Industrial GraphRAG Trace',
     systemTag: 'Mnemos / Operational Memory',
@@ -124,65 +189,6 @@ export const heroTracePresets: TracePreset[] = [
     ],
   },
   {
-    id: 'tessarion-trace',
-    name: 'Tessarion RAG Evaluation Harness',
-    systemTag: 'Tessarion / Eval Matrix',
-    description: 'Simulates active recall teach-back alignment against ground truth knowledge graphs and Vitest evaluation suites.',
-    totalLatency: '110ms',
-    deterministicRatio: '80% deterministic suites',
-    steps: [
-      {
-        stepNumber: '01',
-        layer: 'Entity Extraction',
-        name: 'Student Concept Extraction',
-        status: 'passed',
-        latencyMs: 32,
-        detail: 'Extracted 5 key assertions from student explanation of Backpropagation and Loss Gradient Flow.',
-        inspectableData: {
-          assertions_extracted: ['Chain rule calculates partial derivatives', 'Weights update opposite to gradient direction'],
-        },
-      },
-      {
-        stepNumber: '02',
-        layer: 'Knowledge Graph',
-        name: 'Prerequisite Node Alignment',
-        status: 'passed',
-        latencyMs: 26,
-        detail: 'Validated prerequisites in Neo4j: Multivariable Calculus (PASSED), Matrix Transpose (PASSED), Activation Derivatives (PARTIAL).',
-        inspectableData: {
-          graph_root: 'Backpropagation',
-          missing_edge: 'Vanishing Gradient on Sigmoid Saturation',
-        },
-      },
-      {
-        stepNumber: '03',
-        layer: 'Eval Benchmark',
-        name: 'Vitest Regression Suite Run',
-        status: 'verified',
-        latencyMs: 28,
-        detail: 'Ran 50 benchmark cases against diagnostic matrix: 100% match with ground truth misconception taxonomy.',
-        inspectableData: {
-          test_suite: 'diagnostic_matrix.test.ts',
-          passed: 50,
-          failed: 0,
-          precision: 1.0,
-        },
-      },
-      {
-        stepNumber: '04',
-        layer: 'Socratic Tutor',
-        name: 'Evidence-Linked Remediation',
-        status: 'passed',
-        latencyMs: 24,
-        detail: 'Generated focused Socratic challenge prompting student to inspect saturation behavior at extremes.',
-        inspectableData: {
-          question: 'What happens to the derivative of σ(z) when |z| becomes very large?',
-          source_page: 'Deep Learning Book (Goodfellow) Ch. 6.2, p. 195',
-        },
-      },
-    ],
-  },
-  {
     id: 'chronos-trace',
     name: 'ChronOS Controlled Planning & Recovery',
     systemTag: 'ChronOS / Constraint Engine',
@@ -244,6 +250,47 @@ export const heroTracePresets: TracePreset[] = [
 ]
 
 export const sandboxScenarios: SandboxScenario[] = [
+  {
+    id: 'scenario-civic',
+    title: 'Water Main Rupture Near School Corridor',
+    badge: 'Civitas / Spatial Incident Engine',
+    userPrompt: 'Citizen reports active major water pipeline burst flooding 2nd Main Road near St. Jude Elementary School with photo attachment.',
+    context: 'Omnichannel civic intake via WhatsApp with client-side canvas compression, PostGIS spatial context, and H3 indexing.',
+    stages: [
+      {
+        title: 'Zero-Trust Intake & EXIF Geometry',
+        layer: 'Binary & EXIF Redactor',
+        type: 'gate',
+        status: 'PASSED',
+        details: 'Verified image binary header; extracted GPS coordinates (12.9716, 77.5946); stripped camera serial and hardware telemetry.',
+        inspectableOutput: '{ valid_mime: "image/jpeg", lat: 12.9716, lng: 77.5946, camera_pii_stripped: true }',
+      },
+      {
+        title: 'H3 Spatial Hotspot & POI Acceleration',
+        layer: 'PostGIS & H3 Engine',
+        type: 'retrieval',
+        status: 'GROUNDED',
+        details: 'Identified 65m proximity to St. Jude Elementary School; accelerated statutory SLA from 24h baseline to 4h emergency response.',
+        inspectableOutput: '{ h3_res8: "88618925d3fffff", poi_name: "St. Jude Elementary", distance_m: 65, dynamic_sla_hours: 4 }',
+      },
+      {
+        title: 'Hybrid Policy & Jurisdictional Resolver',
+        layer: 'BM25 + Dense RRF Engine',
+        type: 'validator',
+        status: 'GROUNDED',
+        details: 'Resolved maintenance authority to Water Supply Board (BWSSB); generated automated Schedule of Rates (SOR) BOQ estimate.',
+        inspectableOutput: '{ authority: "BWSSB Ward 12", sor_code: "SOR-W-104", estimated_cost_inr: 18500, boq_generated: true }',
+      },
+      {
+        title: 'Supervisor Approval & SHA-256 Sealing',
+        layer: 'LangGraph Review Gate',
+        type: 'approval',
+        status: 'REVIEW REQUIRED',
+        details: 'Dispatched emergency work order to field crew; generated immutable SHA-256 digital certificate pending supervisor sign-off.',
+        inspectableOutput: '{ work_order_status: "DISPATCHED", supervisor_signoff_required: true, sha256_sealed: true }',
+      },
+    ],
+  },
   {
     id: 'scenario-industrial',
     title: 'Industrial Equipment Failure Diagnosis',

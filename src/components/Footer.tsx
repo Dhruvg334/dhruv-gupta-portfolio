@@ -44,10 +44,10 @@ export function Footer({ onCopyEmail }: FooterProps) {
           ) : (
             <a href="mailto:dhruvg3304@gmail.com">Email</a>
           )}
-          <a href="https://github.com/Dhruvg334" target="_blank" rel="noreferrer">
+          <a href="https://github.com/Dhruvg334" target="_blank" rel="noopener noreferrer">
             <GitHubMark size={14} /> GitHub
           </a>
-          <a href="https://www.linkedin.com/in/dhruv-gupta-7a7500287/" target="_blank" rel="noreferrer">
+          <a href="https://www.linkedin.com/in/dhruv-gupta-7a7500287/" target="_blank" rel="noopener noreferrer">
             <LinkedInMark size={14} /> LinkedIn
           </a>
         </div>

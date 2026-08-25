@@ -9,7 +9,6 @@ import {
   Search,
   X,
   Layers,
-  Sparkles,
 } from 'lucide-react'
 import { projects, supportingProjects } from '../data/projects'
 import { ProjectDomain } from '../types'
@@ -24,12 +23,12 @@ function GitHubMark({ size = 15 }: { size?: number }) {
 }
 
 const filterTabs = [
-  { id: 'all', label: 'All Systems' },
-  { id: 'graph', label: 'Knowledge Graph & RAG' },
+  { id: 'all', label: 'All Systems (6)' },
+  { id: 'workflow', label: 'Civic & Full-Stack' },
+  { id: 'graph', label: 'Industrial GraphRAG' },
   { id: 'safety', label: 'Agent Security & Safety' },
-  { id: 'eval', label: 'Evaluation & Learning' },
   { id: 'planning', label: 'Controlled Planning' },
-  { id: 'workflow', label: 'Full-Stack Workflows' },
+  { id: 'eval', label: 'Evaluation & Learning' },
 ]
 
 export function ProjectsPage() {
@@ -73,7 +72,7 @@ export function ProjectsPage() {
             <p className="section-label">Engineering Directory</p>
             <h1 className="page-title">Systems & Architectures</h1>
             <p className="page-subtitle">
-              Comprehensive case studies spanning knowledge graphs (Neo4j), agent security reviewers, source-grounded learning workspaces, and deterministic capacity-aware planning.
+              Comprehensive case studies spanning multimodal civic incident intelligence, industrial knowledge graphs (Neo4j), static agent security scanners, and deterministic planning solvers.
             </p>
           </motion.div>
         </div>
@@ -119,6 +118,7 @@ export function ProjectsPage() {
                 onChange={(e) => setSearchQuery(e.target.value)}
                 className="catalog-search-input"
                 aria-label="Filter projects by keyword or tech stack"
+                maxLength={100}
               />
               {searchQuery && (
                 <button
@@ -140,7 +140,7 @@ export function ProjectsPage() {
             </span>
             {searchQuery && (
               <span className="search-filter-tag">
-                Matching: "{searchQuery}"
+                Matching: "{searchQuery.slice(0, 30)}"
               </span>
             )}
           </div>
@@ -157,7 +157,7 @@ export function ProjectsPage() {
                 >
                   <Layers size={36} className="text-muted" />
                   <h3>No systems match your criteria</h3>
-                  <p>Try searching for a different keyword (e.g. FastAPI, Neo4j, LangGraph) or clear filters.</p>
+                  <p>Try searching for a different keyword (e.g. Civitas, PostGIS, FastAPI, Neo4j, LangGraph) or clear filters.</p>
                   <button
                     type="button"
                     className="btn btn--secondary"
@@ -228,16 +228,16 @@ export function ProjectsPage() {
 
                       <div className="catalog-ext-links">
                         {p.live && (
-                          <a href={p.live} target="_blank" rel="noreferrer" className="btn btn--secondary" title="Open Live Application">
+                          <a href={p.live} target="_blank" rel="noopener noreferrer" className="btn btn--secondary" title="Open Live Application">
                             <ExternalLink size={14} /> Live
                           </a>
                         )}
                         {p.demo && (
-                          <a href={p.demo} target="_blank" rel="noreferrer" className="btn btn--ghost" title="Watch Demo Video">
+                          <a href={p.demo} target="_blank" rel="noopener noreferrer" className="btn btn--ghost" title="Watch Demo Video">
                             <Play size={14} /> Demo
                           </a>
                         )}
-                        <a href={p.repo} target="_blank" rel="noreferrer" className="btn btn--ghost" title="View Source on GitHub">
+                        <a href={p.repo} target="_blank" rel="noopener noreferrer" className="btn btn--ghost" title="View Source on GitHub">
                           <GitHubMark size={14} /> GitHub
                         </a>
                       </div>
@@ -273,7 +273,7 @@ export function ProjectsPage() {
                 className="archive-card"
                 href={proj.href}
                 target="_blank"
-                rel="noreferrer"
+                rel="noopener noreferrer"
                 {...reveal}
               >
                 <div className="archive-content">

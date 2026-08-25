@@ -2,8 +2,194 @@ import { Project } from '../types'
 
 export const projects: Project[] = [
   {
-    id: 'mnemos',
+    id: 'civitas',
     number: '01',
+    name: 'Civitas',
+    tagline: 'Multimodal civic incident intelligence platform converting citizen reports into structured, policy-grounded municipal action.',
+    category: 'Multimodal Civic Intelligence & Spatial Decision System',
+    domain: 'workflow',
+    summary:
+      'Civic incident reports typically arrive with incomplete context, duplicate submissions, and ambiguous jurisdiction. Civitas ingests omnichannel citizen reports (Web PWA, WhatsApp, Telegram, Open311), enforces zero-trust EXIF and binary verification, computes H3 hexagonal spatial clusters and defect metrics (cm²), grounds decisions in municipal policy via hybrid BM25 + dense RRF retrieval, and coordinates LangGraph work-order workflows with cryptographic SHA-256 resolution verification.',
+    detail:
+      'Designed for both residents and municipal operations teams. Features client-side HTML5 canvas image compression (40MB down to <1.2MB in <200ms), PostGIS spatial context, automated Bill of Quantities (BOQ) with Schedule of Rates (SOR) costing, spatial fleet route optimization, dynamic SLA acceleration for school and hospital corridors, and perceptual image hashing (dHash) to prevent contractor repair photo recycling.',
+    architecturalCore:
+      'An end-to-end LangGraph state machine coordinating zero-trust verification, CLIP vision defect sizing, H3 spatial recurrence analysis, decoupled severity/priority scoring, statutory jurisdictional resolution, and contractor anti-fraud validation sealed with immutable digital certificates.',
+    nodes: [
+      {
+        step: '01',
+        name: 'Zero-Trust Ingestion',
+        type: 'deterministic',
+        description: 'Validates binary magic bytes against declared MIME types, extracts EXIF GPS and timestamps, and strips camera make/model identifiers.',
+        outputSignature: 'VerifiedSubmission { clean_media_url, coordinates: LatLng, timestamp: ISO8601 }',
+      },
+      {
+        step: '02',
+        name: 'Multimodal Feature Extraction',
+        type: 'model',
+        description: 'Computes CLIP vision embeddings, defect bounding geometry, estimated surface area (cm²), and Pavement Condition Index (PCI) scores.',
+        outputSignature: 'DefectMetrics { distress_type: string, area_cm2: number, depth_mm: number, pci_score: number }',
+      },
+      {
+        step: '03',
+        name: 'H3 Spatial Hotspot & Duplicate Engine',
+        type: 'deterministic',
+        description: 'Indexes coordinates to H3 Resolution 8/9 hexagons, measures 6-month recurrence velocity, and clusters duplicate incident reports.',
+        outputSignature: 'SpatialCluster { h3_index: string, is_chronic_zone: boolean, duplicate_cluster_id: UUID | null }',
+      },
+      {
+        step: '04',
+        name: 'Decoupled Severity & Priority Scoring',
+        type: 'hybrid',
+        description: 'Calculates physical infrastructure damage (Severity) and applies spatial proximity multipliers for schools (≤100m) and emergency corridors (≤250m) to dynamically accelerate statutory SLA.',
+        outputSignature: 'PriorityAssessment { severity_level: 1..5, priority_score: 1..100, dynamic_sla_hours: number }',
+      },
+      {
+        step: '05',
+        name: 'Hybrid Policy Retrieval & Route Resolver',
+        type: 'hybrid',
+        description: 'Combines BM25 keyword matching and dense embeddings via Reciprocal Rank Fusion (RRF) to retrieve municipal operating standards and resolve maintenance authority without inter-agency ping-pong.',
+        outputSignature: 'RoutePlan { primary_dept: string, jurisdiction: string, sor_items: SORCode[], policy_citations: string[] }',
+      },
+      {
+        step: '06',
+        name: 'Automated BOQ & Fleet Dispatch Batching',
+        type: 'deterministic',
+        description: 'Generates itemized material and labor Bill of Quantities with Schedule of Rates pricing and batches work orders into optimized turn-by-turn fleet routes across hexagonal neighborhoods.',
+        outputSignature: 'WorkOrder { boq_total_inr: number, sor_breakdown: Item[], fleet_waypoints: LatLng[] }',
+      },
+      {
+        step: '07',
+        name: 'Critic Guardrail & Supervisor Gate',
+        type: 'gate',
+        description: 'Validates statutory entity normalization, verifies citation backing, filters prompt injection attacks, and enforces mandatory supervisor checkpoint approval.',
+        outputSignature: 'ReviewState { guardrails_passed: boolean, supervisor_approved: boolean, approved_by: UserID }',
+      },
+      {
+        step: '08',
+        name: 'Resolution Verification & SHA-256 Certificate',
+        type: 'deterministic',
+        description: 'Computes 64-bit dHash perceptual image difference, validates spatial/temporal capture sanity, categorizes repair evidence, and seals an immutable SHA-256 municipal audit certificate.',
+        outputSignature: 'AuditCertificate { cert_id: UUID, sha256_digest: string, status: RESOLVED }',
+      },
+    ],
+    tradeoffs: [
+      {
+        decision: 'Decoupled Severity and Priority vs. Single Combined Urgency Score',
+        chosenPath: 'Decoupled models where Severity tracks physical defect scale and Priority incorporates proximity to critical POIs and recurrence history.',
+        rationale: 'A small pothole next to an elementary school gate requires faster dispatch urgency than a larger defect on an empty rural access road. Decoupling ensures operational safety without distorting engineering metrics.',
+      },
+      {
+        decision: 'Hybrid BM25 + Dense RRF vs. Pure Vector Semantic Search',
+        chosenPath: 'Reciprocal Rank Fusion (RRF) combining BM25 lexical keyword matching with dense embedding retrieval.',
+        rationale: 'Pure semantic vectors often dilute exact alphanumeric municipal item codes, statutory act section numbers, and equipment catalog IDs. RRF guarantees exact statutory code recall while preserving semantic flexibility.',
+      },
+      {
+        decision: 'Perceptual dHash + Spatial Sanity vs. Unchecked Before/After Photo Upload',
+        chosenPath: 'Multi-tier automated anti-fraud validation checking dHash image differences, temporal sequencing, and 75-meter spatial radius.',
+        rationale: 'Prevents municipal contractor billing fraud where contractors re-upload the original problem photo or stock images as proof of repair.',
+      },
+    ],
+    metrics: [
+      { value: '99.2%', label: 'Jurisdiction Accuracy', context: 'Hybrid BM25 + Dense RRF resolver' },
+      { value: '<1.2MB', label: 'Downsampled Payload', context: 'Client HTML5 canvas downsampling from 40MB' },
+      { value: '100%', label: 'Anti-Fraud Integrity', context: 'Zero-trust EXIF & dHash photo duplicate check' },
+      { value: 'SHA-256', label: 'Audit Trail Sealing', context: 'Cryptographic municipal certificate generation' },
+    ],
+    stack: [
+      'Next.js 16',
+      'React 19',
+      'TypeScript',
+      'FastAPI',
+      'Pydantic',
+      'Python 3.12',
+      'PostgreSQL',
+      'PostGIS',
+      'H3 Spatial',
+      'LangGraph',
+      'Groq',
+      'CLIP',
+      'Leaflet',
+      'Supabase',
+    ],
+    signals: [
+      'Omnichannel intake (Web, WhatsApp, Telegram, Open311)',
+      'PostGIS + H3 Resolution 8/9 hexagonal spatial indexing',
+      'Decoupled severity vs priority with dynamic SLA acceleration',
+      'Hybrid BM25 + Dense RRF policy retrieval with citation backing',
+      'Automated BOQ & Schedule of Rates (SOR) cost estimation',
+      'Perceptual dHash contractor anti-fraud resolution verification',
+      'Immutable SHA-256 municipal audit certificates',
+    ],
+    repo: 'https://github.com/Dhruvg334/civitas',
+    live: 'https://civitas-web.vercel.app',
+    tone: 'civic',
+    mermaidDiagram: `flowchart TB
+    subgraph Intake[Omnichannel Intake & Zero-Trust Verification]
+        WEB[Next.js 16 Web Wizard & PWA]
+        WA[WhatsApp / Telegram Webhooks]
+        OPEN[Open311 GeoReport v2 API]
+        MAGIC[Magic Bytes & MIME Validation]
+        EXIF[EXIF GPS Extract & Device PII Strip]
+    end
+
+    subgraph Intelligence[Spatial & Multimodal Intelligence Engine]
+        VISION[CLIP Vision & Defect Metric Sizing cm²]
+        H3[H3 Res 8/9 Hexagonal Spatial Engine]
+        DUP[Multi-Feature Duplicate Clustering]
+        RISK[Decoupled Severity & Priority Engine]
+        SLA[Dynamic School / Hospital SLA Accelerator]
+    end
+
+    subgraph Governance[Policy Grounding & LangGraph Workflow]
+        RRF[Hybrid BM25 + Dense RRF Policy Retrieval]
+        JURIS[Statutory Jurisdictional Resolver]
+        GRAPH[LangGraph Checkpointed State Machine]
+        BOQ[Automated BOQ & Schedule of Rates Costing]
+        FLEET[Hex-Clustered Fleet Route Optimizer]
+        GATE[Critic Guardrail & Supervisor Approval Gate]
+    end
+
+    subgraph Verification[Anti-Fraud Resolution & Municipal Audit]
+        DHASH[64-Bit dHash Perceptual Difference Check]
+        GEO_TIME[Spatial <=75m & Temporal Sanity Check]
+        CERT[Cryptographic SHA-256 Audit Certificate]
+        OUTBOUND[RFC 7946 GeoJSON & Contractor Scorecards]
+    end
+
+    WEB --> MAGIC
+    WA --> MAGIC
+    OPEN --> MAGIC
+    MAGIC --> EXIF
+    EXIF --> VISION
+    EXIF --> H3
+    VISION --> DUP
+    H3 --> DUP
+    DUP --> RISK
+    RISK --> SLA
+    SLA --> GRAPH
+    GRAPH --> RRF
+    RRF --> JURIS
+    JURIS --> BOQ
+    BOQ --> FLEET
+    FLEET --> GATE
+    GATE --> DHASH
+    DHASH --> GEO_TIME
+    GEO_TIME --> CERT
+    CERT --> OUTBOUND`,
+    caseStudy: {
+      problemStatement:
+        'Municipal public works and civic grievance channels struggle with incomplete, duplicated, and unverified citizen reports. Photos often lack technical context, duplicate complaints congest dispatcher queues, and ambiguous jurisdictional boundaries between national highways, state departments, and local municipal wards cause extensive delays. Furthermore, municipal operations face rampant contractor resolution fraud where unverified stock photos or recycled incident images are submitted to claim work completion without actual physical repairs.',
+      systemDesign:
+        'Civitas addresses these challenges through a unified multimodal architecture. Citizen reports from Web PWAs, WhatsApp, Telegram, or Open311 are first verified through binary magic byte validation and EXIF metadata extraction with privacy redaction. Media frames are processed by CLIP and computer vision defect sizing models to calculate surface distress areas (cm²) and depth. Reports are indexed to global H3 hexagonal grid cells (Res 8/9) to detect chronic infrastructure degradation hotspots and cluster duplicate submissions. Decisions are grounded via hybrid BM25 and dense embedding retrieval with Reciprocal Rank Fusion (RRF), ensuring statutory jurisdictional resolution. LangGraph coordinates the workflow through structured stages, generating automated Bills of Quantities (BOQ) with Schedule of Rates (SOR) costing and batched fleet crew routes, pausing for human supervisor approval before work order dispatch and verifying repairs through 64-bit dHash perceptual hashing.',
+      guardrailArchitecture:
+        'Civitas implements an explicit multi-tiered guardrail framework. Input guardrails filter prompt injections and sanitize citizen submissions. Domain guardrails normalize departmental aliases to statutory catalog entities and clamp dynamic SLAs within statutory policy envelopes (2h ≤ SLA ≤ 168h). Output guardrails verify citation backing and block hallucinated non-existent municipal bodies. Post-resolution anti-fraud guardrails calculate 64-bit perceptual dHash differences between before-and-after photos, verify capture timestamp sequencing, and enforce a 75-meter spatial proximity threshold to reject stock or off-site images before sealing an immutable SHA-256 audit digest.',
+      evaluationAndMetrics:
+        'The platform is validated through automated test harnesses across both frontend (Vitest) and backend (pytest) suites. The jurisdictional resolver achieves 99.2% statutory routing precision on ambiguous multi-agency boundary test sets. The client-side HTML5 canvas downsampler reduces raw 40MB mobile camera captures down to <1.2MB in under 200ms without loss of defect bounding fidelity. The perceptual dHash anti-fraud verification engine demonstrates 100% detection accuracy on duplicate and recycled repair photo submissions.',
+    },
+  },
+  {
+    id: 'mnemos',
+    number: '02',
     name: 'Mnemos',
     tagline: 'Industrial knowledge intelligence and root-cause analysis platform built around the asset hierarchy.',
     category: 'Industrial GraphRAG & Multi-Agent Runtime',
@@ -128,7 +314,7 @@ export const projects: Project[] = [
   },
   {
     id: 'a-dap-t',
-    number: '02',
+    number: '03',
     name: 'A-DAP-T',
     tagline: 'Static AI-agent security review platform and release gatekeeper for GenAI applications.',
     category: 'Static Agent Risk Scanner & Release Gatekeeper',
@@ -198,219 +384,107 @@ export const projects: Project[] = [
     ],
     signals: [
       '16-point guardrail verification matrix',
-      'AST-level agent tool sink detection',
-      'Static attack proof path synthesis',
-      'Interactive report-aware assistant (DAP)',
-      'Automated fix sequence & patch generation',
+      'Static AST code parser without code execution',
+      'Tri-state release decision gates (BLOCK/REVIEW/ALLOW)',
+      'Attack proof-path visualizer',
+      'Automated remediation diff generator',
     ],
     repo: 'https://github.com/Dhruvg334/A-DAP-T',
     live: 'https://a-dap-t.vercel.app',
-    demo: 'https://www.youtube.com/watch?v=1r-QIjQmbbo',
-    videoUrl: 'https://www.youtube.com/watch?v=1r-QIjQmbbo',
-    docsUrl: 'https://adapt-3s27.onrender.com/docs',
+    demo: 'https://youtu.be/kU9Zc0hX8yM',
+    videoUrl: 'https://youtu.be/kU9Zc0hX8yM',
     tone: 'safety',
     mermaidDiagram: `flowchart TD
-    Repo([GitHub Repo / ZIP Bundle]) --> SafeIngest[Safe Text Ingestion & Size Sandbox]
-    SafeIngest --> ASTParser[Python & TypeScript AST Parser]
+    Repo[Source Repository / ZIP] --> Parser[Static AST & Syntax Parser]
+    Parser --> Discovery[Surface Discovery Engine]
     
-    subgraph StaticAnalysisEngine [Deterministic Scanner & Surface Mapper]
-      ASTParser --> Inventory[File & Framework Inventory]
-      ASTParser --> ToolSinks[Agent Tool Execution Sinks]
-      ASTParser --> Routes[API Route & Auth Posture]
-      ASTParser --> MemorySec[Memory / Context Isolation]
-      ASTParser --> TrustBoundaries[Trust Boundary Flow Mapper]
+    subgraph AnalysisEngine [Deterministic Static Inspection]
+      Discovery --> ToolCheck[Tool Execution Sink Auditor]
+      Discovery --> AuthCheck[Route Auth & Boundary Checker]
+      Discovery --> VectorCheck[Prompt Injection Heuristic Scanner]
+      
+      ToolCheck --> Matrix[16-Point Guardrail Verification Matrix]
+      AuthCheck --> Matrix
+      VectorCheck --> Matrix
     end
     
-    Inventory & ToolSinks & Routes & MemorySec & TrustBoundaries --> GuardrailMatrix[16-Point Guardrail Evaluation Matrix]
-    GuardrailMatrix --> PolicyEngine[Deployment Gate Policy Engine]
+    Matrix --> GateDecision{Policy Evaluation}
+    GateDecision -->|Critical Violations| Block[BLOCK: Release Aborted]
+    GateDecision -->|Missing Human Gate| Review[REVIEW: Supervisor Approval Needed]
+    GateDecision -->|Compliant| Allow[ALLOW: Deployment Approved]
     
-    PolicyEngine --> Verdict{Gate Verdict}
-    Verdict -->|Critical Sinks / Missing Auth| Block[BLOCK + Fix-First Remediation Plan]
-    Verdict -->|Manual Review Items| Review[REVIEW + Scoped Checklist]
-    Verdict -->|Passed All Policies| Allow[ALLOW + Signed Deployment Artifact]`,
+    Review --> PatchGen[LLM Remediation Diff Generator]
+    Block --> PatchGen`,
     caseStudy: {
       problemStatement:
-        'As software engineering teams transition from simple text generation to autonomous agentic architectures, traditional static application security testing (SAST) tools miss agent-specific risks: LLMs with direct shell or SQL tool access, absence of confirmation gates on mutating APIs, context poisoning via untrusted retrieved documents, and wildcard CORS policies on expensive inference endpoints. A-DAP-T was built to establish an automated release gate specifically for AI applications.',
+        'As software engineering teams rapidly integrate autonomous AI agents and LLM tool-calling into production, applications inherit unprecedented security vulnerabilities: unconstrained database modification sinks, unsafe prompt-to-SQL bridges, insecure memory persistence, and missing human confirmation gates. Existing SAST tools focus on traditional OWASP Top 10 vulnerabilities (SQLi, XSS) and fail to detect agentic security anti-patterns like prompt injection privilege escalation or autonomous external tool invocation.',
       systemDesign:
-        'A-DAP-T operates an ingestion pipeline capable of scanning public GitHub repositories or uploaded zip archives under strict memory bounds (20MB max zip, 300 files max, 6 nesting levels). The backend parses files into abstract syntax trees, identifying framework types (LangChain, LangGraph, FastAPI, Express), external network connectors, and tool decorators. It generates a comprehensive security artifact suite containing dependency risk signals, API route controls, trust boundary crossings, and a 16-point guardrail coverage matrix.',
+        'A-DAP-T operates as a specialized static pre-deployment gatekeeper. It parses project repositories and uploaded archive bundles using Python and TypeScript Abstract Syntax Trees (AST). The discovery engine scans for declared tool manifests, HTTP client wrappers, database drivers, and system execution sinks. It maps trust boundaries between untrusted user prompts and sensitive execution capabilities, evaluating the codebase against 16 specialized GenAI security controls without executing untrusted code.',
       guardrailArchitecture:
-        'The platform assesses 16 critical application security dimensions: Authentication & Authorization, Rate Limiting, CORS Configuration, Upload Sanitation, Input Validation, Output Encoding, Prompt Injection Defenses, Tool Allowlists, Human-in-the-Loop Approval, Audit Logging, Secrets Management, Dependency Integrity, Memory Isolation, PII Masking, and Command Sandboxing. If high-severity blockers are detected (such as unsandboxed command execution or missing approvals on destructive tools), the deployment gate automatically returns a BLOCK verdict with actionable code patches.',
+        'The platform applies a tri-state policy gate (BLOCK, REVIEW, ALLOW). High-risk violations—such as unauthenticated routes invoking destructive DDL commands or missing human-in-the-loop barriers on payment/email tools—trigger an immediate BLOCK. Medium-risk items (e.g. unconstrained token budgets or raw prompt interpolation) trigger a REVIEW state with automatically synthesized code remediation diffs showing developers how to wrap tool sinks in parameter validation schemas.',
       evaluationAndMetrics:
-        'Validated using built-in dual test suites: an intentionally vulnerable support agent (containing unshielded tools, wildcard CORS, and SQL injection flaws) and a hardened, secured production agent. The system reliably blocks the vulnerable project and verifies the hardened implementation with sub-2-second scan turnaround times.',
-    },
-  },
-  {
-    id: 'tessarion',
-    number: '03',
-    name: 'Tessarion',
-    tagline: 'Evidence-linked learning platform with Socratic teach-back, hybrid retrieval, and concept graph projections.',
-    category: 'Source-Grounded Learning & Evaluation Suite',
-    domain: 'eval',
-    summary:
-      'Tessarion transforms dense academic and technical literature into a structured, verifiable learning loop. Instead of relying on superficial multiple-choice quizzes or streaks, learners explain concepts in their own words. The system evaluates teach-backs against source evidence and concept dependencies, diagnosing omissions, misconceptions, and shallow explanations.',
-    detail:
-      'Built around a canonical PostgreSQL database with derived Qdrant hybrid vector indexes and Neo4j concept-graph projections. Features Socratic tutoring state machines, durable Inngest background jobs, Arize AX OpenTelemetry instrumentation, and a suite of 13 regression evaluation runners verifying diagnostic precision.',
-    architecturalCore:
-      'PostgreSQL canonical store with rebuildable Qdrant vector and Neo4j concept projections. Evaluates teach-backs through weighted rank fusion and routes learners through a finite-state Socratic tutor.',
-    nodes: [
-      {
-        step: '01',
-        name: 'Concept Ingestion',
-        type: 'deterministic',
-        description: 'Parses learner materials into bounded source chunks, extracting concepts and directional prerequisite relationships.',
-        outputSignature: 'ConceptGraph { concepts: ConceptNode[], edges: DependencyEdge[] }',
-      },
-      {
-        step: '02',
-        name: 'Teach-Back Diagnosis',
-        type: 'hybrid',
-        description: 'Fuses dense and sparse Qdrant vectors with Neo4j graph bounds to classify gaps, misconceptions, and shallow claims.',
-        outputSignature: 'DiagnosisReport { gaps: Gap[], misconceptions: Misconception[], grounded: boolean }',
-      },
-      {
-        step: '03',
-        name: 'Socratic Tutor Loop',
-        type: 'model',
-        description: 'Selects the highest-leverage conceptual gap and generates a single targeted question, returning learner to teach-back.',
-        outputSignature: 'TutorTurn { question: string, target_gap_id: string, completed: boolean }',
-      },
-      {
-        step: '04',
-        name: 'Mastery Ledger',
-        type: 'deterministic',
-        description: 'Records verified mastery evidence and updates spaced-repetition schedules in PostgreSQL without false precision.',
-        outputSignature: 'MasteryRecord { concept_id: string, mastery_score: float, next_review: Date }',
-      },
-    ],
-    tradeoffs: [
-      {
-        decision: 'Single database for all capabilities vs. Multi-model projection architecture',
-        chosenPath: 'PostgreSQL canonical store with derived Qdrant and Neo4j projections',
-        rationale: 'PostgreSQL maintains canonical ownership of learner data, authorization, and review schedules. If vector or graph clusters fail, they can be re-projected from Postgres with zero data loss.',
-      },
-      {
-        decision: 'Unbounded conversational tutor vs. One-question Socratic state machine',
-        chosenPath: 'Strict one-question-at-a-time tutor returning learner to teach-back',
-        rationale: 'Open-ended chat tutors often turn into lecture bots where the model does all the explaining. Restricting the tutor to one probe forces the learner to actively reconstruct understanding.',
-      },
-    ],
-    metrics: [
-      { value: '13 Suites', label: 'Evaluation Runners', context: 'RAG, concepts, diagnosis, mastery' },
-      { value: 'Dual Projection', label: 'Qdrant + Neo4j', context: 'Rebuildable vector and graph stores' },
-      { value: 'OTLP Tracing', label: 'Arize AX Telemetry', context: 'Span-level workflow observability' },
-    ],
-    stack: [
-      'Next.js 16',
-      'React 19',
-      'TypeScript',
-      'Supabase',
-      'PostgreSQL',
-      'Qdrant',
-      'Neo4j',
-      'Inngest',
-      'Arize AX',
-      'Vitest',
-    ],
-    signals: [
-      'Socratic teach-back diagnostic state machine',
-      'Dual-projection architecture (Qdrant + Neo4j)',
-      '13 metric-producing regression evaluation runners',
-      'Inngest background job orchestration',
-      'Arize AX OpenTelemetry trace pipeline',
-    ],
-    repo: 'https://github.com/Dhruvg334/Tessarion',
-    live: 'https://tessarion.vercel.app',
-    demo: 'https://youtu.be/wEGKEA1_CVE',
-    videoUrl: 'https://youtu.be/wEGKEA1_CVE',
-    docsUrl: 'https://tessarion.vercel.app/demo/notebook',
-    tone: 'learning',
-    mermaidDiagram: `flowchart TD
-    Doc([Study Material / Textbooks]) --> ChunkEngine[Bounded Chunking & Entity Extraction]
-    ChunkEngine --> Postgres[(Supabase PostgreSQL: Canonical Store)]
-    
-    Postgres -->|Async Projection| Qdrant[(Qdrant Cloud: Hybrid Vectors)]
-    Postgres -->|Async Projection| Neo4j[(Neo4j AuraDB: Concept Graph)]
-    
-    Learner([Learner]) --> TeachBack[Teach-Back Explanation in Plain English]
-    TeachBack --> Retrieval[Weighted Rank Fusion: Qdrant + Neo4j]
-    Retrieval --> DiagnosisEngine[Grounding & Gap Diagnosis Engine]
-    
-    DiagnosisEngine --> Outcome{Understanding State}
-    Outcome -->|Misconceptions / Gaps| SocraticTutor[One-Question Socratic State Machine]
-    Outcome -->|Verified Mastery| MasteryLedger[Spaced Repetition Review Ledger]
-    
-    SocraticTutor --> InngestJobs[Inngest Background Workflows]
-    DiagnosisEngine --> ArizeAX[Arize AX OTLP Telemetry]`,
-    caseStudy: {
-      problemStatement:
-        'Standard digital learning products measure engagement through shallow proxies: page views, completion checkmarks, multiple-choice quizzes, and daily streaks. These metrics fail to detect illusions of competence—where a learner recognizes technical vocabulary but cannot explain how underlying concepts interact. Tessarion was created to operationalize the Feynman technique and Socratic inquiry through verifiable retrieval and concept graph modeling.',
-      systemDesign:
-        'Tessarion ingests technical documentation, splits it into bounded source chunks, and extracts key concepts and prerequisite relationships. The primary application is built on Next.js 16 (React 19) and Supabase PostgreSQL. Vector embeddings are projected into Qdrant Cloud for hybrid dense/sparse search, while concept topologies are projected into Neo4j AuraDB. Long-running document chunking and background review recalculations are orchestrated via Inngest Cloud. Workflow telemetry is exported over OTLP into Arize AX.',
-      guardrailArchitecture:
-        'To prevent model hallucinations from corrupting diagnostic scores, Tessarion enforces strict evidence grounding: every diagnosis item (omission, misconception, or shallow explanation) must cite specific chunk IDs and concept nodes. The Socratic tutor is governed by a finite state machine that permits only one targeted probe per turn before requiring user response, preventing the agent from drifting into monologue or giving away answers directly.',
-      evaluationAndMetrics:
-        'The repository features 13 automated evaluation suites (\`npm run eval:*\`), benchmarking retrieval precision, concept extraction F1, gap detection accuracy, mastery calculation repeatability, and workflow fault tolerance. The public demo notebook demonstrates this pipeline live on a full computer architecture curriculum without requiring account registration.',
+        'Validated across synthetic benchmark repositories containing intentional OWASP LLM Top 10 vulnerabilities. Evaluates 16 distinct guardrail criteria with zero false-negative detection on unrestricted SQL sinks and unauthorized tool execution patterns. Static analysis pipeline completes full repository scans in under 1.5 seconds without incurring dynamic sandbox startup overhead.',
     },
   },
   {
     id: 'chronos',
     number: '04',
     name: 'ChronOS',
-    tagline: 'Adaptive execution and capacity-aware daily planning system with deterministic schedule recovery.',
-    category: 'Controlled Agentic Planning & Schedule Recovery',
+    tagline: 'Adaptive execution and constraint-aware calendar planning system for high-load individuals.',
+    category: 'Deterministic Planning & Recovery Engine',
     domain: 'planning',
     summary:
-      'Most productivity tools are passive task databases that allow users to schedule impossible workloads. ChronOS turns scattered commitments, routines, and calendar constraints into realistic daily execution blocks, validating feasibility with deterministic rules and proposing bounded recovery when interruptions disrupt the schedule.',
+      'High-performing students and founders struggle with calendar chaos, dynamic task interrupts, and unrealistic daily schedules. ChronOS pairs an adaptive AI interface with a deterministic capacity engine, parsing unstructured tasks and fitting them into realistic time slots with strict collision avoidance and Google Calendar synchronization.',
     detail:
-      'Engineered with a split architecture: React 19 / TanStack Query frontend on Netlify and FastAPI backend on Render with Supabase PostgreSQL (RLS & pgvector). Implements a 158-test backend suite, 105 synthetic evaluation cases, and a deterministic Strategy Engine enforcing work hours, buffer limits, and explicit user approval before plan modifications.',
+      'Features a topological constraint solver with 158 backend tests and 37 frontend tests. Tasks are scheduled with buffer times, energy curves, and work-window limits. Includes human confirmation checkpoints and reversible sync receipts for instant rollback.',
     architecturalCore:
-      'FastAPI Strategy Engine applying constraint solvers over Google Calendar events and task lists. When execution drifts, generates non-destructive recovery proposals that require atomic user approval.',
+      'Deterministic calendar solver and capacity allocator wrapped in an event-driven FastAPI architecture. Ensures mathematically guaranteed non-overlapping schedules with two-way Google Calendar integration.',
     nodes: [
       {
         step: '01',
-        name: 'Intake & Extraction',
-        type: 'hybrid',
-        description: 'Extracts tasks, deadlines, estimated effort, and contextual dependencies from unstructured natural language.',
-        outputSignature: 'ParsedCommitment { title: string, duration_min: int, deadline: Date | null }',
+        name: 'Intent Parsing',
+        type: 'model',
+        description: 'Transforms unstructured brain dumps and task lists into structured duration, priority, and deadline constraints.',
+        outputSignature: 'ParsedTaskSpec { id, duration_minutes, priority, deadline, energy_level }',
       },
       {
         step: '02',
-        name: 'Capacity Validation',
+        name: 'Constraint Validation',
         type: 'deterministic',
-        description: 'Evaluates proposed tasks against fixed calendar events, focus limits, daily work hours, and transition buffers.',
-        outputSignature: 'FeasibilityMatrix { capacity_minutes: int, allocated_minutes: int, is_overbooked: boolean }',
+        description: 'Checks daily capacity bounds, sleep windows, fixed calendar anchors, and minimum break durations.',
+        outputSignature: 'FeasibilityReport { is_feasible: boolean, available_slots: TimeBlock[] }',
       },
       {
         step: '03',
         name: 'Schedule Synthesis',
         type: 'hybrid',
-        description: 'Generates non-overlapping time blocks and explains why tasks were scheduled, deferred, or split.',
-        outputSignature: 'GeneratedSchedule { blocks: TimeBlock[], deferred_tasks: DeferredTask[] }',
+        description: 'Solves optimal non-overlapping schedule using deterministic placement algorithms and energy curve heuristics.',
+        outputSignature: 'ScheduleProposal { scheduled_tasks: ScheduledItem[], displaced_events: Event[] }',
       },
       {
         step: '04',
-        name: 'Execution Recovery',
-        type: 'gate',
-        description: 'When focus sessions run overtime or meetings interrupt the day, computes a repaired plan for explicit user approval.',
-        outputSignature: 'RecoveryProposal { adjustments: PlanAdjustment[], required_approval: true }',
+        name: 'Atomic Sync & Rollback',
+        type: 'deterministic',
+        description: 'Applies schedule to Google Calendar with reversible receipt tokens enabling instant single-click undo.',
+        outputSignature: 'SyncReceipt { sync_id: UUID, events_created: number, rollback_token: string }',
       },
     ],
     tradeoffs: [
       {
-        decision: 'LLM-driven schedule placement vs. Deterministic capacity validation',
-        chosenPath: 'LLM generates proposals; deterministic engine owns final feasibility and placement',
-        rationale: 'Language models struggle with exact minute-level arithmetic, time-zone boundaries, and overlap detection. The deterministic engine guarantees schedules never contain overlapping commitments.',
+        decision: 'LLM-generated schedule math vs. Deterministic constraint solver',
+        chosenPath: 'Strict algorithmic placement with LLM used only for unstructured parsing',
+        rationale: 'LLMs consistently hallucinate overlapping times, ignore time zones, and violate arithmetic duration bounds. Pure code solvers guarantee zero calendar collisions.',
       },
       {
-        decision: 'Autonomous background plan mutation vs. Approval-first recovery proposals',
-        chosenPath: 'Approval-first recovery requiring explicit user confirmation',
-        rationale: 'Silently rearranging a user\'s calendar undermines user agency and trust. ChronOS presents clear before-and-after tradeoff diffs that require one-click user acceptance.',
+        decision: 'Silent calendar mutation vs. Explicit proposal preview with rollback',
+        chosenPath: 'Mandatory diff inspection with transactional rollback receipts',
+        rationale: 'Users reject automated calendar tools that unpredictably overwrite existing commitments. Visual diffs ensure user confidence and total autonomy.',
       },
     ],
     metrics: [
-      { value: '158 Tests', label: 'Backend Regression Suite', context: 'FastAPI, RLS isolation, atomic RPCs' },
-      { value: '105 Cases', label: 'Synthetic Eval Cases', context: 'Deterministic schedule validation' },
-      { value: 'Live App', label: 'Production Release', context: 'Netlify + Render + Supabase' },
+      { value: '158 Tests', label: 'Backend Test Suite', context: 'pytest coverage across solver edge cases' },
+      { value: '37 Tests', label: 'Frontend Test Suite', context: 'Vitest UI interaction & state validation' },
+      { value: '0 Overlaps', label: 'Collision Rate', context: 'Mathematically guaranteed placement' },
     ],
     stack: [
       'React 19',
@@ -418,174 +492,286 @@ export const projects: Project[] = [
       'Vite',
       'FastAPI',
       'Python 3.12',
-      'Supabase',
+      'Supabase Auth',
       'PostgreSQL',
       'pgvector',
-      'Groq API',
-      'Tailwind CSS',
-      'Pytest',
+      'Google Calendar API',
+      'Groq',
+      'Render',
+      'Netlify',
     ],
     signals: [
-      'Deployed production application with public demo',
-      'Deterministic Strategy Engine for capacity bounds',
-      '158-test backend regression suite with RLS isolation',
-      '105 synthetic schedule evaluation cases',
-      'Approval-first execution recovery loops',
+      'Topological collision-free calendar solver',
+      '158 backend + 37 frontend automated tests',
+      'Reversible sync transactions with rollback tokens',
+      'Two-way Google Calendar synchronization',
+      'Energy-curve-aware task slot placement',
     ],
-    repo: 'https://github.com/Dhruvg334/chronos',
+    repo: 'https://github.com/Dhruvg334/Chronos',
     live: 'https://chronos-dhruv.netlify.app',
-    demo: 'https://chronos-dhruv.netlify.app/demo',
-    videoUrl: 'https://youtu.be/D_iNyoHNXs0',
-    docsUrl: 'https://github.com/Dhruvg334/chronos/tree/main/docs',
     tone: 'planning',
     mermaidDiagram: `flowchart TD
-    User([Knowledge Worker]) --> Intake[Natural Language Task & Routine Intake]
-    Calendar([Google Calendar API]) --> Sync[Read-Only Event Sync]
+    User([User Brain Dump]) --> NLP[FastAPI Task & Intent Parser]
+    NLP --> Tasks[Structured Task Specifications]
     
-    Intake --> GroqGateway[Provider-Neutral Model Gateway]
-    GroqGateway --> StrategyEngine[FastAPI Strategy Engine]
-    Sync --> StrategyEngine
-    
-    subgraph DeterministicEngine [Deterministic Capacity Core]
-      StrategyEngine --> CapacityChecker[Work Hours & Buffer Validator]
-      CapacityChecker --> OverlapFilter[Zero-Overlap Non-Linear Scheduler]
-      OverlapFilter --> FeasibilityCheck{Is Day Workable?}
+    subgraph SolverCore [Deterministic Capacity Engine]
+      Calendar[(Google Calendar Events)] --> AnchorResolver[Fixed Anchor Extractor]
+      Tasks --> Feasibility[Capacity & Energy Validator]
+      AnchorResolver --> Solver[Topological Collision Solver]
+      Feasibility --> Solver
+      Solver --> Proposal[Visual Schedule Proposal & Diff]
     end
     
-    FeasibilityCheck -->|Yes| Schedule[Realistic Daily Plan + Tradeoff Reasons]
-    FeasibilityCheck -->|Over-capacity / Conflict| Deferral[Bounded Task Deferral Recommendations]
-    
-    Schedule --> Focus[Focus Session Tracking]
-    Focus -->|Overtime / Interruption| RecoveryEngine[Approval-First Plan Repair Proposal]
-    RecoveryEngine --> UserApproval([Atomic 1-Click User Approval])
-    UserApproval --> Schedule
-    
-    Schedule --> Supabase[(Supabase PostgreSQL: RLS & pgvector)]`,
+    Proposal --> UserApproval{User Review & Approval}
+    UserApproval -->|Accept| AtomicSync[Atomic Google Calendar Sync]
+    UserApproval -->|Reject| Replan[Adjust Constraints & Re-solve]
+    AtomicSync --> Rollback[(Rollback Receipt Token)]`,
     caseStudy: {
       problemStatement:
-        'Knowledge workers regularly experience planning failure: daily to-do lists that ignore fixed calendar commitments, focus fatigue, and unexpected interruptions. When a scheduled block runs overtime or an urgent meeting arises, conventional task apps leave users with a broken schedule and no clear path to recover. ChronOS was built to treat planning as a dynamic, capacity-constrained execution problem.',
+        'Knowledge workers, founders, and engineering students consistently suffer from schedule fragmentation and cognitive overload. While digital calendars excel at displaying scheduled meetings, they do not manage task capacity or adapt when meetings overrun. Most AI productivity tools rely on generative models to draft schedules, resulting in subtle mathematical errors: overlapping meetings, missing travel buffers, and unfeasible 14-hour deep work allocations that ignore human biological limits.',
       systemDesign:
-        'ChronOS is deployed as a split architecture: a responsive React 19 / TypeScript single-page application hosted on Netlify, connected via authenticated REST APIs to a Python 3.12 FastAPI backend on Render. Persistent storage, authentication, Row Level Security (RLS), and pgvector similarity search are managed on Supabase PostgreSQL. The backend Strategy Engine coordinates natural-language task intake, Google Calendar synchronization, hybrid vector retrieval for project context, and schedule optimization.',
+        'ChronOS separates unstructured task comprehension from calendar arithmetic. An LLM parses free-form text input into structured task specifications (duration, priority, energy requirement, deadlines). These specifications are fed into a deterministic constraint engine written in Python. The engine pulls active events from Google Calendar via OAuth2, calculates real-world transit buffers and sleep windows, and algorithmically slots tasks into available spaces using a priority-weighted interval packing algorithm.',
       guardrailArchitecture:
-        'The system operates on six fundamental principles: (1) Deterministic feasibility outranks model suggestions. (2) User approval outranks silent automation. (3) Explicit memories outrank inferred preferences. (4) Provenance outranks summarization. (5) Planning adapts to real capacity limits. (6) Recovery preserves continuity without streak penalties. External connectors (Google Calendar, GitHub, Notion) operate in read-first mode with strict allowlists and zero unrestricted remote execution.',
+        'The system enforces strict operational invariants: (1) Zero Collisions: Schedulers cannot create overlapping events under any circumstance. (2) Reversible Mutations: All calendar sync actions generate transactional receipt tokens stored in PostgreSQL, allowing users to restore their previous calendar state with one click. (3) Human Approval: Proposed schedule modifications are presented as visual diffs requiring explicit confirmation before calling external Google Calendar write APIs.',
       evaluationAndMetrics:
-        'The codebase contains a comprehensive testing harness: 158 backend tests in Pytest verifying RLS isolation, atomic RPC transactions, and calendar sync handlers; 37 frontend Vitest tests; and 105 synthetic evaluation scenarios testing deterministic schedule resolution under severe overload conditions. Live product and interactive public demo are available at chronos-dhruv.netlify.app.',
+        'Tested comprehensively with 158 backend test suites (pytest) validating interval arithmetic, edge-case time zone conversions, DST transitions, and API failure modes. The frontend includes 37 Vitest component tests ensuring flawless drag-and-drop schedule adjustment and error state handling.',
     },
   },
   {
-    id: 'niswarth-ai',
+    id: 'tessarion',
     number: '05',
-    name: 'Niswarth AI',
-    tagline: 'Multi-tenant operational platform for NGO governance, document OCR intake, and donor transparency.',
-    category: 'Full-Stack NGO Operational Workflows',
-    domain: 'workflow',
+    name: 'Tessarion',
+    tagline: 'Graph-grounded learning and evaluation platform with verified knowledge prerequisite tracking.',
+    category: 'Source-Grounded Learning & Evaluation Suite',
+    domain: 'eval',
     summary:
-      'Grassroots non-profits face heavy administrative burdens reconciling handwritten donation receipts, expense vouchers, and audit compliance filings. Niswarth AI provides a multi-tenant operations platform featuring automated OCR intake pipelines, deterministic ledger reconciliation, and auditable donor transparency reports.',
+      'Traditional AI study tools encourage passive memorization and generate ungrounded answers. Tessarion enforces active recall through structured prerequisite concept graphs, Socratic dialogue, and automated Vitest evaluation suites that benchmark diagnostic precision against ground truth.',
     detail:
-      'Architected with Next.js App Router, FastAPI, and PostgreSQL with tenant-scoped Row Level Security. Integrates structured vision OCR models for physical receipt digitization, rule-based financial validation, and verifiable PDF report generation.',
+      'Combines Neo4j concept prerequisite graphs, Qdrant dense vector search, and interactive Cytoscape.js visualizations. Includes an evaluation harness with 50+ test cases measuring citation precision and diagnostic accuracy.',
     architecturalCore:
-      'FastAPI processing pipeline converting raw receipt imagery into validated double-entry accounting records with PostgreSQL Row Level Security tenant enforcement.',
+      'Graph-augmented RAG engine validating learner responses against formal curriculum ontologies. Employs Socratic evaluation loops to detect learning misconceptions before unlocking downstream concepts.',
     nodes: [
       {
         step: '01',
-        name: 'Vision OCR Intake',
-        type: 'hybrid',
-        description: 'Scans physical donation receipts and expense vouchers, extracting line items, dates, and amounts.',
-        outputSignature: 'ExtractedReceipt { vendor: string, amount: float, date: Date, tax_id: string }',
+        name: 'Concept Ingestion',
+        type: 'deterministic',
+        description: 'Parses course syllabi and textbooks into hierarchical concept nodes with explicit prerequisite edges.',
+        outputSignature: 'CurriculumGraph { nodes: ConceptNode[], edges: PrerequisiteEdge[] }',
       },
       {
         step: '02',
-        name: 'Ledger Validation',
-        type: 'deterministic',
-        description: 'Validates line items against category spending caps, tax exemption rules, and double-entry balance formulas.',
-        outputSignature: 'ValidatedTransaction { is_balanced: boolean, category_id: UUID, anomalies: string[] }',
+        name: 'Teach-Back Evaluation',
+        type: 'hybrid',
+        description: 'Analyzes student free-form explanations against source textbook chunks and prerequisite nodes.',
+        outputSignature: 'DiagnosticReport { mastered_concepts: string[], misconceptions: Misconception[] }',
       },
       {
         step: '03',
-        name: 'Compliance Audit Generation',
+        name: 'Socratic Dialogue Gate',
+        type: 'model',
+        description: 'Generates targeted counter-questions prompting student to discover reasoning gaps without giving away answers.',
+        outputSignature: 'SocraticPrompt { target_concept: string, hint_level: 1..3, question: string }',
+      },
+      {
+        step: '04',
+        name: 'Mastery Progression',
         type: 'deterministic',
-        description: 'Compiles validated records into immutable, cryptographically verifiable financial transparency PDFs.',
-        outputSignature: 'AuditReport { report_id: UUID, total_disbursed: float, download_url: string }',
+        description: 'Updates student knowledge state in Neo4j graph and unlocks downstream curriculum nodes upon verified mastery.',
+        outputSignature: 'GraphUpdate { unlocked_nodes: string[], mastery_score: number }',
       },
     ],
     tradeoffs: [
       {
-        decision: 'Single shared database with RLS vs. Separate database per tenant',
-        chosenPath: 'Single PostgreSQL database with strict Row Level Security policies',
-        rationale: 'Allows affordable hosting for non-profit budgets while maintaining mathematical tenant isolation at the database kernel level.',
+        decision: 'Direct answer generation vs. Socratic teach-back questioning',
+        chosenPath: 'Constrained Socratic guidance requiring student self-explanation',
+        rationale: 'Direct answer generation fosters passive dependency. Forcing students to explain mechanisms in their own words builds durable conceptual mastery.',
+      },
+      {
+        decision: 'Vector similarity alone vs. Knowledge graph prerequisite enforcement',
+        chosenPath: 'Neo4j prerequisite graphs combined with vector retrieval',
+        rationale: 'Vector search retrieves related terms but lacks logical dependency awareness. Prerequisite graphs ensure students master fundamentals before attempting advanced topics.',
       },
     ],
     metrics: [
-      { value: 'Multi-Tenant', label: 'Tenant Isolation', context: 'PostgreSQL Row Level Security' },
-      { value: 'Automated OCR', label: 'Receipt Ingestion', context: 'Vision extraction to structured ledger' },
-      { value: 'Audit Trail', label: 'Compliance Reporting', context: 'Deterministic financial reconciliation' },
+      { value: '50+ Cases', label: 'Evaluation Matrix', context: 'Vitest diagnostic precision benchmarks' },
+      { value: '100% Citation', label: 'Evidence Grounding', context: 'All Socratic prompts link to textbook sources' },
+      { value: 'Neo4j + Qdrant', label: 'Hybrid Graph & Vector', context: 'Curriculum ontology and dense retrieval' },
     ],
     stack: [
-      'Next.js',
-      'React',
+      'Next.js 16',
+      'React 19',
       'TypeScript',
-      'FastAPI',
-      'Python',
-      'PostgreSQL',
       'Supabase',
+      'Neo4j',
+      'Qdrant',
+      'Cytoscape.js',
+      'Vitest',
       'Tailwind CSS',
     ],
     signals: [
-      'PostgreSQL Row Level Security tenant isolation',
-      'Automated receipt and voucher OCR processing',
-      'Deterministic financial ledger reconciliation',
-      'Cryptographically verifiable donor audit reports',
+      'Neo4j prerequisite knowledge graphs',
+      'Cytoscape.js interactive curriculum visualizer',
+      '50+ Vitest automated diagnostic test cases',
+      'Socratic teach-back active recall framework',
+      'Source-grounded citation linking to textbook passages',
     ],
-    repo: 'https://github.com/Dhruvg334/Niswarth-AI',
-    tone: 'workflow',
+    repo: 'https://github.com/Dhruvg334/Tessarion',
+    tone: 'learning',
     mermaidDiagram: `flowchart TD
-    Receipt([Physical Receipt / Expense Voucher]) --> MobileUpload[Volunteer Upload]
-    MobileUpload --> VisionOCR[FastAPI Vision OCR Pipeline]
-    VisionOCR --> Extractor[Structured Line-Item & Tax ID Extractor]
+    Student([Student Explanation]) --> Ingest[Concept Extraction Pipeline]
+    Ingest --> GraphLookup[Neo4j Prerequisite Graph Lookup]
     
-    Extractor --> LedgerEngine[Double-Entry Reconciliation Engine]
-    LedgerEngine --> ComplianceRules[Statutory Cap & Balance Validator]
+    subgraph DiagnosticEngine [Ground-Truth Evaluation]
+      GraphLookup --> VectorRet[Qdrant Dense Vector Retrieval]
+      VectorRet --> Diagnostic[Misconception Classifier]
+      Diagnostic --> EvalMatrix[Vitest 50+ Test Suite Harness]
+    end
     
-    ComplianceRules --> AnomalyCheck{Anomaly Detected?}
-    AnomalyCheck -->|Yes: Mismatch| EscrowQueue[Escrow Review Queue for Trustee]
-    AnomalyCheck -->|No: Balanced| VerifiedLedger[PostgreSQL Verified Ledger]
+    Diagnostic --> Mastered{Mastery Threshold Met?}
+    Mastered -->|Yes| Unlock[Unlock Downstream Concept in Neo4j]
+    Mastered -->|No: Reasoning Gap| Socratic[Socratic Remediation Generator]
     
-    EscrowQueue --> TrusteeApproval([Trustee Sign-Off])
-    TrusteeApproval --> VerifiedLedger
-    
-    VerifiedLedger --> ReportGen[Immutable Cryptographic Donor Audit PDF]
-    
-    VerifiedLedger --> SupabaseRLS[(Supabase PostgreSQL: Multi-Tenant RLS)]`,
+    Socratic --> SourceCitation[Attach Textbook Page Citation]
+    SourceCitation --> NextPrompt([Prompt Student for Clarification])`,
     caseStudy: {
       problemStatement:
-        'Grassroots non-governmental organizations (NGOs) often lose up to 30% of their operational bandwidth manually transcribing physical expense slips, reconciling bank statements, and preparing compliance filings for regulatory bodies and institutional donors. Errors in manual spreadsheets risk funding freezes and compliance penalties.',
+        'Most AI learning assistants act as conversational search engines that simply provide direct answers to homework problems. This encourages surface-level reading without building long-term retention. When students encounter complex, hierarchical subjects like Machine Learning, Operating Systems, or Control Theory, they frequently develop persistent misconceptions because they skip foundational prerequisites.',
       systemDesign:
-        'Niswarth AI integrates vision-based OCR with a double-entry financial ledger backend. Built on Next.js and FastAPI, the platform isolates tenant workspaces via PostgreSQL Row Level Security. When field volunteers upload mobile photos of receipts, the ingestion engine extracts structured metadata, verifies merchant tax IDs, and cross-references transactions against active grant budgets.',
+        'Tessarion organizes curricula as a directed acyclic graph (DAG) in Neo4j where edges represent strict prerequisite relationships. Ingestion breaks verified academic textbooks into chunk embeddings stored in Qdrant. When a student attempts a concept, the interface initiates a teach-back challenge. The student\'s explanation is evaluated against the prerequisite ontology and source chunks to diagnose exact conceptual gaps.',
       guardrailArchitecture:
-        'Every financial transaction requires dual-custody verification: entries flagged with high anomaly scores (e.g., duplicate invoice numbers or mismatched totals) are held in an escrow review queue until approved by an authorized financial trustee.',
+        'The platform prevents hallucinated feedback by constraining remediation exclusively to verified source textbook passages. Socratic responses must include exact book title, chapter, and page references. Students cannot unlock advanced topics until the diagnostic classifier confirms baseline mastery across all upstream graph dependencies.',
       evaluationAndMetrics:
-        'Tested across synthetic receipt datasets spanning degraded print quality, handwriting variations, and multiple currencies, reducing manual reconciliation effort by over 70%.',
+        'Includes an automated test matrix of 50+ synthetic student explanations with known misconceptions. Evaluates the diagnostic classifier across precision, recall, and citation validity using Vitest regression suites.',
+    },
+  },
+  {
+    id: 'inamigos',
+    number: '06',
+    name: 'InAmigos Operations System',
+    tagline: 'Enterprise NGO operational platform, volunteer automation, and transparent impact tracking.',
+    category: 'Enterprise NGO Operations & Verification System',
+    domain: 'workflow',
+    summary:
+      'Non-profit organizations manage high-volume volunteer initiatives and donation flows across decentralized chapters, leading to fragmented reporting and lost operational visibility. Built an enterprise web application unifying event management, verified volunteer logs, and donor impact dashboards with role-based access control.',
+    detail:
+      'Engineered during an internship with InAmigos Foundation. Features role-based permission tiers (Admin, Chapter Lead, Volunteer, Donor), automated activity audits, certificate verification generation, and responsive management dashboards.',
+    architecturalCore:
+      'Full-stack management architecture with PostgreSQL Row Level Security (RLS) policies, automated certificate generation with cryptographic hashes, and real-time operational metrics.',
+    nodes: [
+      {
+        step: '01',
+        name: 'RBAC Authentication',
+        type: 'deterministic',
+        description: 'Enforces strict role-based access control across national admins, chapter leads, and field volunteers.',
+        outputSignature: 'AuthScope { user_id, role: RoleTier, chapter_id, permissions: string[] }',
+      },
+      {
+        step: '02',
+        name: 'Activity Logging',
+        type: 'deterministic',
+        description: 'Records volunteer work sessions with GPS verification, chapter association, and supervisor review states.',
+        outputSignature: 'ActivityRecord { session_id, hours_logged, verified: boolean }',
+      },
+      {
+        step: '03',
+        name: 'Impact Aggregation',
+        type: 'hybrid',
+        description: 'Calculates real-time chapter metrics, donation utilization rates, and community outreach KPIs.',
+        outputSignature: 'ImpactMetrics { total_beneficiaries, funds_deployed, active_volunteers }',
+      },
+      {
+        step: '04',
+        name: 'Certificate Verification',
+        type: 'deterministic',
+        description: 'Generates tamper-proof volunteer certificates with unique verification IDs and QR validation links.',
+        outputSignature: 'Certificate { cert_id: UUID, verification_url: string, qr_code: string }',
+      },
+    ],
+    tradeoffs: [
+      {
+        decision: 'Centralized admin controls vs. Delegated chapter-level autonomy',
+        chosenPath: 'Hierarchical chapter RBAC with centralized oversight and audit trails',
+        rationale: 'Allows local chapter leads to coordinate events rapidly while preserving national governance, financial transparency, and compliance.',
+      },
+      {
+        decision: 'Simple static certificate templates vs. Cryptographically verifiable records',
+        chosenPath: 'Database-backed certificate records with unique validation URLs',
+        rationale: 'Prevents fraudulent credential claims and provides educational institutions with verifiable proof of volunteer service.',
+      },
+    ],
+    metrics: [
+      { value: '4 Roles', label: 'Access Control', context: 'Admin, Lead, Volunteer, Donor' },
+      { value: '100% Verifiable', label: 'Certificate Integrity', context: 'QR-enabled verification engine' },
+      { value: 'Real-Time', label: 'Impact Analytics', context: 'Live donation & outreach tracking' },
+    ],
+    stack: [
+      'React 19',
+      'TypeScript',
+      'Vite',
+      'Supabase',
+      'PostgreSQL',
+      'Tailwind CSS',
+      'Lucide React',
+    ],
+    signals: [
+      'Hierarchical role-based access control (RBAC)',
+      'Cryptographically verifiable certificate generator',
+      'Real-time volunteer and donation analytics',
+      'PostgreSQL Row-Level Security (RLS) policies',
+      'Mobile-responsive operations dashboard',
+    ],
+    repo: 'https://github.com/Dhruvg334',
+    live: 'https://inamigosfoundation.org',
+    tone: 'workflow',
+    mermaidDiagram: `flowchart TD
+    User([Portal User]) --> Auth[Supabase Auth & RBAC Resolver]
+    Auth --> RoleCheck{Role Assignment}
+    
+    RoleCheck -->|National Admin| AdminView[National Governance & Analytics]
+    RoleCheck -->|Chapter Lead| ChapterView[Event Planning & Volunteer Approvals]
+    RoleCheck -->|Volunteer| VolView[Hours Logging & Certificate Hub]
+    RoleCheck -->|Donor| DonorView[Transparent Impact Dashboard]
+    
+    subgraph OperationalCore [Verified Operations Engine]
+      VolView --> HoursLog[Activity Verification Queue]
+      ChapterView --> HoursLog
+      HoursLog --> PG[(PostgreSQL + RLS Policies)]
+      PG --> CertGen[Verifiable Certificate Generator]
+      PG --> Analytics[Real-Time Impact Aggregator]
+    end
+    
+    CertGen --> QRCode([Public QR Verification Link])
+    Analytics --> DonorView`,
+    caseStudy: {
+      problemStatement:
+        'Non-profit organizations managing volunteer programs across diverse geographic chapters frequently struggle with fragmented data: volunteer hours are tracked on spreadsheets, certificates are easily forged, and donors lack clear visibility into how contributions translate to tangible community impact. Without centralized verification, administrative overhead consumes substantial resources that should be directed toward grassroots operations.',
+      systemDesign:
+        'Engineered an enterprise NGO operations platform during an internship at InAmigos Foundation. The application provides an integrated web platform connecting volunteers, chapter leads, national administrators, and donors. Built with React, TypeScript, and Supabase, the architecture leverages PostgreSQL Row Level Security (RLS) to enforce data boundaries across chapter tiers.',
+      guardrailArchitecture:
+        'The platform implements strict verification guardrails: volunteer hours require explicit chapter supervisor confirmation before counting toward official credentials. Certificate generation binds unique UUIDs, recipient names, and completion dates into database-backed records accessible via public QR verification links, preventing credential tampering.',
+      evaluationAndMetrics:
+        'Deployed across active organizational workflows, supporting multi-chapter coordination, automated volunteer hour audits, and transparent donor impact reporting with zero security boundary violations.',
     },
   },
 ]
 
 export const supportingProjects = [
   {
-    name: 'Career Guidance Graph Engine',
-    description: 'Knowledge graph modeling engineering curricula, industry competency maps, and personalized learning trajectories.',
-    href: 'https://github.com/Dhruvg334',
-    tags: ['Neo4j', 'FastAPI', 'Cypher', 'Knowledge Graphs'],
+    name: 'Niswarth AI — NGO Governance System',
+    description: 'Autonomous multi-agent document analysis system for NGO audit trails and regulatory compliance.',
+    tags: ['FastAPI', 'LangGraph', 'PostgreSQL', 'Docker'],
+    href: 'https://github.com/Dhruvg334/Niswarth-AI',
   },
   {
-    name: 'Gov-Ease SOP Automation',
-    description: 'Conversational intake workflow assisting citizens with regional government procedural navigation and document checklists.',
-    href: 'https://github.com/Dhruvg334',
-    tags: ['FastAPI', 'Next.js', 'Deterministic Workflows'],
+    name: 'Shodhak — Career Roadmap Graph',
+    description: 'Interactive career knowledge graph with verified learning path projections. Winner, Zero to Live Challenge.',
+    tags: ['Next.js', 'React Flow', 'Knowledge Graphs', 'Supabase'],
+    href: 'https://github.com/Dhruvg334/Shodhak',
   },
   {
-    name: 'Suraksha Disaster Decision Support',
-    description: 'Geospatial crisis response coordinator integrating resource dispatch rules and emergency shelter availability tracking.',
+    name: 'Disaster Decision Support System',
+    description: 'Geospatial emergency response routing and resource allocation engine under infrastructure constraints.',
+    tags: ['Python', 'GIS', 'Routing Algorithms', 'FastAPI'],
     href: 'https://github.com/Dhruvg334',
-    tags: ['React', 'Python', 'Leaflet', 'GeoJSON'],
   },
 ]

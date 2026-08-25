@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import mermaid from 'mermaid'
 import { motion } from 'motion/react'
-import { Copy, Check, RefreshCw, Cpu } from 'lucide-react'
+import { Copy, Check, Cpu } from 'lucide-react'
 import { SkeletonDiagram } from './Skeleton'
 
 interface MermaidDiagramProps {
@@ -35,7 +35,7 @@ export function MermaidDiagram({ chart, title }: MermaidDiagramProps) {
           fontFamily: 'DM Mono, monospace',
           fontSize: '13px',
         },
-        securityLevel: 'loose',
+        securityLevel: 'strict',
       })
     } catch (e) {
       console.error('Mermaid init error:', e)
