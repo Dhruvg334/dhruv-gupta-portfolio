@@ -2630,7 +2630,7 @@ button {
 .contact-grid-layout {
   display: grid;
   grid-template-columns: 1.25fr 0.85fr;
-  gap: 36px;
+  gap: 40px;
   align-items: start;
 }
 
@@ -2638,7 +2638,11 @@ button {
   .contact-layout-grid,
   .contact-grid-layout {
     grid-template-columns: 1fr;
-    gap: 32px;
+    gap: 48px;
+  }
+
+  .contact-form-wrap {
+    margin-bottom: 16px;
   }
 }
 
@@ -2651,7 +2655,7 @@ button {
   background: var(--bg-card);
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-lg);
-  padding: 36px 32px;
+  padding: 36px 32px 40px;
   display: flex;
   flex-direction: column;
   gap: 22px;
@@ -2661,7 +2665,7 @@ button {
 @media (max-width: 600px) {
   .contact-form-card,
   .contact-form-container {
-    padding: 24px 18px;
+    padding: 24px 18px 28px;
   }
 }
 
@@ -2821,8 +2825,9 @@ button {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 14px;
-  margin-top: 8px;
+  gap: 16px;
+  margin-top: 14px;
+  padding-top: 4px;
   flex-wrap: wrap;
 }
 

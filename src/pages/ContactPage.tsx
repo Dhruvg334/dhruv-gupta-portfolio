@@ -402,29 +402,6 @@ export function ContactPage() {
                   </li>
                 </ul>
               </div>
-
-              {/* Verified Credentials Quick Summary */}
-              <div className="credentials-mini-box">
-                <h4>Academic & Technical Highlights</h4>
-                <div className="cred-pill-list">
-                  <div className="cred-pill">
-                    <CheckCircle2 size={13} className="text-emerald" />
-                    <span>9.45 / 10.0 CGPA</span>
-                  </div>
-                  <div className="cred-pill">
-                    <CheckCircle2 size={13} className="text-emerald" />
-                    <span>GATE DA 2026 Qualified (AIR 1109)</span>
-                  </div>
-                  <div className="cred-pill">
-                    <CheckCircle2 size={13} className="text-emerald" />
-                    <span>Global Tech Innovation 2026 Winner</span>
-                  </div>
-                  <div className="cred-pill">
-                    <CheckCircle2 size={13} className="text-emerald" />
-                    <span>6 Production Architectural Case Studies</span>
-                  </div>
-                </div>
-              </div>
             </div>
           </motion.div>
         </div>
