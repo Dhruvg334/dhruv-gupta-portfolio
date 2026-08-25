@@ -1,5 +1,4 @@
 import { useEffect, useRef, useState } from 'react'
-import mermaid from 'mermaid'
 import { motion } from 'motion/react'
 import { Copy, Check, Cpu } from 'lucide-react'
 import { SkeletonDiagram } from './Skeleton'
@@ -8,6 +7,8 @@ interface MermaidDiagramProps {
   chart: string
   title?: string
 }
+
+let mermaidInitialized = false
 
 export function MermaidDiagram({ chart, title }: MermaidDiagramProps) {
   const containerRef = useRef<HTMLDivElement>(null)
@@ -19,34 +20,36 @@ export function MermaidDiagram({ chart, title }: MermaidDiagramProps) {
   useEffect(() => {
     let isMounted = true
 
-    try {
-      mermaid.initialize({
-        startOnLoad: false,
-        theme: 'dark',
-        themeVariables: {
-          darkMode: true,
-          background: '#110e13',
-          primaryColor: '#2a151b',
-          primaryTextColor: '#ffffff',
-          primaryBorderColor: '#e65345',
-          lineColor: '#e65345',
-          secondaryColor: '#1a1622',
-          tertiaryColor: '#141a18',
-          fontFamily: 'DM Mono, monospace',
-          fontSize: '13px',
-        },
-        securityLevel: 'strict',
-      })
-    } catch (e) {
-      console.error('Mermaid init error:', e)
-    }
-
     const renderChart = async () => {
       setRendering(true)
       setError(null)
       const id = `mermaid-${Math.random().toString(36).substring(2, 9)}`
 
       try {
+        const mermaidModule = await import('mermaid')
+        const mermaid = mermaidModule.default || mermaidModule
+
+        if (!mermaidInitialized) {
+          mermaid.initialize({
+            startOnLoad: false,
+            theme: 'dark',
+            themeVariables: {
+              darkMode: true,
+              background: '#110e13',
+              primaryColor: '#2a151b',
+              primaryTextColor: '#ffffff',
+              primaryBorderColor: '#e65345',
+              lineColor: '#e65345',
+              secondaryColor: '#1a1622',
+              tertiaryColor: '#141a18',
+              fontFamily: 'DM Mono, monospace',
+              fontSize: '13px',
+            },
+            securityLevel: 'strict',
+          })
+          mermaidInitialized = true
+        }
+
         const { svg } = await mermaid.render(id, chart)
         if (isMounted) {
           setSvgContent(svg)

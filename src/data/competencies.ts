@@ -79,7 +79,7 @@ export const systemArchitectureLayers: SystemLayerItem[] = [
     tag: 'Security Layer',
     description: 'Database-level tenant isolation, OWASP LLM security heuristic enforcement, and API secret isolation.',
     implementationExample: 'Zero-trust EXIF scrubbing, PostgreSQL Row-Level Security (RLS) policies, static AST scanners.',
-    keyProjects: ['Civitas', 'A-DAP-T', 'InAmigos'],
+    keyProjects: ['Civitas', 'A-DAP-T', 'Niswarth AI'],
   },
   {
     number: '11',
@@ -87,7 +87,7 @@ export const systemArchitectureLayers: SystemLayerItem[] = [
     tag: 'Telemetry',
     description: 'Cryptographic citation hashes, immutable AI mutation logs, and step-by-step token latency profiling.',
     implementationExample: 'SHA-256 municipal audit certificates, execution trace streams, tenant-scoped audit records.',
-    keyProjects: ['Civitas', 'Mnemos', 'InAmigos'],
+    keyProjects: ['Civitas', 'Mnemos', 'Niswarth AI'],
   },
   {
     number: '12',

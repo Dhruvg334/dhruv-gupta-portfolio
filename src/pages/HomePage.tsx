@@ -78,12 +78,6 @@ export function HomePage() {
             animate={reduceMotion ? undefined : { opacity: 1, y: 0 }}
             transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
           >
-            {/* Status Pill */}
-            <div className="hero-status-pill">
-              <span className="status-dot-emerald" />
-              <span>B.Tech CSE @ KIIT · Graduating July 2027</span>
-            </div>
-
             <h1 className="home-hero-title">
               I build reliable software systems <span className="highlight-text">around AI models</span>.
             </h1>

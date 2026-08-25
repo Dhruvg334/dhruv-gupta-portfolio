@@ -645,123 +645,124 @@ export const projects: Project[] = [
     },
   },
   {
-    id: 'inamigos',
+    id: 'niswarth-ai',
     number: '06',
-    name: 'InAmigos Operations System',
-    tagline: 'Enterprise NGO operational platform, volunteer automation, and transparent impact tracking.',
-    category: 'Enterprise NGO Operations & Verification System',
+    name: 'Niswarth AI',
+    tagline: 'Autonomous multi-agent document analysis, donation tracking, and regulatory audit platform for NGOs.',
+    category: 'Autonomous NGO Governance & Multi-Agent Compliance System',
     domain: 'workflow',
     summary:
-      'Non-profit organizations manage high-volume volunteer initiatives and donation flows across decentralized chapters, leading to fragmented reporting and lost operational visibility. Built an enterprise web application unifying event management, verified volunteer logs, and donor impact dashboards with role-based access control.',
+      'Non-profit organizations face severe administrative overhead and compliance risks managing fragmented receipts, donation utilization disclosures, and multi-chapter audit logs. Niswarth AI is an autonomous document analysis and regulatory compliance platform that extracts structured fiscal entities from unstructured documents, verifies expenditure against statutory bylaws, and generates verified donor impact reports with human-in-the-loop sign-off gates.',
     detail:
-      'Engineered during an internship with InAmigos Foundation. Features role-based permission tiers (Admin, Chapter Lead, Volunteer, Donor), automated activity audits, certificate verification generation, and responsive management dashboards.',
+      'Built as an independent development project. Features a multi-agent LangGraph supervisor coordinating receipt OCR extraction, fiscal cross-verification against statutory bylaws, PostgreSQL Row-Level Security (RLS) tenant isolation, and cryptographic SHA-256 audit digest generation.',
     architecturalCore:
-      'Full-stack management architecture with PostgreSQL Row Level Security (RLS) policies, automated certificate generation with cryptographic hashes, and real-time operational metrics.',
+      'Multi-agent LangGraph supervisor orchestrating document entity extraction, regulatory rule validation, deterministic ledger balancing, and durable human review checkpoints in PostgreSQL.',
     nodes: [
       {
         step: '01',
-        name: 'RBAC Authentication',
+        name: 'Document Ingest & OCR',
         type: 'deterministic',
-        description: 'Enforces strict role-based access control across national admins, chapter leads, and field volunteers.',
-        outputSignature: 'AuthScope { user_id, role: RoleTier, chapter_id, permissions: string[] }',
+        description: 'Extracts financial receipts, grant invoices, and bank statements with text region bounding and MIME validation.',
+        outputSignature: 'ExtractedDocument { doc_id, line_items: LineItem[], total_amount: Decimal, vendor: string }',
       },
       {
         step: '02',
-        name: 'Activity Logging',
-        type: 'deterministic',
-        description: 'Records volunteer work sessions with GPS verification, chapter association, and supervisor review states.',
-        outputSignature: 'ActivityRecord { session_id, hours_logged, verified: boolean }',
+        name: 'Fiscal Bylaw Verification',
+        type: 'hybrid',
+        description: 'Cross-references itemized expenses against statutory grant allocations and NGO regulatory guidelines using pgvector + deterministic ledger checks.',
+        outputSignature: 'ComplianceAudit { is_compliant: boolean, disallowed_expenses: Item[], rule_violations: string[] }',
       },
       {
         step: '03',
-        name: 'Impact Aggregation',
-        type: 'hybrid',
-        description: 'Calculates real-time chapter metrics, donation utilization rates, and community outreach KPIs.',
-        outputSignature: 'ImpactMetrics { total_beneficiaries, funds_deployed, active_volunteers }',
+        name: 'Multi-Agent Consensus',
+        type: 'model',
+        description: 'Specialized auditor and compliance agents verify fund disbursement allocation and draft structured audit findings.',
+        outputSignature: 'AuditSummary { risk_score: number, anomalies_detected: Anomaly[], draft_report: string }',
       },
       {
         step: '04',
-        name: 'Certificate Verification',
-        type: 'deterministic',
-        description: 'Generates tamper-proof volunteer certificates with unique verification IDs and QR validation links.',
-        outputSignature: 'Certificate { cert_id: UUID, verification_url: string, qr_code: string }',
+        name: 'Durable Human Gate & Certification',
+        type: 'human',
+        description: 'Pauses execution in PostgreSQL for trustee/auditor signature before sealing an immutable SHA-256 compliance certificate.',
+        outputSignature: 'CertifiedReport { report_id: UUID, sha256_hash: string, approved_by: UserID }',
       },
     ],
     tradeoffs: [
       {
-        decision: 'Centralized admin controls vs. Delegated chapter-level autonomy',
-        chosenPath: 'Hierarchical chapter RBAC with centralized oversight and audit trails',
-        rationale: 'Allows local chapter leads to coordinate events rapidly while preserving national governance, financial transparency, and compliance.',
+        decision: 'Deterministic ledger validation vs. LLM financial calculations',
+        chosenPath: 'Deterministic Python arithmetic for all accounting and ledger totals, using LLMs only for semantic entity extraction.',
+        rationale: 'LLMs cannot be trusted for financial math where even minor rounding errors violate statutory compliance.',
       },
       {
-        decision: 'Simple static certificate templates vs. Cryptographically verifiable records',
-        chosenPath: 'Database-backed certificate records with unique validation URLs',
-        rationale: 'Prevents fraudulent credential claims and provides educational institutions with verifiable proof of volunteer service.',
+        decision: 'Relational PostgreSQL with RLS vs. Unstructured document store',
+        chosenPath: 'PostgreSQL with strict Row-Level Security (RLS) tenant boundaries and immutable audit logs.',
+        rationale: 'NGO data contains sensitive donor identities and fiscal records that require strict tenant isolation and ACID guarantees.',
       },
     ],
     metrics: [
-      { value: '4 Roles', label: 'Access Control', context: 'Admin, Lead, Volunteer, Donor' },
-      { value: '100% Verifiable', label: 'Certificate Integrity', context: 'QR-enabled verification engine' },
-      { value: 'Real-Time', label: 'Impact Analytics', context: 'Live donation & outreach tracking' },
+      { value: '100%', label: 'Math Determinism', context: 'Zero-hallucination ledger balancing' },
+      { value: 'SHA-256', label: 'Audit Provenance', context: 'Cryptographic report certification' },
+      { value: 'Multi-Agent', label: 'LangGraph Runtime', context: 'Specialized auditor and compliance agents' },
     ],
     stack: [
+      'Python',
+      'FastAPI',
+      'LangGraph',
+      'PostgreSQL',
+      'pgvector',
+      'Docker',
       'React 19',
       'TypeScript',
-      'Vite',
-      'Supabase',
-      'PostgreSQL',
       'Tailwind CSS',
-      'Lucide React',
     ],
     signals: [
-      'Hierarchical role-based access control (RBAC)',
-      'Cryptographically verifiable certificate generator',
-      'Real-time volunteer and donation analytics',
-      'PostgreSQL Row-Level Security (RLS) policies',
-      'Mobile-responsive operations dashboard',
+      'Multi-agent LangGraph compliance supervisor',
+      'Deterministic ledger math and anomaly detection',
+      'PostgreSQL Row-Level Security (RLS) tenant isolation',
+      'Durable human-in-the-loop review sign-off',
+      'Cryptographic SHA-256 audit certification',
     ],
-    repo: 'https://github.com/Dhruvg334',
-    live: 'https://inamigosfoundation.org',
+    repo: 'https://github.com/Dhruvg334/Niswarth-AI',
     tone: 'workflow',
     mermaidDiagram: `flowchart TD
-    User([Portal User]) --> Auth[Supabase Auth & RBAC Resolver]
-    Auth --> RoleCheck{Role Assignment}
+    User([NGO Trustee / Auditor]) --> Upload[Document Upload & Ingestion]
+    Upload --> OCR[OCR & Entity Extraction Pipeline]
     
-    RoleCheck -->|National Admin| AdminView[National Governance & Analytics]
-    RoleCheck -->|Chapter Lead| ChapterView[Event Planning & Volunteer Approvals]
-    RoleCheck -->|Volunteer| VolView[Hours Logging & Certificate Hub]
-    RoleCheck -->|Donor| DonorView[Transparent Impact Dashboard]
-    
-    subgraph OperationalCore [Verified Operations Engine]
-      VolView --> HoursLog[Activity Verification Queue]
-      ChapterView --> HoursLog
-      HoursLog --> PG[(PostgreSQL + RLS Policies)]
-      PG --> CertGen[Verifiable Certificate Generator]
-      PG --> Analytics[Real-Time Impact Aggregator]
+    subgraph MultiAgentCore [Multi-Agent LangGraph Supervisor]
+      OCR --> AuditorAgent[Fiscal Auditor Agent]
+      OCR --> ComplianceAgent[Regulatory Bylaw Agent]
+      
+      AuditorAgent --> LedgerCheck[Deterministic Ledger & Math Engine]
+      ComplianceAgent --> GrantRules[Grant Allocation & Policy Match]
+      
+      LedgerCheck --> Consensus[Multi-Agent Consensus Arbiter]
+      GrantRules --> Consensus
     end
     
-    CertGen --> QRCode([Public QR Verification Link])
-    Analytics --> DonorView`,
+    Consensus --> PG[(PostgreSQL + RLS Isolation)]
+    Consensus --> Discrepancy{Discrepancy Detected?}
+    
+    Discrepancy -->|Yes| Flag[Flag Disallowed Expense & Pause]
+    Discrepancy -->|No| DraftReport[Draft Compliance Impact Report]
+    
+    Flag --> HumanReview([Auditor / Trustee Sign-Off])
+    DraftReport --> HumanReview
+    HumanReview --> CertGen[SHA-256 Cryptographic Audit Seal]
+    CertGen --> FinalReport[Immutable Verified Report & Feed]`,
     caseStudy: {
       problemStatement:
-        'Non-profit organizations managing volunteer programs across diverse geographic chapters frequently struggle with fragmented data: volunteer hours are tracked on spreadsheets, certificates are easily forged, and donors lack clear visibility into how contributions translate to tangible community impact. Without centralized verification, administrative overhead consumes substantial resources that should be directed toward grassroots operations.',
+        'Non-profit organizations face severe administrative overhead and compliance scrutiny managing decentralized donations, multi-chapter field expenditures, and statutory filings. Without automated cross-referencing between receipts, grant allocations, and regulatory bylaws, non-profits risk financial misallocations, reporting fraud, and costly compliance violations during annual regulatory audits.',
       systemDesign:
-        'Engineered an enterprise NGO operations platform during an internship at InAmigos Foundation. The application provides an integrated web platform connecting volunteers, chapter leads, national administrators, and donors. Built with React, TypeScript, and Supabase, the architecture leverages PostgreSQL Row Level Security (RLS) to enforce data boundaries across chapter tiers.',
+        'Built Niswarth AI as an independent development project to automate non-profit governance. The platform ingests financial receipts, bank statements, and invoices, extracting structured line items and vendor metadata. A LangGraph multi-agent supervisor orchestrates specialized fiscal auditor and regulatory agents that verify expenditure against predefined grant constraints and legal compliance frameworks. All records are isolated per organization using PostgreSQL Row-Level Security (RLS).',
       guardrailArchitecture:
-        'The platform implements strict verification guardrails: volunteer hours require explicit chapter supervisor confirmation before counting toward official credentials. Certificate generation binds unique UUIDs, recipient names, and completion dates into database-backed records accessible via public QR verification links, preventing credential tampering.',
+        'The platform strictly separates linguistic document parsing from accounting math. All financial computations, ledger balance checks, and currency conversions are handled by deterministic Python arithmetic functions. Any identified anomaly, tax discrepancy, or unallocated expenditure triggers a mandatory human-in-the-loop pause in PostgreSQL before reports can be sealed.',
       evaluationAndMetrics:
-        'Deployed across active organizational workflows, supporting multi-chapter coordination, automated volunteer hour audits, and transparent donor impact reporting with zero security boundary violations.',
+        'Validated against synthetic non-profit audit datasets containing multi-invoice discrepancy edge cases, achieving 100% detection of disallowed expenses and complete deterministic math consistency across all generated compliance reports.',
     },
   },
 ]
 
 export const supportingProjects = [
-  {
-    name: 'Niswarth AI — NGO Governance System',
-    description: 'Autonomous multi-agent document analysis system for NGO audit trails and regulatory compliance.',
-    tags: ['FastAPI', 'LangGraph', 'PostgreSQL', 'Docker'],
-    href: 'https://github.com/Dhruvg334/Niswarth-AI',
-  },
   {
     name: 'Shodhak — Career Roadmap Graph',
     description: 'Interactive career knowledge graph with verified learning path projections. Winner, Zero to Live Challenge.',
@@ -772,6 +773,12 @@ export const supportingProjects = [
     name: 'Disaster Decision Support System',
     description: 'Geospatial emergency response routing and resource allocation engine under infrastructure constraints.',
     tags: ['Python', 'GIS', 'Routing Algorithms', 'FastAPI'],
+    href: 'https://github.com/Dhruvg334',
+  },
+  {
+    name: 'Physics Study Buddy',
+    description: 'Interactive concept graph tutor with active recall evaluation and formula derivations.',
+    tags: ['React', 'FastAPI', 'Neo4j', 'LaTeX'],
     href: 'https://github.com/Dhruvg334',
   },
 ]

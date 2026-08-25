@@ -376,6 +376,36 @@ export function ResumePage() {
                   </li>
                 </ul>
               </div>
+
+              {/* Niswarth AI */}
+              <div className="resume-entry">
+                <div className="entry-header">
+                  <div className="entry-title-group">
+                    <div className="proj-title-row">
+                      <h3 className="entry-role-title">Niswarth AI – NGO Governance & Multi-Agent Compliance</h3>
+                      <div className="resume-proj-links no-print">
+                        <a href="https://github.com/Dhruvg334/Niswarth-AI" target="_blank" rel="noopener noreferrer" className="pill-link">
+                          <GitHubMark size={11} /> Code
+                        </a>
+                      </div>
+                    </div>
+                    <span className="entry-stack">
+                      FastAPI, Python, LangGraph, PostgreSQL, pgvector, Docker, React 19, TypeScript
+                    </span>
+                  </div>
+                </div>
+                <ul className="entry-bullets">
+                  <li>
+                    Built an autonomous multi-agent document analysis and compliance platform that extracts structured fiscal entities from unstructured invoices, receipts, and bank statements.
+                  </li>
+                  <li>
+                    Implemented specialized LangGraph auditor and compliance agents that cross-reference itemized expenses against statutory grant allocations with deterministic ledger arithmetic.
+                  </li>
+                  <li>
+                    Enforced organization-level data isolation with PostgreSQL Row-Level Security (RLS) and sealed verified donor impact summaries with cryptographic SHA-256 audit digests.
+                  </li>
+                </ul>
+              </div>
             </section>
 
             {/* Achievements & Certifications */}
