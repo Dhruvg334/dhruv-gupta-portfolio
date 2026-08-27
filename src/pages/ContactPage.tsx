@@ -35,6 +35,14 @@ function LinkedInMark({ size = 16 }: { size?: number }) {
   )
 }
 
+function DevpostMark({ size = 16 }: { size?: number }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" aria-hidden="true" fill="currentColor">
+      <path d="M6.002 1.61 0 12.016l6.002 10.374h11.996L24 12.016 17.998 1.61H6.002Zm1.593 4.084h3.947c2.747 0 4.762 1.499 4.762 4.195 0 2.645-2.054 4.143-4.823 4.143H7.595V5.694Zm2.482 2.185v4.062h1.465c1.444 0 2.373-.807 2.373-2.031 0-1.225-.929-2.031-2.373-2.031H10.077Z" />
+    </svg>
+  )
+}
+
 interface ContactIntent {
   id: string
   label: string
@@ -367,6 +375,22 @@ export function ContactPage() {
                   <div className="channel-detail">
                     <span className="channel-lbl">LinkedIn</span>
                     <strong>linkedin.com/in/dhruv-gupta</strong>
+                  </div>
+                  <ArrowRight size={14} className="channel-arrow" />
+                </a>
+
+                <a
+                  href="https://devpost.com/Dhruvg334"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="channel-item channel-item--link"
+                >
+                  <div className="channel-icon">
+                    <DevpostMark size={18} />
+                  </div>
+                  <div className="channel-detail">
+                    <span className="channel-lbl">Devpost Profile</span>
+                    <strong>devpost.com/Dhruvg334</strong>
                   </div>
                   <ArrowRight size={14} className="channel-arrow" />
                 </a>

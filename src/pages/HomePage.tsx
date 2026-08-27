@@ -28,6 +28,14 @@ function LinkedInMark({ size = 16 }: { size?: number }) {
   )
 }
 
+function DevpostMark({ size = 16 }: { size?: number }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" aria-hidden="true" fill="currentColor">
+      <path d="M6.002 1.61 0 12.016l6.002 10.374h11.996L24 12.016 17.998 1.61H6.002Zm1.593 4.084h3.947c2.747 0 4.762 1.499 4.762 4.195 0 2.645-2.054 4.143-4.823 4.143H7.595V5.694Zm2.482 2.185v4.062h1.465c1.444 0 2.373-.807 2.373-2.031 0-1.225-.929-2.031-2.373-2.031H10.077Z" />
+    </svg>
+  )
+}
+
 const clearPrinciples = [
   {
     number: '01',
@@ -93,9 +101,6 @@ export function HomePage() {
               <Link to="/resume" className="btn btn--secondary">
                 <FileText size={15} /> View Resume
               </Link>
-              <Link to="/contact" className="btn btn--ghost">
-                <Mail size={15} /> Get in Touch
-              </Link>
             </div>
 
             {/* Credential Metrics Strip */}
@@ -119,20 +124,36 @@ export function HomePage() {
         </div>
       </section>
 
-      {/* Socials & Summary Bar */}
-      <section className="intro-bar">
-        <div className="shell intro-bar__inner">
-          <p>
-            Specialized in <strong>civic intelligence, GraphRAG search, AI safety scanners, smart planning tools, and full-stack web platforms.</strong>
-          </p>
-          <div className="intro-socials">
-            <a href="https://github.com/Dhruvg334" target="_blank" rel="noopener noreferrer">
-              <GitHubMark /> GitHub
-            </a>
-            <a href="https://www.linkedin.com/in/dhruv-gupta-7a7500287/" target="_blank" rel="noopener noreferrer">
-              <LinkedInMark /> LinkedIn
-            </a>
-          </div>
+      {/* Centered Social Profile Links Bar */}
+      <section className="profile-links-bar">
+        <div className="shell profile-links-bar__inner">
+          <a
+            href="https://github.com/Dhruvg334"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="profile-link-btn"
+          >
+            <GitHubMark size={16} />
+            <span>GitHub</span>
+          </a>
+          <a
+            href="https://www.linkedin.com/in/dhruv-gupta-7a7500287/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="profile-link-btn"
+          >
+            <LinkedInMark size={16} />
+            <span>LinkedIn</span>
+          </a>
+          <a
+            href="https://devpost.com/Dhruvg334"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="profile-link-btn"
+          >
+            <DevpostMark size={16} />
+            <span>Devpost</span>
+          </a>
         </div>
       </section>
 
