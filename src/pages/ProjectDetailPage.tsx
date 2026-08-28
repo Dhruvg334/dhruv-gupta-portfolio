@@ -17,6 +17,7 @@ import {
 import { projects } from '../data/projects'
 import { MermaidDiagram } from '../components/MermaidDiagram'
 import { ReadingProgressBar } from '../components/ReadingProgressBar'
+import { CardSpotlight } from '../components/motion/CardSpotlight'
 
 function GitHubMark({ size = 15 }: { size?: number }) {
   return (
@@ -54,10 +55,10 @@ export function ProjectDetailPage() {
   const reveal = reduceMotion
     ? {}
     : {
-        initial: { opacity: 0, y: 16 },
+        initial: { opacity: 0, y: 14 },
         whileInView: { opacity: 1, y: 0 },
-        viewport: { once: true, amount: 0.1 },
-        transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] as const },
+        viewport: { once: true, margin: '-20px' },
+        transition: { duration: 0.35, ease: [0.16, 1, 0.3, 1] as const },
       }
 
   return (
@@ -83,7 +84,7 @@ export function ProjectDetailPage() {
           <motion.div
             initial={reduceMotion ? undefined : { opacity: 0, y: 16 }}
             animate={reduceMotion ? undefined : { opacity: 1, y: 0 }}
-            transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
+            transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
           >
             <div className="detail-header-meta">
               <span className="meta-number">{project.number}</span>
@@ -96,11 +97,11 @@ export function ProjectDetailPage() {
             {/* Quick Metrics Bar */}
             <div className="detail-metrics-grid">
               {project.metrics.map((m) => (
-                <div key={m.label} className="detail-metric-card">
+                <CardSpotlight key={m.label} className="detail-metric-card">
                   <span className="metric-val">{m.value}</span>
                   <strong className="metric-lbl">{m.label}</strong>
                   <span className="metric-ctx">{m.context}</span>
-                </div>
+                </CardSpotlight>
               ))}
             </div>
 
@@ -118,13 +119,7 @@ export function ProjectDetailPage() {
 
               {project.demo && (
                 <a href={project.demo} target="_blank" rel="noopener noreferrer" className="btn btn--ghost">
-                  <Play size={16} /> Watch Video Walkthrough
-                </a>
-              )}
-
-              {project.docsUrl && (
-                <a href={project.docsUrl} target="_blank" rel="noopener noreferrer" className="btn btn--ghost">
-                  <FileText size={16} /> Technical Docs
+                  <Play size={16} /> Watch Demo Video
                 </a>
               )}
             </div>
@@ -132,111 +127,112 @@ export function ProjectDetailPage() {
         </div>
       </header>
 
-      {/* Main Case Study Body */}
-      <main className="detail-main-content">
-        <div className="shell detail-content-grid">
-          {/* Main Reading Column */}
-          <div className="detail-main-column">
-            {/* 1. Problem Statement & Operational Context */}
-            <motion.section id="section-problem" className="detail-section" {...reveal}>
-              <div className="detail-section-title">
-                <BookOpen size={20} />
-                <h2>1. Problem Statement & Real-World Context</h2>
+      {/* Main Case Study Content Container */}
+      <main className="section detail-content-section">
+        <div className="shell detail-layout-grid">
+          {/* Main Article Sections */}
+          <div className="detail-main-article">
+            {/* 1. Problem Statement */}
+            <motion.section id="section-problem" className="detail-block" {...reveal}>
+              <div className="block-header">
+                <span className="block-number">01</span>
+                <h2>Problem & Business Context</h2>
               </div>
-              <div className="prose-content">
+              <div className="prose-block">
                 <p>{project.caseStudy.problemStatement}</p>
               </div>
             </motion.section>
 
-            {/* 2. Interactive Mermaid Architecture Diagram */}
-            <motion.section id="section-architecture" className="detail-section" {...reveal}>
-              <div className="detail-section-title">
-                <Cpu size={20} />
-                <h2>2. System Architecture & Topology</h2>
+            {/* 2. Architecture & Topology (Mermaid) */}
+            <motion.section id="section-architecture" className="detail-block" {...reveal}>
+              <div className="block-header">
+                <span className="block-number">02</span>
+                <h2>Architecture & Topology</h2>
               </div>
-              <div className="prose-content">
-                <p>{project.caseStudy.systemDesign}</p>
-              </div>
-
-              {/* Rendered Mermaid Chart with Skeleton fallback */}
-              <div className="diagram-container-wrap">
-                <MermaidDiagram
-                  chart={project.mermaidDiagram}
-                  title={`${project.name} — Architecture Diagram`}
-                />
-              </div>
+              <p className="block-intro">
+                System topology visualizing data flow, isolation boundaries, and verification gates.
+              </p>
+              <MermaidDiagram chart={project.mermaidDiagram} title={`${project.name} System Topology`} />
             </motion.section>
 
             {/* 3. Execution Pipeline & Contracts */}
-            <motion.section id="section-pipeline" className="detail-section" {...reveal}>
-              <div className="detail-section-title">
-                <Activity size={20} />
-                <h2>3. Execution Pipeline & Output Contracts</h2>
+            <motion.section id="section-pipeline" className="detail-block" {...reveal}>
+              <div className="block-header">
+                <span className="block-number">03</span>
+                <h2>Execution Nodes & Typed Contracts</h2>
               </div>
-              <p className="section-intro-text">
-                {project.architecturalCore}
+              <p className="block-intro">
+                Deterministic step execution sequence with strict input/output typed schemas.
               </p>
 
-              <div className="detail-pipeline-stack">
+              <div className="nodes-timeline">
                 {project.nodes.map((node) => (
-                  <div key={node.step} className="detail-pipeline-node">
-                    <div className="pipeline-node-header">
+                  <CardSpotlight key={node.step} className="node-item-card">
+                    <div className="node-card-top">
                       <div className="node-step-tag">
-                        <span className="step-num">{node.step}</span>
-                        <h4>{node.name}</h4>
+                        <span className="node-step-num">{node.step}</span>
+                        <h4 className="node-name">{node.name}</h4>
                       </div>
-                      <span className={`node-type-badge node-type--${node.type}`}>
-                        {node.type.toUpperCase()}
+                      <span className={`node-type-pill node-type--${node.type}`}>
+                        {node.type}
                       </span>
                     </div>
+
                     <p className="node-desc">{node.description}</p>
-                    <div className="node-contract-box">
-                      <span className="contract-label">Contract Signature:</span>
+
+                    <div className="node-signature-wrap">
+                      <span className="sig-label">Output Contract:</span>
                       <code>{node.outputSignature}</code>
                     </div>
-                  </div>
+                  </CardSpotlight>
                 ))}
               </div>
             </motion.section>
 
-            {/* 4. Governance & Guardrail Architecture */}
-            <motion.section id="section-guardrails" className="detail-section" {...reveal}>
-              <div className="detail-section-title">
-                <ShieldCheck size={20} />
-                <h2>4. Governance, Safety & Guardrail Boundaries</h2>
+            {/* 4. Safety Guardrails & Governance */}
+            <motion.section id="section-guardrails" className="detail-block" {...reveal}>
+              <div className="block-header">
+                <span className="block-number">04</span>
+                <h2>Governance, Guardrails & Human Gates</h2>
               </div>
-              <div className="prose-content">
+              <div className="prose-block">
                 <p>{project.caseStudy.guardrailArchitecture}</p>
               </div>
             </motion.section>
 
-            {/* 5. Evaluation & Verifiable Benchmarks */}
-            <motion.section id="section-benchmarks" className="detail-section" {...reveal}>
-              <div className="detail-section-title">
-                <FileText size={20} />
-                <h2>5. Testing, Evaluation & Regression Benchmarks</h2>
+            {/* 5. Testing & Evaluation Benchmarks */}
+            <motion.section id="section-benchmarks" className="detail-block" {...reveal}>
+              <div className="block-header">
+                <span className="block-number">05</span>
+                <h2>Evaluation & Quality Benchmarks</h2>
               </div>
-              <div className="prose-content">
+              <div className="prose-block">
                 <p>{project.caseStudy.evaluationAndMetrics}</p>
               </div>
             </motion.section>
 
-            {/* 6. Key Engineering Decisions & Tradeoffs */}
-            <motion.section id="section-tradeoffs" className="detail-section" {...reveal}>
-              <div className="detail-section-title">
-                <GitBranch size={20} />
-                <h2>6. Key Architectural Tradeoffs</h2>
+            {/* 6. Architectural Tradeoffs */}
+            <motion.section id="section-tradeoffs" className="detail-block" {...reveal}>
+              <div className="block-header">
+                <span className="block-number">06</span>
+                <h2>Architectural Decisions & Tradeoffs</h2>
               </div>
-
-              <div className="detail-tradeoffs-list">
-                {project.tradeoffs.map((item) => (
-                  <div key={item.decision} className="detail-tradeoff-card">
-                    <h3>{item.decision}</h3>
-                    <div className="chosen-badge">
-                      <CheckCircle2 size={15} /> Chosen: {item.chosenPath}
+              <div className="tradeoffs-grid">
+                {project.tradeoffs.map((t, idx) => (
+                  <CardSpotlight key={idx} className="tradeoff-card">
+                    <div className="tradeoff-top">
+                      <span className="tradeoff-tag">Decision #{idx + 1}</span>
+                      <h4>{t.decision}</h4>
                     </div>
-                    <p>{item.rationale}</p>
-                  </div>
+                    <div className="tradeoff-choice">
+                      <span className="choice-lbl">Selected Path:</span>
+                      <p>{t.chosenPath}</p>
+                    </div>
+                    <div className="tradeoff-rationale">
+                      <span className="rationale-lbl">Engineering Rationale:</span>
+                      <p>{t.rationale}</p>
+                    </div>
+                  </CardSpotlight>
                 ))}
               </div>
             </motion.section>
@@ -316,27 +312,33 @@ export function ProjectDetailPage() {
       <section className="detail-pagination-section">
         <div className="shell detail-pagination-grid">
           {prevProject ? (
-            <Link to={`/projects/${prevProject.id}`} className="pagination-card pagination-card--prev">
-              <span className="pag-label"><ArrowLeft size={14} /> Previous Project</span>
-              <strong>{prevProject.name}</strong>
-              <p>{prevProject.tagline}</p>
-            </Link>
+            <CardSpotlight className="pagination-card-wrap">
+              <Link to={`/projects/${prevProject.id}`} className="pagination-card pagination-card--prev">
+                <span className="pag-label"><ArrowLeft size={14} /> Previous Project</span>
+                <strong>{prevProject.name}</strong>
+                <p>{prevProject.tagline}</p>
+              </Link>
+            </CardSpotlight>
           ) : (
             <div className="pagination-card pagination-card--disabled" />
           )}
 
           {nextProject ? (
-            <Link to={`/projects/${nextProject.id}`} className="pagination-card pagination-card--next">
-              <span className="pag-label">Next Project <ArrowRight size={14} /></span>
-              <strong>{nextProject.name}</strong>
-              <p>{nextProject.tagline}</p>
-            </Link>
+            <CardSpotlight className="pagination-card-wrap">
+              <Link to={`/projects/${nextProject.id}`} className="pagination-card pagination-card--next">
+                <span className="pag-label">Next Project <ArrowRight size={14} /></span>
+                <strong>{nextProject.name}</strong>
+                <p>{nextProject.tagline}</p>
+              </Link>
+            </CardSpotlight>
           ) : (
-            <Link to="/projects" className="pagination-card pagination-card--next">
-              <span className="pag-label">Back to Catalog <ArrowRight size={14} /></span>
-              <strong>All 6 Projects</strong>
-              <p>Explore full architectural directory</p>
-            </Link>
+            <CardSpotlight className="pagination-card-wrap">
+              <Link to="/projects" className="pagination-card pagination-card--next">
+                <span className="pag-label">Back to Catalog <ArrowRight size={14} /></span>
+                <strong>All 6 Projects</strong>
+                <p>Explore full architectural directory</p>
+              </Link>
+            </CardSpotlight>
           )}
         </div>
       </section>

@@ -13,6 +13,7 @@ import {
 import { projects, supportingProjects } from '../data/projects'
 import { ProjectDomain } from '../types'
 import { ArchitectureWorkspace } from '../components/ArchitectureWorkspace'
+import { CardSpotlight } from '../components/motion/CardSpotlight'
 
 function GitHubMark({ size = 15 }: { size?: number }) {
   return (
@@ -53,38 +54,38 @@ export function ProjectsPage() {
   const reveal = reduceMotion
     ? {}
     : {
-        initial: { opacity: 0, y: 18 },
+        initial: { opacity: 0, y: 14 },
         whileInView: { opacity: 1, y: 0 },
-        viewport: { once: true, amount: 0.1 },
-        transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] as const },
+        viewport: { once: true, margin: '-20px' },
+        transition: { duration: 0.35, ease: [0.16, 1, 0.3, 1] as const },
       }
 
   return (
-    <div className="page-wrapper">
+    <div className="page-wrapper projects-page">
       {/* Page Header */}
-      <section className="page-header-section">
+      <section className="page-hero">
         <div className="shell">
           <motion.div
-            initial={reduceMotion ? undefined : { opacity: 0, y: 14 }}
+            initial={reduceMotion ? undefined : { opacity: 0, y: 16 }}
             animate={reduceMotion ? undefined : { opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+            transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
           >
-            <p className="section-label">Engineering Directory</p>
-            <h1 className="page-title">Systems & Architectures</h1>
+            <p className="page-eyebrow">Systems Directory</p>
+            <h1 className="page-title">Production Systems & Case Studies</h1>
             <p className="page-subtitle">
-              Comprehensive case studies spanning multimodal civic incident intelligence, industrial knowledge graphs (Neo4j), static agent security scanners, and deterministic planning solvers.
+              Explore 6 AI systems built with verifiable architecture, deterministic business logic, and safety guardrails.
             </p>
           </motion.div>
         </div>
       </section>
 
-      {/* Projects List Section */}
-      <section className="section projects-catalog-section">
+      {/* Main Catalog Section */}
+      <section className="section catalog-main-section">
         <div className="shell">
-          {/* Controls Bar: Filters & Live Search */}
+          {/* Controls Bar: Domain Filter Tabs + Search */}
           <div className="catalog-controls-bar">
-            {/* Domain Filter Pills with Motion layout indicator */}
-            <div className="filter-pills-bar" role="tablist">
+            {/* Domain Filter Pills */}
+            <div className="catalog-filters-list" role="tablist" aria-label="Filter projects by domain">
               {filterTabs.map((f) => {
                 const isActive = selectedDomain === f.id
                 return (
@@ -99,7 +100,7 @@ export function ProjectsPage() {
                       <motion.span
                         layoutId="activeFilterBubble"
                         className="filter-btn-highlight"
-                        transition={{ type: 'spring', stiffness: 380, damping: 30 }}
+                        transition={{ type: 'spring', stiffness: 420, damping: 32 }}
                       />
                     )}
                     <span className="filter-btn-text">{f.label}</span>
@@ -171,78 +172,79 @@ export function ProjectsPage() {
                 </motion.div>
               ) : (
                 filteredProjects.map((p, idx) => (
-                  <motion.article
+                  <motion.div
                     key={p.id}
-                    className="catalog-project-card"
                     layout
-                    initial={reduceMotion ? undefined : { opacity: 0, y: 16 }}
+                    initial={reduceMotion ? undefined : { opacity: 0, y: 14 }}
                     animate={reduceMotion ? undefined : { opacity: 1, y: 0 }}
                     exit={reduceMotion ? undefined : { opacity: 0, scale: 0.98 }}
-                    transition={{ duration: 0.35, delay: idx * 0.04, ease: [0.22, 1, 0.36, 1] }}
+                    transition={{ duration: 0.35, delay: idx * 0.03, ease: [0.16, 1, 0.3, 1] }}
                   >
-                    <div className="catalog-card-top">
-                      <div className="catalog-num-tag">
-                        <span className="cat-num">{p.number}</span>
-                        <span className="cat-badge">{p.category}</span>
+                    <CardSpotlight className="catalog-project-card">
+                      <div className="catalog-card-top">
+                        <div className="catalog-num-tag">
+                          <span className="cat-num">{p.number}</span>
+                          <span className="cat-badge">{p.category}</span>
+                        </div>
+
+                        <div className="catalog-metrics-group">
+                          {p.metrics.map((m) => (
+                            <div key={m.label} className="metric-pill">
+                              <strong>{m.value}</strong>
+                              <span>{m.label}</span>
+                            </div>
+                          ))}
+                        </div>
                       </div>
 
-                      <div className="catalog-metrics-group">
-                        {p.metrics.map((m) => (
-                          <div key={m.label} className="metric-pill">
-                            <strong>{m.value}</strong>
-                            <span>{m.label}</span>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
+                      <div className="catalog-card-body">
+                        <h2 className="catalog-project-title">
+                          <Link to={`/projects/${p.id}`}>{p.name}</Link>
+                        </h2>
+                        <p className="catalog-tagline">{p.tagline}</p>
+                        <p className="catalog-summary">{p.summary}</p>
 
-                    <div className="catalog-card-body">
-                      <h2 className="catalog-project-title">
-                        <Link to={`/projects/${p.id}`}>{p.name}</Link>
-                      </h2>
-                      <p className="catalog-tagline">{p.tagline}</p>
-                      <p className="catalog-summary">{p.summary}</p>
+                        {/* Key Highlights */}
+                        <div className="catalog-signals-list">
+                          {p.signals.slice(0, 3).map((sig) => (
+                            <div key={sig} className="catalog-signal-item">
+                              <CheckCircle2 size={13} className="text-accent" />
+                              <span>{sig}</span>
+                            </div>
+                          ))}
+                        </div>
 
-                      {/* Key Highlights */}
-                      <div className="catalog-signals-list">
-                        {p.signals.slice(0, 3).map((sig) => (
-                          <div key={sig} className="catalog-signal-item">
-                            <CheckCircle2 size={13} className="text-accent" />
-                            <span>{sig}</span>
-                          </div>
-                        ))}
+                        {/* Tech Stack Pills */}
+                        <div className="catalog-tech-stack">
+                          {p.stack.map((tech) => (
+                            <span key={tech} className="tech-pill">{tech}</span>
+                          ))}
+                        </div>
                       </div>
 
-                      {/* Tech Stack Pills */}
-                      <div className="catalog-tech-stack">
-                        {p.stack.map((tech) => (
-                          <span key={tech} className="tech-pill">{tech}</span>
-                        ))}
-                      </div>
-                    </div>
+                      <div className="catalog-card-footer">
+                        <Link to={`/projects/${p.id}`} className="btn btn--primary">
+                          Read Architecture Case Study <ArrowRight size={14} />
+                        </Link>
 
-                    <div className="catalog-card-footer">
-                      <Link to={`/projects/${p.id}`} className="btn btn--primary">
-                        Read Architecture Case Study <ArrowRight size={14} />
-                      </Link>
-
-                      <div className="catalog-ext-links">
-                        {p.live && (
-                          <a href={p.live} target="_blank" rel="noopener noreferrer" className="btn btn--secondary" title="Open Live Application">
-                            <ExternalLink size={14} /> Live
+                        <div className="catalog-ext-links">
+                          {p.live && (
+                            <a href={p.live} target="_blank" rel="noopener noreferrer" className="btn btn--secondary" title="Open Live Application">
+                              <ExternalLink size={14} /> Live
+                            </a>
+                          )}
+                          {p.demo && (
+                            <a href={p.demo} target="_blank" rel="noopener noreferrer" className="btn btn--ghost" title="Watch Demo Video">
+                              <Play size={14} /> Demo
+                            </a>
+                          )}
+                          <a href={p.repo} target="_blank" rel="noopener noreferrer" className="btn btn--ghost" title="View Source on GitHub">
+                            <GitHubMark size={14} /> GitHub
                           </a>
-                        )}
-                        {p.demo && (
-                          <a href={p.demo} target="_blank" rel="noopener noreferrer" className="btn btn--ghost" title="Watch Demo Video">
-                            <Play size={14} /> Demo
-                          </a>
-                        )}
-                        <a href={p.repo} target="_blank" rel="noopener noreferrer" className="btn btn--ghost" title="View Source on GitHub">
-                          <GitHubMark size={14} /> GitHub
-                        </a>
+                        </div>
                       </div>
-                    </div>
-                  </motion.article>
+                    </CardSpotlight>
+                  </motion.div>
                 ))
               )}
             </AnimatePresence>
@@ -268,25 +270,27 @@ export function ProjectsPage() {
 
           <div className="archive-grid">
             {supportingProjects.map((proj) => (
-              <motion.a
-                key={proj.name}
-                className="archive-card"
-                href={proj.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                {...reveal}
-              >
-                <div className="archive-content">
-                  <h3>{proj.name}</h3>
-                  <p>{proj.description}</p>
-                  <div className="archive-tags">
-                    {proj.tags.map((t) => (
-                      <span key={t} className="archive-tag">{t}</span>
-                    ))}
-                  </div>
-                </div>
-                <ArrowRight size={18} className="archive-arrow" />
-              </motion.a>
+              <motion.div key={proj.name} {...reveal}>
+                <CardSpotlight className="archive-card">
+                  <a
+                    className="archive-card-link-wrap"
+                    href={proj.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <div className="archive-content">
+                      <h3>{proj.name}</h3>
+                      <p>{proj.description}</p>
+                      <div className="archive-tags">
+                        {proj.tags.map((t) => (
+                          <span key={t} className="archive-tag">{t}</span>
+                        ))}
+                      </div>
+                    </div>
+                    <ArrowRight size={18} className="archive-arrow" />
+                  </a>
+                </CardSpotlight>
+              </motion.div>
             ))}
           </div>
         </div>

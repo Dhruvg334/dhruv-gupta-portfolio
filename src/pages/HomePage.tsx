@@ -7,10 +7,11 @@ import {
   Search,
   CheckCircle,
   FileText,
-  Mail,
   CheckCircle2,
 } from 'lucide-react'
 import { projects } from '../data/projects'
+import { CardSpotlight } from '../components/motion/CardSpotlight'
+import { StatCounter } from '../components/motion/StatCounter'
 
 function GitHubMark({ size = 16 }: { size?: number }) {
   return (
@@ -66,10 +67,10 @@ export function HomePage() {
   const reveal = reduceMotion
     ? {}
     : {
-        initial: { opacity: 0, y: 18 },
+        initial: { opacity: 0, y: 14 },
         whileInView: { opacity: 1, y: 0 },
-        viewport: { once: true, amount: 0.1 },
-        transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] as const },
+        viewport: { once: true, margin: '-20px' },
+        transition: { duration: 0.35, ease: [0.16, 1, 0.3, 1] as const },
       }
 
   return (
@@ -84,7 +85,7 @@ export function HomePage() {
             className="home-hero-content"
             initial={reduceMotion ? undefined : { opacity: 0, y: 16 }}
             animate={reduceMotion ? undefined : { opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+            transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
           >
             <h1 className="home-hero-title">
               I build reliable software systems <span className="highlight-text">around AI models</span>.
@@ -106,17 +107,23 @@ export function HomePage() {
             {/* Credential Metrics Strip */}
             <div className="hero-stats-row">
               <div className="hero-stat-card">
-                <strong>9.45</strong>
+                <strong>
+                  <StatCounter value={9.45} decimals={2} />
+                </strong>
                 <span>CGPA · B.Tech CSE</span>
               </div>
               <div className="hero-stat-divider" />
               <div className="hero-stat-card">
-                <strong>July 2027</strong>
+                <strong>
+                  <StatCounter value={2027} prefix="July " />
+                </strong>
                 <span>Graduation Year</span>
               </div>
               <div className="hero-stat-divider" />
               <div className="hero-stat-card">
-                <strong>6</strong>
+                <strong>
+                  <StatCounter value={6} />
+                </strong>
                 <span>Systems Built</span>
               </div>
             </div>
@@ -169,49 +176,55 @@ export function HomePage() {
           </motion.div>
 
           <div className="pillars-grid">
-            <motion.div className="pillar-card" {...reveal}>
-              <div className="pillar-icon">
-                <Search size={22} />
-              </div>
-              <h3>1. Intelligent Search & Knowledge</h3>
-              <p>
-                Connecting company documents, databases, and structured knowledge graphs so AI can answer complex questions with verified citations instead of guessing.
-              </p>
-              <ul className="pillar-bullets">
-                <li><CheckCircle2 size={14} /> Knowledge graphs & database search</li>
-                <li><CheckCircle2 size={14} /> Source evidence & citation checks</li>
-                <li><CheckCircle2 size={14} /> Fast, accurate retrieval across formats</li>
-              </ul>
+            <motion.div {...reveal} transition={{ duration: 0.35, delay: 0 }}>
+              <CardSpotlight className="pillar-card">
+                <div className="pillar-icon">
+                  <Search size={22} />
+                </div>
+                <h3>1. Intelligent Search & Knowledge</h3>
+                <p>
+                  Connecting company documents, databases, and structured knowledge graphs so AI can answer complex questions with verified citations instead of guessing.
+                </p>
+                <ul className="pillar-bullets">
+                  <li><CheckCircle2 size={14} /> Knowledge graphs & database search</li>
+                  <li><CheckCircle2 size={14} /> Source evidence & citation checks</li>
+                  <li><CheckCircle2 size={14} /> Fast, accurate retrieval across formats</li>
+                </ul>
+              </CardSpotlight>
             </motion.div>
 
-            <motion.div className="pillar-card" {...reveal}>
-              <div className="pillar-icon">
-                <ShieldCheck size={22} />
-              </div>
-              <h3>2. Safety Checks & Guardrails</h3>
-              <p>
-                Setting clear boundaries around AI models. Screening inputs for security risks, preventing unauthorized actions, and requiring human approval before critical data is updated.
-              </p>
-              <ul className="pillar-bullets">
-                <li><CheckCircle2 size={14} /> Security scanning for AI agents</li>
-                <li><CheckCircle2 size={14} /> Permission controls and rule checks</li>
-                <li><CheckCircle2 size={14} /> Human review before database changes</li>
-              </ul>
+            <motion.div {...reveal} transition={{ duration: 0.35, delay: 0.06 }}>
+              <CardSpotlight className="pillar-card">
+                <div className="pillar-icon">
+                  <ShieldCheck size={22} />
+                </div>
+                <h3>2. Safety Checks & Guardrails</h3>
+                <p>
+                  Setting clear boundaries around AI models. Screening inputs for security risks, preventing unauthorized actions, and requiring human approval before critical data is updated.
+                </p>
+                <ul className="pillar-bullets">
+                  <li><CheckCircle2 size={14} /> Security scanning for AI agents</li>
+                  <li><CheckCircle2 size={14} /> Permission controls and rule checks</li>
+                  <li><CheckCircle2 size={14} /> Human review before database changes</li>
+                </ul>
+              </CardSpotlight>
             </motion.div>
 
-            <motion.div className="pillar-card" {...reveal}>
-              <div className="pillar-icon">
-                <CheckCircle size={22} />
-              </div>
-              <h3>3. Automated Testing & Reliability</h3>
-              <p>
-                Writing automated test suites to measure accuracy, catch errors early, and ensure AI features remain reliable and consistent across application updates.
-              </p>
-              <ul className="pillar-bullets">
-                <li><CheckCircle2 size={14} /> Comprehensive automated test suites</li>
-                <li><CheckCircle2 size={14} /> Regression checks to prevent failures</li>
-                <li><CheckCircle2 size={14} /> Real-time activity and error monitoring</li>
-              </ul>
+            <motion.div {...reveal} transition={{ duration: 0.35, delay: 0.12 }}>
+              <CardSpotlight className="pillar-card">
+                <div className="pillar-icon">
+                  <CheckCircle size={22} />
+                </div>
+                <h3>3. Automated Testing & Reliability</h3>
+                <p>
+                  Writing automated test suites to measure accuracy, catch errors early, and ensure AI features remain reliable and consistent across application updates.
+                </p>
+                <ul className="pillar-bullets">
+                  <li><CheckCircle2 size={14} /> Comprehensive automated test suites</li>
+                  <li><CheckCircle2 size={14} /> Regression checks to prevent failures</li>
+                  <li><CheckCircle2 size={14} /> Real-time activity and error monitoring</li>
+                </ul>
+              </CardSpotlight>
             </motion.div>
           </div>
         </div>
@@ -236,48 +249,50 @@ export function HomePage() {
           </div>
 
           <div className="featured-cards-stack">
-            {featuredProjects.map((p) => (
-              <motion.div key={p.id} className="featured-card" {...reveal}>
-                <div className="featured-card-header">
-                  <div className="featured-card-num-tag">
-                    <span className="card-num">{p.number}</span>
-                    <span className="card-cat">{p.category}</span>
+            {featuredProjects.map((p, idx) => (
+              <motion.div key={p.id} {...reveal} transition={{ duration: 0.35, delay: idx * 0.05 }}>
+                <CardSpotlight className="featured-card">
+                  <div className="featured-card-header">
+                    <div className="featured-card-num-tag">
+                      <span className="card-num">{p.number}</span>
+                      <span className="card-cat">{p.category}</span>
+                    </div>
+                    <div className="featured-metrics-row">
+                      {p.metrics.slice(0, 2).map((m) => (
+                        <div key={m.label} className="featured-metric-item">
+                          <strong>{m.value}</strong>
+                          <span>{m.label}</span>
+                        </div>
+                      ))}
+                    </div>
                   </div>
-                  <div className="featured-metrics-row">
-                    {p.metrics.slice(0, 2).map((m) => (
-                      <div key={m.label} className="featured-metric-item">
-                        <strong>{m.value}</strong>
-                        <span>{m.label}</span>
-                      </div>
-                    ))}
+
+                  <div className="featured-card-body">
+                    <h3>{p.name}</h3>
+                    <p className="featured-tagline">{p.tagline}</p>
+                    <p className="featured-summary">{p.summary}</p>
+
+                    <div className="featured-stack-pills">
+                      {p.stack.slice(0, 6).map((tech) => (
+                        <span key={tech} className="tech-pill">{tech}</span>
+                      ))}
+                    </div>
                   </div>
-                </div>
 
-                <div className="featured-card-body">
-                  <h3>{p.name}</h3>
-                  <p className="featured-tagline">{p.tagline}</p>
-                  <p className="featured-summary">{p.summary}</p>
-
-                  <div className="featured-stack-pills">
-                    {p.stack.slice(0, 6).map((tech) => (
-                      <span key={tech} className="tech-pill">{tech}</span>
-                    ))}
-                  </div>
-                </div>
-
-                <div className="featured-card-actions">
-                  <Link to={`/projects/${p.id}`} className="btn btn--primary">
-                    Read Case Study <ArrowRight size={14} />
-                  </Link>
-                  {p.live && (
-                    <a href={p.live} target="_blank" rel="noopener noreferrer" className="btn btn--secondary">
-                      <ExternalLink size={14} /> Live App
+                  <div className="featured-card-actions">
+                    <Link to={`/projects/${p.id}`} className="btn btn--primary">
+                      Read Case Study <ArrowRight size={14} />
+                    </Link>
+                    {p.live && (
+                      <a href={p.live} target="_blank" rel="noopener noreferrer" className="btn btn--secondary">
+                        <ExternalLink size={14} /> Live App
+                      </a>
+                    )}
+                    <a href={p.repo} target="_blank" rel="noopener noreferrer" className="btn btn--ghost">
+                      <GitHubMark size={14} /> GitHub
                     </a>
-                  )}
-                  <a href={p.repo} target="_blank" rel="noopener noreferrer" className="btn btn--ghost">
-                    <GitHubMark size={14} /> GitHub
-                  </a>
-                </div>
+                  </div>
+                </CardSpotlight>
               </motion.div>
             ))}
           </div>
@@ -304,14 +319,15 @@ export function HomePage() {
           <div className="principles-grid">
             {clearPrinciples.map((principle, index) => (
               <motion.div
-                className="principle-box"
                 key={principle.title}
                 {...reveal}
-                transition={{ duration: 0.45, delay: index * 0.05 }}
+                transition={{ duration: 0.35, delay: index * 0.05 }}
               >
-                <span className="p-num">{principle.number}</span>
-                <h3 className="p-title">{principle.title}</h3>
-                <p className="p-summary">{principle.summary}</p>
+                <CardSpotlight className="principle-box">
+                  <span className="p-num">{principle.number}</span>
+                  <h3 className="p-title">{principle.title}</h3>
+                  <p className="p-summary">{principle.summary}</p>
+                </CardSpotlight>
               </motion.div>
             ))}
           </div>
@@ -334,22 +350,28 @@ export function HomePage() {
               My focus is building practical software products where AI enhances human productivity rather than replacing common-sense safeguards. I pair modern web frameworks (React, Next.js, TypeScript) with robust backends (FastAPI, PostgreSQL, Neo4j) and thorough automated tests.
             </p>
             <p>
-              I also qualified GATE DA (Data Science & AI) 2026, backing practical product engineering with strong foundations in algorithms, databases, and mathematics.
+              I also qualified GATE DA (Data Science & AI) 2026 (AIR 1109), backing practical product engineering with strong foundations in algorithms, databases, and mathematics.
             </p>
 
             <div className="about-stats-grid">
-              <div className="stat-box">
-                <strong>9.45</strong>
+              <CardSpotlight className="stat-box">
+                <strong>
+                  <StatCounter value={9.45} decimals={2} />
+                </strong>
                 <span>CGPA · B.Tech CSE</span>
-              </div>
-              <div className="stat-box">
-                <strong>July 2027</strong>
+              </CardSpotlight>
+              <CardSpotlight className="stat-box">
+                <strong>
+                  <StatCounter value={2027} prefix="July " />
+                </strong>
                 <span>Graduation Year</span>
-              </div>
-              <div className="stat-box">
-                <strong>6</strong>
+              </CardSpotlight>
+              <CardSpotlight className="stat-box">
+                <strong>
+                  <StatCounter value={6} />
+                </strong>
                 <span>Systems Built</span>
-              </div>
+              </CardSpotlight>
             </div>
           </motion.div>
         </div>

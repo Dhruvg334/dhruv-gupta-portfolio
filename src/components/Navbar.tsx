@@ -1,11 +1,20 @@
 import { useState, useEffect } from 'react'
-import { NavLink, Link } from 'react-router-dom'
+import { NavLink, Link, useLocation } from 'react-router-dom'
+import { motion } from 'motion/react'
 import { Menu, X, ArrowRight } from 'lucide-react'
 import avatarSvg from '../assets/avatar.svg'
+
+const navItems = [
+  { path: '/', label: 'Overview', end: true },
+  { path: '/projects', label: 'Projects', end: false },
+  { path: '/resume', label: 'Resume', end: false },
+  { path: '/contact', label: 'Contact', end: false },
+]
 
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
+  const location = useLocation()
 
   useEffect(() => {
     const handleScroll = () => {
@@ -25,35 +34,30 @@ export function Navbar() {
         </Link>
 
         <nav className={`nav-links ${menuOpen ? 'nav-links--open' : ''}`} aria-label="Primary navigation">
-          <NavLink
-            to="/"
-            end
-            className={({ isActive }) => (isActive ? 'active' : '')}
-            onClick={() => setMenuOpen(false)}
-          >
-            Overview
-          </NavLink>
-          <NavLink
-            to="/projects"
-            className={({ isActive }) => (isActive ? 'active' : '')}
-            onClick={() => setMenuOpen(false)}
-          >
-            Projects
-          </NavLink>
-          <NavLink
-            to="/resume"
-            className={({ isActive }) => (isActive ? 'active' : '')}
-            onClick={() => setMenuOpen(false)}
-          >
-            Resume
-          </NavLink>
-          <NavLink
-            to="/contact"
-            className={({ isActive }) => (isActive ? 'active' : '')}
-            onClick={() => setMenuOpen(false)}
-          >
-            Contact
-          </NavLink>
+          {navItems.map((item) => {
+            const isActive = item.end
+              ? location.pathname === item.path
+              : location.pathname.startsWith(item.path)
+
+            return (
+              <NavLink
+                key={item.path}
+                to={item.path}
+                end={item.end}
+                className={({ isActive }) => `nav-link-item ${isActive ? 'active' : ''}`}
+                onClick={() => setMenuOpen(false)}
+              >
+                {isActive && (
+                  <motion.span
+                    layoutId="navActivePill"
+                    className="nav-active-bubble"
+                    transition={{ type: 'spring', stiffness: 420, damping: 32 }}
+                  />
+                )}
+                <span className="nav-link-label">{item.label}</span>
+              </NavLink>
+            )
+          })}
 
           <div className="nav-actions-mobile">
             <Link
