@@ -1,5 +1,5 @@
-import { useState } from 'react'
-import { motion, AnimatePresence } from 'motion/react'
+import { useState, useRef, useEffect, useCallback } from 'react'
+import { motion } from 'motion/react'
 import {
   Play,
   CheckCircle2,
@@ -27,25 +27,35 @@ export function ArchitectureWorkspace() {
   const [currentStageIdx, setCurrentStageIdx] = useState(3)
   const [selectedLayerIndex, setSelectedLayerIndex] = useState<number | null>(null)
 
+  const timersRef = useRef<number[]>([])
+
+  const clearTimers = useCallback(() => {
+    timersRef.current.forEach((t) => window.clearTimeout(t))
+    timersRef.current = []
+  }, [])
+
+  useEffect(() => {
+    return () => clearTimers()
+  }, [clearTimers])
+
   const scenario: SandboxScenario = sandboxScenarios[activeScenarioIndex]
 
-  const runSimulation = (idx: number) => {
-    setActiveScenarioIndex(idx)
-    setExecuting(true)
-    setCurrentStageIdx(0)
+  const runSimulation = useCallback(
+    (idx: number) => {
+      clearTimers()
+      setActiveScenarioIndex(idx)
+      setExecuting(true)
+      setCurrentStageIdx(0)
 
-    const t1 = setTimeout(() => setCurrentStageIdx(1), 300)
-    const t2 = setTimeout(() => setCurrentStageIdx(2), 600)
-    const t3 = setTimeout(() => setCurrentStageIdx(3), 950)
-    const t4 = setTimeout(() => setExecuting(false), 1100)
+      const t1 = window.setTimeout(() => setCurrentStageIdx(1), 300)
+      const t2 = window.setTimeout(() => setCurrentStageIdx(2), 600)
+      const t3 = window.setTimeout(() => setCurrentStageIdx(3), 950)
+      const t4 = window.setTimeout(() => setExecuting(false), 1100)
 
-    return () => {
-      clearTimeout(t1)
-      clearTimeout(t2)
-      clearTimeout(t3)
-      clearTimeout(t4)
-    }
-  }
+      timersRef.current = [t1, t2, t3, t4]
+    },
+    [clearTimers]
+  )
 
   const getStageStatusBadge = (status: string) => {
     switch (status) {
@@ -80,11 +90,16 @@ export function ArchitectureWorkspace() {
 
   const getLayerIcon = (idx: number) => {
     switch (idx % 5) {
-      case 0: return <Terminal size={15} />
-      case 1: return <GitBranch size={15} />
-      case 2: return <Cpu size={15} />
-      case 3: return <Database size={15} />
-      default: return <Shield size={15} />
+      case 0:
+        return <Terminal size={15} />
+      case 1:
+        return <GitBranch size={15} />
+      case 2:
+        return <Cpu size={15} />
+      case 3:
+        return <Database size={15} />
+      default:
+        return <Shield size={15} />
     }
   }
 

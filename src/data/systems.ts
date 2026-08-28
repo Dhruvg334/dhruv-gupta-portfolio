@@ -1,293 +1,54 @@
-import { TracePreset, SandboxScenario } from '../types'
-
-export const heroTracePresets: TracePreset[] = [
-  {
-    id: 'civitas-trace',
-    name: 'Civitas Multimodal Incident Ingestion Trace',
-    systemTag: 'Civitas / Spatial Decision Engine',
-    description: 'Simulates zero-trust EXIF verification, H3 hexagonal hotspot indexing, BM25+Dense RRF routing, and SHA-256 sealing.',
-    totalLatency: '128ms',
-    deterministicRatio: '85% deterministic gates',
-    steps: [
-      {
-        stepNumber: '01',
-        layer: 'Zero-Trust Ingest',
-        name: 'EXIF Extraction & Privacy Strip',
-        status: 'passed',
-        latencyMs: 22,
-        detail: 'Validated binary magic bytes; extracted GPS (12.9716, 77.5946) & capture timestamp; stripped camera make & device serials.',
-        inspectableData: {
-          mime_type: 'image/jpeg',
-          magic_bytes_verified: true,
-          coordinates: { lat: 12.9716, lng: 77.5946 },
-          privacy_redaction: 'CAMERA_SERIAL_STRIPPED',
-        },
-      },
-      {
-        stepNumber: '02',
-        layer: 'Spatial Engine',
-        name: 'H3 Hexagonal Index & Hotspot',
-        status: 'passed',
-        latencyMs: 34,
-        detail: 'Mapped to H3 index 88618925d3fffff (Res 8); identified 4 historical water main bursts in 6-month window (CHRONIC_FAILURE_ZONE).',
-        inspectableData: {
-          h3_resolution_8: '88618925d3fffff',
-          recurrence_count_6m: 4,
-          zone_classification: 'CHRONIC_FAILURE_ZONE',
-          poi_proximity: 'Elementary School (65m) - SLA ACCELERATED',
-        },
-      },
-      {
-        stepNumber: '03',
-        layer: 'Policy Routing',
-        name: 'Hybrid BM25 + Dense RRF Match',
-        status: 'verified',
-        latencyMs: 41,
-        detail: 'Resolved jurisdiction to Municipal Water Supply & Sewerage Board (BWSSB); matched Schedule of Rates item #SOR-W-104.',
-        inspectableData: {
-          routing_authority: 'BWSSB Division 4',
-          statutory_sla_hours: 4,
-          sor_code: 'SOR-W-104 (Ductile Iron Pipe Sleeve 150mm)',
-          estimated_boq_inr: 18500,
-        },
-      },
-      {
-        stepNumber: '04',
-        layer: 'Audit & Sealing',
-        name: 'Supervisor Review & SHA-256 Digest',
-        status: 'human_review',
-        latencyMs: 31,
-        detail: 'Dispatched work order to Field Crew Alpha; generated tamper-proof SHA-256 audit digest pending supervisor confirmation.',
-        inspectableData: {
-          work_order_id: 'WO-2026-8842',
-          supervisor_gate: 'PENDING_DISPATCH_SIGN_OFF',
-          sha256_digest: 'a8f93e2b10cd832049e7b2304918e92f1b0a8274d6c7b8e90a1b2c3d4e5f6a7b',
-        },
-      },
-    ],
-  },
-  {
-    id: 'mnemos-trace',
-    name: 'Mnemos Industrial GraphRAG Trace',
-    systemTag: 'Mnemos / Operational Memory',
-    description: 'Simulates hybrid Neo4j asset topology traversal + pgvector log retrieval with provenance verification.',
-    totalLatency: '142ms',
-    deterministicRatio: '75% deterministic gates',
-    steps: [
-      {
-        stepNumber: '01',
-        layer: 'Asset Graph',
-        name: 'Neo4j Cypher Traversal',
-        status: 'passed',
-        latencyMs: 38,
-        detail: 'Queried topology for Turbine-B4 compressor stage; resolved 14 subcomponent relationships & 3 historical fault codes.',
-        inspectableData: {
-          cypher: 'MATCH (a:Asset {id:"TURBINE-B4"})-[:HAS_COMPONENT*1..3]->(c) RETURN c',
-          nodes_traversed: 14,
-          subcomponents: ['Inlet Guide Vane', 'Stage 1 Rotor', 'Bleed Valve B-2'],
-        },
-      },
-      {
-        stepNumber: '02',
-        layer: 'Hybrid Retrieval',
-        name: 'pgvector HNSW Dense Match',
-        status: 'passed',
-        latencyMs: 44,
-        detail: 'Matched 6 maintenance logs and 2 OEM manual chapters with cosine similarity >= 0.86.',
-        inspectableData: {
-          index_type: 'HNSW (m=16, ef_construction=64)',
-          top_chunk: 'OEM_MANUAL_CH7_HYDRAULIC_SEALS.pdf (chunk_id: #892)',
-          similarity_score: 0.912,
-        },
-      },
-      {
-        stepNumber: '03',
-        layer: 'Evidence Assembly',
-        name: 'Provenance Citation Binding',
-        status: 'verified',
-        latencyMs: 18,
-        detail: 'Bound retrieved text chunks to exact PDF page coordinates & telemetry timestamps; verified cryptographic hash.',
-        inspectableData: {
-          citations_verified: 4,
-          tamper_check: 'SHA256 MATCH',
-          provenance_score: '100% Grounded',
-        },
-      },
-      {
-        stepNumber: '04',
-        layer: 'Governed LLM',
-        name: 'Constrained Root-Cause Synthesis',
-        status: 'passed',
-        latencyMs: 42,
-        detail: 'Synthesized root-cause diagnosis strictly bounded to the 4 verified citations with zero ungrounded assertions.',
-        inspectableData: {
-          diagnosis: 'Degraded Bleed Valve B-2 seal causing secondary stage pressure oscillation.',
-          mitigation: 'Replace O-ring seal P/N 884-A per Maintenance Card #410.',
-          hallucination_index: 0.0,
-        },
-      },
-    ],
-  },
-  {
-    id: 'adapt-trace',
-    name: 'A-DAP-T Safety & Release Gate Scan',
-    systemTag: 'A-DAP-T / Agent Gatekeeper',
-    description: 'Simulates pre-release static AST audit on tool boundaries, privilege escalation, and prompt injection vectors.',
-    totalLatency: '88ms',
-    deterministicRatio: '100% deterministic rules',
-    steps: [
-      {
-        stepNumber: '01',
-        layer: 'AST Parsing',
-        name: 'Tool Signature Extraction',
-        status: 'passed',
-        latencyMs: 24,
-        detail: 'Parsed agent tool manifest: 14 tools registered, 3 requiring external HTTP/SQL write permissions.',
-        inspectableData: {
-          declared_tools: ['read_database', 'query_docs', 'execute_raw_sql', 'send_slack_alert'],
-          dangerous_callables: ['execute_raw_sql'],
-        },
-      },
-      {
-        stepNumber: '02',
-        layer: 'Static Heuristics',
-        name: 'OWASP LLM Vulnerability Scan',
-        status: 'flagged',
-        latencyMs: 31,
-        detail: 'Detected unconstrained execute_raw_sql without RBAC role gate or parameter sanitization.',
-        inspectableData: {
-          rule_id: 'SEC-LLM-02',
-          severity: 'HIGH',
-          finding: 'execute_raw_sql tool callable by unauthenticated prompt without confirmation barrier.',
-        },
-      },
-      {
-        stepNumber: '03',
-        layer: 'Release Gate',
-        name: 'Tri-State Gate Decision',
-        status: 'human_review',
-        latencyMs: 12,
-        detail: 'Release status updated to REVIEW_REQUIRED; automated deployment pipeline blocked pending security fix.',
-        inspectableData: {
-          decision: 'REVIEW_REQUIRED',
-          deployment_blocked: true,
-          required_approvers: ['SecOps Lead'],
-        },
-      },
-      {
-        stepNumber: '04',
-        layer: 'Remediation',
-        name: 'Model Code Patch Synthesis',
-        status: 'passed',
-        latencyMs: 21,
-        detail: 'Generated deterministic code patch replacing execute_raw_sql with parametrized read-only view.',
-        inspectableData: {
-          patch_file: 'src/tools/database.py',
-          diff_lines: '- execute_raw_sql(query)\n+ query_read_replica_parametrized(query, params)',
-        },
-      },
-    ],
-  },
-  {
-    id: 'chronos-trace',
-    name: 'ChronOS Controlled Planning & Recovery',
-    systemTag: 'ChronOS / Constraint Engine',
-    description: 'Simulates deterministic calendar collision resolution, capacity constraint verification, and rollback sync.',
-    totalLatency: '94ms',
-    deterministicRatio: '90% deterministic solver',
-    steps: [
-      {
-        stepNumber: '01',
-        layer: 'Intent Ingestion',
-        name: 'Unstructured Task Parser',
-        status: 'passed',
-        latencyMs: 28,
-        detail: 'Parsed 4 tasks with deadlines, energy requirements, and preferred morning focus blocks.',
-        inspectableData: {
-          task_count: 4,
-          deep_work_hours: 3.5,
-        },
-      },
-      {
-        stepNumber: '02',
-        layer: 'Constraint Solver',
-        name: 'Deterministic Collision & Buffer Engine',
-        status: 'passed',
-        latencyMs: 19,
-        detail: 'Detected 1 meeting overlap with Doctor appointment; shifted Deep Work block to 2:00 PM with 15m transit buffer.',
-        inspectableData: {
-          constraint_rules: ['No Overlap', '15m Buffer', 'Sleep Window (11PM-7AM)', 'Max 4h Deep Work/day'],
-          collisions_avoided: 1,
-        },
-      },
-      {
-        stepNumber: '03',
-        layer: 'Approval Gate',
-        name: 'Human-in-the-Loop Confirmation',
-        status: 'human_review',
-        latencyMs: 25,
-        detail: 'Rendered visual schedule proposal with highlighted changes; awaiting user 1-click confirmation.',
-        inspectableData: {
-          approval_required: true,
-          sync_target: 'Google Calendar (dhruvg3304@gmail.com)',
-        },
-      },
-      {
-        stepNumber: '04',
-        layer: 'Sync & Rollback',
-        name: 'Atomic API Execution',
-        status: 'verified',
-        latencyMs: 22,
-        detail: 'Applied schedule update to Google Calendar API with reversible transaction rollback token.',
-        inspectableData: {
-          events_synced: 4,
-          rollback_token: 'txn_98a7cf2e',
-          sync_status: 'SUCCESS',
-        },
-      },
-    ],
-  },
-]
+import { SandboxScenario } from '../types'
 
 export const sandboxScenarios: SandboxScenario[] = [
   {
     id: 'scenario-civic',
     title: 'Water Main Rupture Near School Corridor',
     badge: 'Civitas / Spatial Incident Engine',
-    userPrompt: 'Citizen reports active major water pipeline burst flooding 2nd Main Road near St. Jude Elementary School with photo attachment.',
-    context: 'Omnichannel civic intake via WhatsApp with client-side canvas compression, PostGIS spatial context, and H3 indexing.',
+    userPrompt:
+      'Citizen reports active major water pipeline burst flooding 2nd Main Road near St. Jude Elementary School with photo attachment.',
+    context:
+      'Omnichannel civic intake via WhatsApp with client-side canvas compression, PostGIS spatial context, and H3 indexing.',
     stages: [
       {
         title: 'Zero-Trust Intake & EXIF Geometry',
         layer: 'Binary & EXIF Redactor',
         type: 'gate',
         status: 'PASSED',
-        details: 'Verified image binary header; extracted GPS coordinates (12.9716, 77.5946); stripped camera serial and hardware telemetry.',
-        inspectableOutput: '{ valid_mime: "image/jpeg", lat: 12.9716, lng: 77.5946, camera_pii_stripped: true }',
+        details:
+          'Verified image binary header; extracted GPS coordinates (12.9716, 77.5946); stripped camera serial and hardware telemetry.',
+        inspectableOutput:
+          '{ valid_mime: "image/jpeg", lat: 12.9716, lng: 77.5946, camera_pii_stripped: true }',
       },
       {
         title: 'H3 Spatial Hotspot & POI Acceleration',
         layer: 'PostGIS & H3 Engine',
         type: 'retrieval',
         status: 'GROUNDED',
-        details: 'Identified 65m proximity to St. Jude Elementary School; accelerated statutory SLA from 24h baseline to 4h emergency response.',
-        inspectableOutput: '{ h3_res8: "88618925d3fffff", poi_name: "St. Jude Elementary", distance_m: 65, dynamic_sla_hours: 4 }',
+        details:
+          'Identified 65m proximity to St. Jude Elementary School; accelerated statutory SLA from 24h baseline to 4h emergency response.',
+        inspectableOutput:
+          '{ h3_res8: "88618925d3fffff", poi_name: "St. Jude Elementary", distance_m: 65, dynamic_sla_hours: 4 }',
       },
       {
         title: 'Hybrid Policy & Jurisdictional Resolver',
         layer: 'BM25 + Dense RRF Engine',
         type: 'validator',
         status: 'GROUNDED',
-        details: 'Resolved maintenance authority to Water Supply Board (BWSSB); generated automated Schedule of Rates (SOR) BOQ estimate.',
-        inspectableOutput: '{ authority: "BWSSB Ward 12", sor_code: "SOR-W-104", estimated_cost_inr: 18500, boq_generated: true }',
+        details:
+          'Resolved maintenance authority to Water Supply Board (BWSSB); generated automated Schedule of Rates (SOR) BOQ estimate.',
+        inspectableOutput:
+          '{ authority: "BWSSB Ward 12", sor_code: "SOR-W-104", estimated_cost_inr: 18500, boq_generated: true }',
       },
       {
         title: 'Supervisor Approval & SHA-256 Sealing',
         layer: 'LangGraph Review Gate',
         type: 'approval',
         status: 'REVIEW REQUIRED',
-        details: 'Dispatched emergency work order to field crew; generated immutable SHA-256 digital certificate pending supervisor sign-off.',
-        inspectableOutput: '{ work_order_status: "DISPATCHED", supervisor_signoff_required: true, sha256_sealed: true }',
+        details:
+          'Dispatched emergency work order to field crew; generated immutable SHA-256 digital certificate pending supervisor sign-off.',
+        inspectableOutput:
+          '{ work_order_status: "DISPATCHED", supervisor_signoff_required: true, sha256_sealed: true }',
       },
     ],
   },
@@ -295,40 +56,50 @@ export const sandboxScenarios: SandboxScenario[] = [
     id: 'scenario-industrial',
     title: 'Industrial Equipment Failure Diagnosis',
     badge: 'GraphRAG + Provenance',
-    userPrompt: 'Hydraulic pressure dropped 30% in Main Extruder Pump during shift change. Identify root cause and next maintenance step.',
-    context: 'Industrial plant maintenance dataset with 12,000 PDF pages, SCADA sensor telemetry, and Neo4j asset topology.',
+    userPrompt:
+      'Hydraulic pressure dropped 30% in Main Extruder Pump during shift change. Identify root cause and next maintenance step.',
+    context:
+      'Industrial plant maintenance dataset with 12,000 PDF pages, SCADA sensor telemetry, and Neo4j asset topology.',
     stages: [
       {
         title: 'Deterministic Asset Context',
         layer: 'Neo4j Graph Engine',
         type: 'retrieval',
         status: 'GROUNDED',
-        details: 'Extracted Asset "Pump-EXT-02", upstream feed valves, filter assemblies, and 3 past seal failure records.',
-        inspectableOutput: '{ asset: "Pump-EXT-02", dependencies: ["Feed Valve V-12", "Filter Unit F-04"], past_failures: 3 }',
+        details:
+          'Extracted Asset "Pump-EXT-02", upstream feed valves, filter assemblies, and 3 past seal failure records.',
+        inspectableOutput:
+          '{ asset: "Pump-EXT-02", dependencies: ["Feed Valve V-12", "Filter Unit F-04"], past_failures: 3 }',
       },
       {
         title: 'Hybrid Log Retrieval',
         layer: 'pgvector Vector Store',
         type: 'retrieval',
         status: 'GROUNDED',
-        details: 'Matched 4 technician log chunks mentioning hydraulic fluid cavitation and filter mesh blockage.',
-        inspectableOutput: '{ matched_chunks: 4, top_source: "Log_2026_02_14.txt", similarity: 0.92 }',
+        details:
+          'Matched 4 technician log chunks mentioning hydraulic fluid cavitation and filter mesh blockage.',
+        inspectableOutput:
+          '{ matched_chunks: 4, top_source: "Log_2026_02_14.txt", similarity: 0.92 }',
       },
       {
         title: 'Safety Boundary Verification',
         layer: 'Deterministic Rule Gate',
         type: 'gate',
         status: 'PASSED',
-        details: 'Verified that recommended pressure relief procedures conform to OSHA Standard 1910.147 lock-out tag-out protocols.',
-        inspectableOutput: '{ compliance_check: "OSHA 1910.147 PASSED", danger_threshold_exceeded: false }',
+        details:
+          'Verified that recommended pressure relief procedures conform to OSHA Standard 1910.147 lock-out tag-out protocols.',
+        inspectableOutput:
+          '{ compliance_check: "OSHA 1910.147 PASSED", danger_threshold_exceeded: false }',
       },
       {
         title: 'Grounded Action Plan',
         layer: 'Evidence Synthesis Model',
         type: 'synthesis',
         status: 'PASSED',
-        details: 'Generated step-by-step diagnostic workflow with page citations referencing Maintenance Manual Sec 4.3.',
-        inspectableOutput: '{ diagnosis: "Filter Unit F-04 bypass valve stuck open", action: "Inspect mesh filter and reset valve", citations: ["Manual_Sec_4.3.pdf#p44"] }',
+        details:
+          'Generated step-by-step diagnostic workflow with page citations referencing Maintenance Manual Sec 4.3.',
+        inspectableOutput:
+          '{ diagnosis: "Filter Unit F-04 bypass valve stuck open", action: "Inspect mesh filter and reset valve", citations: ["Manual_Sec_4.3.pdf#p44"] }',
       },
     ],
   },
@@ -336,40 +107,50 @@ export const sandboxScenarios: SandboxScenario[] = [
     id: 'scenario-agent-sec',
     title: 'Autonomous Agent Database Mutation Request',
     badge: 'Agent Safety & Human Gate',
-    userPrompt: 'Agent attempting: "DROP TABLE legacy_user_sessions; UPDATE users SET role=\'admin\' WHERE id=42;"',
-    context: 'Agentic tool execution request intercepted during pre-flight security scan in automated CI pipeline.',
+    userPrompt:
+      'Agent attempting: "DROP TABLE legacy_user_sessions; UPDATE users SET role=\'admin\' WHERE id=42;"',
+    context:
+      'Agentic tool execution request intercepted during pre-flight security scan in automated CI pipeline.',
     stages: [
       {
         title: 'Static AST & SQL Risk Interceptor',
         layer: 'A-DAP-T Static Engine',
         type: 'gate',
         status: 'BLOCKED',
-        details: 'Detected destructive DDL command (DROP TABLE) and unauthorized privilege escalation in raw unescaped SQL statement.',
-        inspectableOutput: '{ violations: ["DROP_TABLE_DETECTED", "PRIVILEGE_ESCALATION_DETECTED"], severity: "CRITICAL" }',
+        details:
+          'Detected destructive DDL command (DROP TABLE) and unauthorized privilege escalation in raw unescaped SQL statement.',
+        inspectableOutput:
+          '{ violations: ["DROP_TABLE_DETECTED", "PRIVILEGE_ESCALATION_DETECTED"], severity: "CRITICAL" }',
       },
       {
         title: 'Release Gate Evaluation',
         layer: 'Deterministic Gatekeeper',
         type: 'gate',
         status: 'BLOCKED',
-        details: 'Triggered HARD_BLOCK gate: mutation execution aborted immediately without reaching production database.',
-        inspectableOutput: '{ gate_decision: "HARD_BLOCK", execution_halted: true, security_incident_logged: true }',
+        details:
+          'Triggered HARD_BLOCK gate: mutation execution aborted immediately without reaching production database.',
+        inspectableOutput:
+          '{ gate_decision: "HARD_BLOCK", execution_halted: true, security_incident_logged: true }',
       },
       {
         title: 'Remediation & Patch Generator',
         layer: 'Security Model Assistant',
         type: 'synthesis',
         status: 'PASSED',
-        details: 'Synthesized safe migration script utilizing idempotent ALTER commands and parameterized admin role assignment.',
-        inspectableOutput: '{ safe_migration_diff: "CREATE TABLE archive_user_sessions AS SELECT ...", parameterized: true }',
+        details:
+          'Synthesized safe migration script utilizing idempotent ALTER commands and parameterized admin role assignment.',
+        inspectableOutput:
+          '{ safe_migration_diff: "CREATE TABLE archive_user_sessions AS SELECT ...", parameterized: true }',
       },
       {
         title: 'Human Super-Admin Sign-Off',
         layer: 'Human Checkpoint',
         type: 'approval',
         status: 'REVIEW REQUIRED',
-        details: 'Sent incident report and proposed migration diff to engineering lead for manual 2FA approval.',
-        inspectableOutput: '{ review_ticket: "#SEC-882", state: "PENDING_HUMAN_SIGN_OFF" }',
+        details:
+          'Sent incident report and proposed migration diff to engineering lead for manual 2FA approval.',
+        inspectableOutput:
+          '{ review_ticket: "#SEC-882", state: "PENDING_HUMAN_SIGN_OFF" }',
       },
     ],
   },
@@ -377,40 +158,50 @@ export const sandboxScenarios: SandboxScenario[] = [
     id: 'scenario-planning',
     title: 'Calendar Conflict & Emergency Schedule Recovery',
     badge: 'Controlled Planning',
-    userPrompt: 'Schedule 3-hour urgent client demo prep today between 10:00 AM and 4:00 PM without missing existing team standup or doctor visit.',
-    context: 'Busy student / founder calendar with existing commitments, buffer constraints, and energy windows.',
+    userPrompt:
+      'Schedule 3-hour urgent client demo prep today between 10:00 AM and 4:00 PM without missing existing team standup or doctor visit.',
+    context:
+      'Busy student / founder calendar with existing commitments, buffer constraints, and energy windows.',
     stages: [
       {
         title: 'Constraint Parsing & Energy Alignment',
         layer: 'ChronOS Intent Parser',
         type: 'retrieval',
         status: 'GROUNDED',
-        details: 'Identified required duration (180 mins), cognitive intensity (HIGH), and fixed hard calendar anchors.',
-        inspectableOutput: '{ duration_minutes: 180, fixed_events: ["Team Standup 10:30-11:00", "Doctor 14:00-14:45"] }',
+        details:
+          'Identified required duration (180 mins), cognitive intensity (HIGH), and fixed hard calendar anchors.',
+        inspectableOutput:
+          '{ duration_minutes: 180, fixed_events: ["Team Standup 10:30-11:00", "Doctor 14:00-14:45"] }',
       },
       {
         title: 'Deterministic Feasibility Solver',
         layer: 'Topological Constraint Engine',
         type: 'validator',
         status: 'PASSED',
-        details: 'Calculated optimal collision-free slot: 11:15 AM - 1:45 PM (150m) + 3:00 PM - 3:30 PM (30m) with 15m transit buffers.',
-        inspectableOutput: '{ viable_split: true, slot_1: "11:15-13:45", slot_2: "15:00-15:30", buffer_minutes: 15 }',
+        details:
+          'Calculated optimal collision-free slot: 11:15 AM - 1:45 PM (150m) + 3:00 PM - 3:30 PM (30m) with 15m transit buffers.',
+        inspectableOutput:
+          '{ viable_split: true, slot_1: "11:15-13:45", slot_2: "15:00-15:30", buffer_minutes: 15 }',
       },
       {
         title: 'Interactive User Confirmation Gate',
         layer: 'Human Approval Interface',
         type: 'approval',
         status: 'PASSED',
-        details: 'Rendered side-by-side calendar diff showing original vs proposed schedule with 1-click accept.',
-        inspectableOutput: '{ user_confirmation: "ACCEPTED", calendar_diff_previewed: true }',
+        details:
+          'Rendered side-by-side calendar diff showing original vs proposed schedule with 1-click accept.',
+        inspectableOutput:
+          '{ user_confirmation: "ACCEPTED", calendar_diff_previewed: true }',
       },
       {
         title: 'Atomic Google Calendar Sync',
         layer: 'External API Execution',
         type: 'validator',
         status: 'GROUNDED',
-        details: 'Created calendar events via Google Calendar API with rollback receipt token for instant undo.',
-        inspectableOutput: '{ gcal_status: "201 CREATED", rollback_token: "rollback_txn_104" }',
+        details:
+          'Created calendar events via Google Calendar API with rollback receipt token for instant undo.',
+        inspectableOutput:
+          '{ gcal_status: "201 CREATED", rollback_token: "rollback_txn_104" }',
       },
     ],
   },

@@ -81,4 +81,5 @@ npm run preview
 - **Email:** [dhruvg3304@gmail.com](mailto:dhruvg3304@gmail.com)
 - **LinkedIn:** [linkedin.com/in/dhruv-gupta-7a7500287](https://www.linkedin.com/in/dhruv-gupta-7a7500287/)
 - **GitHub:** [github.com/Dhruvg334](https://github.com/Dhruvg334)
+- **Devpost:** [devpost.com/Dhruvg334](https://devpost.com/Dhruvg334)
 - **Live Portfolio:** [dhruvg334.github.io/dhruv-gupta-portfolio](https://dhruvg334.github.io/dhruv-gupta-portfolio/)

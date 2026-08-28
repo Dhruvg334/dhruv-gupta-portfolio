@@ -1,4 +1,4 @@
-import React, { useRef, useState, useCallback } from 'react'
+import React, { useRef, useCallback } from 'react'
 
 interface CardSpotlightProps extends React.HTMLAttributes<HTMLDivElement> {
   children: React.ReactNode
@@ -7,33 +7,40 @@ interface CardSpotlightProps extends React.HTMLAttributes<HTMLDivElement> {
   radius?: number
 }
 
+/**
+ * Hardware-accelerated pointer spotlight that updates CSS variables directly
+ * on the DOM node to achieve 120fps without triggering React re-renders.
+ */
 export function CardSpotlight({
   children,
   className = '',
-  spotlightColor = 'rgba(230, 83, 69, 0.12)',
+  spotlightColor = 'rgba(230, 83, 69, 0.14)',
   radius = 320,
+  style,
   ...props
 }: CardSpotlightProps) {
   const cardRef = useRef<HTMLDivElement>(null)
-  const [position, setPosition] = useState<{ x: number; y: number } | null>(null)
-  const [isHovered, setIsHovered] = useState(false)
 
   const handleMouseMove = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
-    if (!cardRef.current) return
-    const rect = cardRef.current.getBoundingClientRect()
-    setPosition({
-      x: e.clientX - rect.left,
-      y: e.clientY - rect.top,
-    })
+    const el = cardRef.current
+    if (!el) return
+    const rect = el.getBoundingClientRect()
+    const x = e.clientX - rect.left
+    const y = e.clientY - rect.top
+    el.style.setProperty('--spotlight-x', `${x}px`)
+    el.style.setProperty('--spotlight-y', `${y}px`)
   }, [])
 
   const handleMouseEnter = useCallback(() => {
-    setIsHovered(true)
+    const el = cardRef.current
+    if (!el) return
+    el.style.setProperty('--spotlight-opacity', '1')
   }, [])
 
   const handleMouseLeave = useCallback(() => {
-    setIsHovered(false)
-    setPosition(null)
+    const el = cardRef.current
+    if (!el) return
+    el.style.setProperty('--spotlight-opacity', '0')
   }, [])
 
   return (
@@ -45,12 +52,10 @@ export function CardSpotlight({
       className={`card-spotlight-wrap ${className}`}
       style={
         {
-          position: 'relative',
-          '--spotlight-x': position ? `${position.x}px` : '50%',
-          '--spotlight-y': position ? `${position.y}px` : '50%',
           '--spotlight-radius': `${radius}px`,
           '--spotlight-color': spotlightColor,
-          '--spotlight-opacity': isHovered ? 1 : 0,
+          '--spotlight-opacity': 0,
+          ...style,
         } as React.CSSProperties
       }
       {...props}

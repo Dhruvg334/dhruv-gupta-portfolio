@@ -54,26 +54,6 @@ export interface Project {
   mermaidDiagram: string
 }
 
-export interface TraceStep {
-  stepNumber: string
-  layer: string
-  name: string
-  status: 'passed' | 'flagged' | 'human_review' | 'verified'
-  latencyMs: number
-  detail: string
-  inspectableData?: Record<string, unknown>
-}
-
-export interface TracePreset {
-  id: string
-  name: string
-  systemTag: string
-  description: string
-  totalLatency: string
-  deterministicRatio: string
-  steps: TraceStep[]
-}
-
 export interface SandboxStage {
   title: string
   layer: string
