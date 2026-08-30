@@ -9,16 +9,40 @@ import { Toast } from './components/Toast'
 // Eager load HomePage for instantaneous initial paint, lazy load other routes
 import { HomePage } from './pages/HomePage'
 
-const ProjectsPage = lazy(() =>
+function lazyWithRetry<T extends React.ComponentType<any>>(
+  componentImport: () => Promise<{ default: T }>
+) {
+  return lazy(async () => {
+    try {
+      const component = await componentImport()
+      sessionStorage.removeItem('chunk_load_retried')
+      return component
+    } catch (error: any) {
+      const isChunkLoadError =
+        error?.message?.includes('Failed to fetch dynamically imported module') ||
+        error?.message?.includes('Importing a module script failed') ||
+        error?.message?.includes('Loading chunk')
+
+      if (isChunkLoadError && !sessionStorage.getItem('chunk_load_retried')) {
+        sessionStorage.setItem('chunk_load_retried', 'true')
+        window.location.reload()
+        return { default: (() => null) as unknown as T }
+      }
+      throw error
+    }
+  })
+}
+
+const ProjectsPage = lazyWithRetry(() =>
   import('./pages/ProjectsPage').then((m) => ({ default: m.ProjectsPage }))
 )
-const ProjectDetailPage = lazy(() =>
+const ProjectDetailPage = lazyWithRetry(() =>
   import('./pages/ProjectDetailPage').then((m) => ({ default: m.ProjectDetailPage }))
 )
-const ResumePage = lazy(() =>
+const ResumePage = lazyWithRetry(() =>
   import('./pages/ResumePage').then((m) => ({ default: m.ResumePage }))
 )
-const ContactPage = lazy(() =>
+const ContactPage = lazyWithRetry(() =>
   import('./pages/ContactPage').then((m) => ({ default: m.ContactPage }))
 )
 
