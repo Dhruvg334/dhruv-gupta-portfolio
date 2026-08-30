@@ -1,4 +1,4 @@
-import { useMemo } from 'react'
+import { useState, useMemo } from 'react'
 import { useParams, Link, Navigate } from 'react-router-dom'
 import { motion, useReducedMotion } from 'motion/react'
 import {
@@ -13,12 +13,17 @@ import {
   BookOpen,
   FileText,
   Activity,
+  Share2,
+  Copy,
+  Check,
 } from 'lucide-react'
 import { projects } from '../data/projects'
 import { MermaidDiagram } from '../components/MermaidDiagram'
 import { ReadingProgressBar } from '../components/ReadingProgressBar'
 import { CardSpotlight } from '../components/motion/CardSpotlight'
 import { GitHubMark } from '../components/SocialIcons'
+import { useDocumentTitle } from '../hooks/useDocumentTitle'
+import { Toast } from '../components/Toast'
 
 const sectionAnchors = [
   { id: 'section-problem', label: '1. Problem & Context', icon: BookOpen },
@@ -32,6 +37,8 @@ const sectionAnchors = [
 export function ProjectDetailPage() {
   const { id } = useParams<{ id: string }>()
   const reduceMotion = useReducedMotion()
+  const [toastMsg, setToastMsg] = useState<string | null>(null)
+  const [copiedSigStep, setCopiedSigStep] = useState<string | null>(null)
 
   const projectIndex = useMemo(() => {
     return projects.findIndex((p) => p.id === id)
@@ -45,6 +52,24 @@ export function ProjectDetailPage() {
   const prevProject = projectIndex > 0 ? projects[projectIndex - 1] : null
   const nextProject = projectIndex < projects.length - 1 ? projects[projectIndex + 1] : null
 
+  useDocumentTitle(
+    `${project.name} (${project.number}) · Case Study — Dhruv Gupta`,
+    project.summary
+  )
+
+  const handleShare = () => {
+    const url = window.location.href
+    navigator.clipboard.writeText(url)
+    setToastMsg(`Copied ${project.name} case study link to clipboard`)
+  }
+
+  const handleCopySignature = (step: string, sig: string) => {
+    navigator.clipboard.writeText(sig)
+    setCopiedSigStep(step)
+    setToastMsg(`Copied Node ${step} contract signature`)
+    setTimeout(() => setCopiedSigStep(null), 1500)
+  }
+
   const reveal = reduceMotion
     ? {}
     : {
@@ -56,6 +81,9 @@ export function ProjectDetailPage() {
 
   return (
     <div className="page-wrapper project-detail-page">
+      {/* Toast Feedback */}
+      <Toast message={toastMsg} onClose={() => setToastMsg(null)} />
+
       {/* Dynamic Reading Progress Bar */}
       <ReadingProgressBar />
 
@@ -115,6 +143,10 @@ export function ProjectDetailPage() {
                   <Play size={16} /> Watch Demo Video
                 </a>
               )}
+
+              <button type="button" onClick={handleShare} className="btn btn--ghost" title="Share Case Study Link">
+                <Share2 size={16} /> Share Case Study
+              </button>
             </div>
           </motion.div>
         </div>
@@ -174,7 +206,22 @@ export function ProjectDetailPage() {
                     <p className="node-desc">{node.description}</p>
 
                     <div className="node-signature-wrap">
-                      <span className="sig-label">Output Contract:</span>
+                      <div className="node-signature-header">
+                        <span className="sig-label">Output Contract:</span>
+                        <button
+                          type="button"
+                          className="sig-copy-btn"
+                          onClick={() => handleCopySignature(node.step, node.outputSignature)}
+                          aria-label={`Copy Node ${node.step} signature`}
+                          title="Copy Output Contract"
+                        >
+                          {copiedSigStep === node.step ? (
+                            <Check size={12} className="text-emerald" />
+                          ) : (
+                            <Copy size={12} />
+                          )}
+                        </button>
+                      </div>
                       <code>{node.outputSignature}</code>
                     </div>
                   </CardSpotlight>

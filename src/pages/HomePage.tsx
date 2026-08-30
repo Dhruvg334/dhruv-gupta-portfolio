@@ -13,6 +13,7 @@ import { projects } from '../data/projects'
 import { CardSpotlight } from '../components/motion/CardSpotlight'
 import { StatCounter } from '../components/motion/StatCounter'
 import { GitHubMark, LinkedInMark, DevpostMark } from '../components/SocialIcons'
+import { useDocumentTitle } from '../hooks/useDocumentTitle'
 
 const clearPrinciples = [
   {
@@ -40,6 +41,11 @@ const clearPrinciples = [
 export function HomePage() {
   const reduceMotion = useReducedMotion()
   const featuredProjects = projects.slice(0, 3)
+
+  useDocumentTitle(
+    'Dhruv Gupta — AI Systems Builder',
+    'AI models are powerful, but real-world products need solid software engineering around them. I design full-stack applications with accurate search, safety guardrails, and human review gates.'
+  )
 
   const reveal = reduceMotion
     ? {}

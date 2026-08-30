@@ -15,6 +15,7 @@ import { ProjectDomain } from '../types'
 import { ArchitectureWorkspace } from '../components/ArchitectureWorkspace'
 import { CardSpotlight } from '../components/motion/CardSpotlight'
 import { GitHubMark } from '../components/SocialIcons'
+import { useDocumentTitle } from '../hooks/useDocumentTitle'
 
 const filterTabs = [
   { id: 'all', label: 'All Systems (6)' },
@@ -29,6 +30,11 @@ export function ProjectsPage() {
   const [selectedDomain, setSelectedDomain] = useState<ProjectDomain>('all')
   const [searchQuery, setSearchQuery] = useState('')
   const reduceMotion = useReducedMotion()
+
+  useDocumentTitle(
+    'Systems Directory & Case Studies · Dhruv Gupta',
+    'Explore 6 production systems built with verifiable architecture, deterministic business logic, and safety guardrails.'
+  )
 
   const filteredProjects = useMemo(() => {
     return projects.filter((p) => {

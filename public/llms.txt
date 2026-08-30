@@ -5,11 +5,13 @@
 ## Summary
 - **Name**: Dhruv Gupta
 - **Role**: AI Systems Builder & Full-Stack Engineer
-- **Education**: Final-Year B.Tech in Computer Science and Engineering (CGPA 9.45)
+- **Education**: Final-Year B.Tech in Computer Science and Engineering @ KIIT Bhubaneswar (CGPA 9.45, Graduating July 2027)
 - **Competitive Ranking**: AIR 1109 in GATE DA (Data Science & AI) 2026
 - **Contact**: dhruvg3304@gmail.com
 - **GitHub**: https://github.com/Dhruvg334
 - **LinkedIn**: https://www.linkedin.com/in/dhruv-gupta-7a7500287/
+- **Devpost**: https://devpost.com/Dhruvg334
+- **Live Portfolio**: https://dhruvg334.github.io/dhruv-gupta-portfolio/
 
 ## Engineering Core Philosophy
 1. **Evidence Before Confidence**: Output must trace back to vector retrieval, knowledge graphs, or explicit assumptions rather than ungrounded model completion.
@@ -19,36 +21,43 @@
 
 ## Flagship Systems
 
-### 1. Mnemos — Industrial GraphRAG & Operational Intelligence
+### 1. Civitas — Multimodal Spatial Incident Intelligence Engine
+- **Focus**: Zero-trust civic intake pipeline converting unverified citizen WhatsApp reports, geotagged photos, and voice notes into auditable municipal work orders.
+- **Tech Stack**: Next.js, FastAPI, PostGIS, pgvector, H3 Hexagonal Hierarchical Spatial Index, LangGraph, Supabase.
+- **Key Architecture**: Binary magic-byte & EXIF verification, H3 hexagonal hotspot clustering, BM25+Dense RRF policy routing, tamper-evident SHA-256 digital seals.
+- **Repository**: https://github.com/Dhruvg334/Civitas
+- **Live Demo**: https://civitas-delta.vercel.app
+
+### 2. Mnemos — Industrial GraphRAG & Operational Intelligence
 - **Focus**: Turning complex industrial maintenance records, manuals, and field knowledge into evidence-backed investigation traces.
 - **Tech Stack**: Next.js, FastAPI, PostgreSQL, pgvector, Neo4j, LangChain.
 - **Key Architecture**: Hybrid vector-graph retrieval, entity-relationship extraction, provenance node inspection, governed agent traces.
 - **Repository**: https://github.com/Dhruvg334/mnemos
 - **Live Demo**: https://mnemos-lake.vercel.app
 
-### 2. A-DAP-T — AI Agent Safety & Release Readiness Review
+### 3. A-DAP-T — AI Agent Safety & Release Readiness Review
 - **Focus**: Pre-release audit scanner for agentic applications surfacing risky tools, missing approval gates, prompt injection risks, and credential exposures.
 - **Tech Stack**: Next.js, TypeScript, FastAPI, Firebase, Gemini API.
 - **Key Architecture**: Deterministic AST & rule-based review engine, ALLOW/REVIEW/BLOCK release decisions, human-in-the-loop review reports.
 - **Repository**: https://github.com/Dhruvg334/a-dap-t
 - **Live Demo**: https://a-dap-t.vercel.app
 
-### 3. Tessarion — RAG Evaluation & Evidence-Linked Learning Workspace
-- **Focus**: Active recall workspace where users teach concepts back, receive source-grounded diagnosis, and inspect concept relationships with full evaluation suites.
+### 4. EduSynth (Tessarion) — Source-Grounded Learning & Evaluation Suite
+- **Focus**: Active recall learning platform where users teach concepts back, receive source-grounded diagnosis, and inspect concept relationships with full evaluation suites.
 - **Tech Stack**: Next.js, Supabase, Qdrant, Neo4j, Vitest.
 - **Key Architecture**: Deterministic evaluation suite measuring retrieval precision, concept extraction accuracy, diagnosis validity, and mastery recovery.
 - **Repository**: https://github.com/Dhruvg334/Tessarion
 - **Live Demo**: https://tessarion.vercel.app
 
-### 4. ChronOS — Controlled Agentic Planning & Execution Recovery
+### 5. ChronOS — Controlled Agentic Planning & Execution Recovery
 - **Focus**: Adaptive execution system converting commitments, calendar constraints, and working preferences into realistic plans with approval-based recovery.
 - **Tech Stack**: React, FastAPI, Supabase, pgvector, Google Calendar API.
 - **Key Architecture**: Model-assisted planning bounded by deterministic collision, capacity, dependency, and protected-time validators.
 - **Repository**: https://github.com/Dhruvg334/chronos
 
-### 5. Niswarth AI — Full-Stack AI Workflows & NGO Governance
+### 6. Niswarth AI — Full-Stack AI Workflows & NGO Governance
 - **Focus**: NGO campaign, volunteer, and field update coordination platform with human-reviewed impact reporting inside tenant-isolated workspaces.
 - **Tech Stack**: React, Vite, Supabase (Row-Level Security), Gemini API, GitHub Actions.
 - **Key Architecture**: RLS multi-tenant security, draft/review/approval states, immutable AI action logs, automated deployment CI.
-- **Repository**: https://github.com/Dhruvg334/niswarth-ai
+- **Repository**: https://github.com/Dhruvg334/Niswarth-AI
 - **Live Demo**: https://niswarth-ai.vercel.app

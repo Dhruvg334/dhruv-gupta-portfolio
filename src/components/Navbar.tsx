@@ -1,17 +1,21 @@
 import { useState, useEffect } from 'react'
 import { NavLink, Link, useLocation } from 'react-router-dom'
 import { motion } from 'motion/react'
-import { Menu, X, ArrowRight } from 'lucide-react'
+import { Menu, X, ArrowRight, Search } from 'lucide-react'
 import avatarSvg from '../assets/avatar.svg'
+
+interface NavbarProps {
+  onOpenCommandPalette?: () => void
+}
 
 const navItems = [
   { path: '/', label: 'Overview', end: true },
-  { path: '/projects', label: 'Projects', end: false },
-  { path: '/resume', label: 'Resume', end: false },
-  { path: '/contact', label: 'Contact', end: false },
+  { path: '/projects', label: 'Projects', end: false, preload: () => import('../pages/ProjectsPage') },
+  { path: '/resume', label: 'Resume', end: false, preload: () => import('../pages/ResumePage') },
+  { path: '/contact', label: 'Contact', end: false, preload: () => import('../pages/ContactPage') },
 ]
 
-export function Navbar() {
+export function Navbar({ onOpenCommandPalette }: NavbarProps) {
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
   const location = useLocation()
@@ -46,6 +50,8 @@ export function Navbar() {
                 end={item.end}
                 className={({ isActive }) => `nav-link-item ${isActive ? 'active' : ''}`}
                 onClick={() => setMenuOpen(false)}
+                onMouseEnter={item.preload}
+                onFocus={item.preload}
               >
                 {isActive && (
                   <motion.span
@@ -60,6 +66,18 @@ export function Navbar() {
           })}
 
           <div className="nav-actions-mobile">
+            {onOpenCommandPalette && (
+              <button
+                type="button"
+                className="btn btn--secondary mobile-cmd-btn"
+                onClick={() => {
+                  setMenuOpen(false)
+                  onOpenCommandPalette()
+                }}
+              >
+                <Search size={14} /> Quick Search (⌘K)
+              </button>
+            )}
             <Link
               to="/contact"
               className="btn btn--primary"
@@ -71,6 +89,20 @@ export function Navbar() {
         </nav>
 
         <div className="header-desktop-actions">
+          {onOpenCommandPalette && (
+            <button
+              type="button"
+              className="header-cmd-trigger"
+              onClick={onOpenCommandPalette}
+              title="Open Command Palette (Ctrl+K / ⌘K)"
+              aria-label="Open Command Palette"
+            >
+              <Search size={13} />
+              <span className="cmd-hint-text">Search</span>
+              <kbd className="cmd-key-badge">⌘K</kbd>
+            </button>
+          )}
+
           <Link to="/contact" className="header-contact-btn">
             Get in Touch
           </Link>

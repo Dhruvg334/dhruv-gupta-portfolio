@@ -16,10 +16,16 @@ import {
 } from 'lucide-react'
 import { Toast } from '../components/Toast'
 import { GitHubMark, LinkedInMark, DevpostMark } from '../components/SocialIcons'
+import { useDocumentTitle } from '../hooks/useDocumentTitle'
 
 export function ResumePage() {
   const [toastMessage, setToastMessage] = useState<string | null>(null)
   const reduceMotion = useReducedMotion()
+
+  useDocumentTitle(
+    'Resume & Credentials · Dhruv Gupta',
+    'Curriculum Vitae for Dhruv Gupta: Final-year B.Tech CSE @ KIIT (9.45 CGPA), GATE DA 2026 AIR 1109, engineering projects, and system architectures.'
+  )
 
   const showToast = (msg: string) => {
     setToastMessage(msg)

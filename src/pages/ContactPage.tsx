@@ -19,6 +19,7 @@ import {
 } from 'lucide-react'
 import { Toast } from '../components/Toast'
 import { GitHubMark, LinkedInMark, DevpostMark } from '../components/SocialIcons'
+import { useDocumentTitle } from '../hooks/useDocumentTitle'
 
 interface ContactIntent {
   id: string
@@ -70,6 +71,11 @@ export function ContactPage() {
   const [currentTime, setCurrentTime] = useState('')
 
   const reduceMotion = useReducedMotion()
+
+  useDocumentTitle(
+    'Contact & Inquiries · Dhruv Gupta',
+    'Get in touch with Dhruv Gupta for software engineering roles, technical internships, architecture reviews, and open-source systems collaboration.'
+  )
 
   useEffect(() => {
     const updateTime = () => {
