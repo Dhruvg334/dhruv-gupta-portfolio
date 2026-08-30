@@ -1244,23 +1244,27 @@ button {
 
 .catalog-card-top {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: space-between;
+  gap: 24px;
   padding-bottom: 18px;
   border-bottom: 1px solid var(--border-subtle);
 }
 
 .catalog-num-tag {
   display: flex;
-  align-items: center;
+  align-items: baseline;
   gap: 12px;
+  min-width: 0;
+  flex: 1;
 }
 
 .cat-num {
   font-family: var(--mono);
-  font-size: 1.1rem;
-  font-weight: 700;
+  font-size: 1.15rem;
+  font-weight: 800;
   color: var(--accent-red);
+  flex-shrink: 0;
 }
 
 .cat-badge {
@@ -1270,32 +1274,40 @@ button {
   color: #e5e7eb;
   text-transform: uppercase;
   letter-spacing: 0.03em;
+  line-height: 1.4;
 }
 
 .catalog-metrics-group {
   display: flex;
-  gap: 20px;
+  align-items: flex-start;
+  gap: 24px;
+  flex-shrink: 0;
 }
 
 .metric-pill {
   display: flex;
   flex-direction: column;
   align-items: flex-end;
+  text-align: right;
 }
 
 .metric-pill strong {
   font-family: var(--mono);
   font-size: 1.05rem;
-  font-weight: 700;
-  color: #fff;
+  font-weight: 800;
+  color: #ffffff;
+  line-height: 1.2;
 }
 
 .metric-pill span {
-  font-size: 0.78rem;
+  font-family: var(--mono);
+  font-size: 0.72rem;
   font-weight: 600;
   color: var(--text-secondary);
   text-transform: uppercase;
-  letter-spacing: 0.03em;
+  letter-spacing: 0.04em;
+  margin-top: 2px;
+  white-space: nowrap;
 }
 
 .catalog-project-title {

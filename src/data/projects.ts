@@ -91,9 +91,8 @@ export const projects: Project[] = [
     ],
     metrics: [
       { value: '99.2%', label: 'Jurisdiction Accuracy', context: 'Hybrid BM25 + Dense RRF resolver' },
-      { value: '<1.2MB', label: 'Downsampled Payload', context: 'Client HTML5 canvas downsampling from 40MB' },
+      { value: '<1.2MB', label: 'Payload Size', context: 'Client HTML5 canvas downsampling from 40MB' },
       { value: '100%', label: 'Anti-Fraud Integrity', context: 'Zero-trust EXIF & dHash photo duplicate check' },
-      { value: 'SHA-256', label: 'Audit Trail Sealing', context: 'Cryptographic municipal certificate generation' },
     ],
     stack: [
       'Next.js 16',
