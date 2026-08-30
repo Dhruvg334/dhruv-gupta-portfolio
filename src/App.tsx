@@ -72,7 +72,7 @@ export function App() {
         Skip to main content
       </a>
 
-      <Navbar onOpenCommandPalette={() => setCmdOpen(true)} />
+      <Navbar />
 
       <main id="main-content">
         <Suspense fallback={<PageLoadingFallback />}>

@@ -1,12 +1,8 @@
 import { useState, useEffect } from 'react'
 import { NavLink, Link, useLocation } from 'react-router-dom'
 import { motion } from 'motion/react'
-import { Menu, X, ArrowRight, Search } from 'lucide-react'
+import { Menu, X, ArrowRight } from 'lucide-react'
 import avatarSvg from '../assets/avatar.svg'
-
-interface NavbarProps {
-  onOpenCommandPalette?: () => void
-}
 
 const navItems = [
   { path: '/', label: 'Overview', end: true },
@@ -15,7 +11,7 @@ const navItems = [
   { path: '/contact', label: 'Contact', end: false, preload: () => import('../pages/ContactPage') },
 ]
 
-export function Navbar({ onOpenCommandPalette }: NavbarProps) {
+export function Navbar() {
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
   const location = useLocation()
@@ -66,18 +62,6 @@ export function Navbar({ onOpenCommandPalette }: NavbarProps) {
           })}
 
           <div className="nav-actions-mobile">
-            {onOpenCommandPalette && (
-              <button
-                type="button"
-                className="btn btn--secondary mobile-cmd-btn"
-                onClick={() => {
-                  setMenuOpen(false)
-                  onOpenCommandPalette()
-                }}
-              >
-                <Search size={14} /> Quick Search (⌘K)
-              </button>
-            )}
             <Link
               to="/contact"
               className="btn btn--primary"
@@ -89,20 +73,6 @@ export function Navbar({ onOpenCommandPalette }: NavbarProps) {
         </nav>
 
         <div className="header-desktop-actions">
-          {onOpenCommandPalette && (
-            <button
-              type="button"
-              className="header-cmd-trigger"
-              onClick={onOpenCommandPalette}
-              title="Open Command Palette (Ctrl+K / ⌘K)"
-              aria-label="Open Command Palette"
-            >
-              <Search size={13} />
-              <span className="cmd-hint-text">Search</span>
-              <kbd className="cmd-key-badge">⌘K</kbd>
-            </button>
-          )}
-
           <Link to="/contact" className="header-contact-btn">
             Get in Touch
           </Link>

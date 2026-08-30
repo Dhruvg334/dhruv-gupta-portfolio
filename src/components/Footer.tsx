@@ -39,10 +39,6 @@ export function Footer({ onCopyEmail }: FooterProps) {
             <DevpostMark size={14} /> Devpost
           </a>
         </div>
-
-        <p className="footer-copy">
-          Designed with clean architecture and verifiable systems engineering.
-        </p>
       </div>
     </footer>
   )
