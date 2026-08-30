@@ -501,39 +501,53 @@ button {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 36px;
-  margin-top: 48px;
-  padding-top: 28px;
-  border-top: 1px solid var(--border-subtle);
+  gap: 32px;
+  margin-top: 42px;
+  padding: 18px 28px;
+  background: rgba(255, 255, 255, 0.035);
+  border: 1px solid var(--border-medium);
+  border-radius: var(--radius-lg);
+  backdrop-filter: blur(12px);
   width: 100%;
-  max-width: 640px;
+  max-width: 680px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.35);
 }
 
 .hero-stat-card {
   display: flex;
   flex-direction: column;
   align-items: center;
+  text-align: center;
+  flex: 1;
 }
 
+.hero-stat-value,
 .hero-stat-card strong {
-  font-size: 1.6rem;
+  font-size: clamp(1.6rem, 2.4vw, 2.1rem);
   font-weight: 800;
   letter-spacing: -0.03em;
   color: #ffffff;
+  line-height: 1.1;
+  display: block;
 }
 
+.hero-stat-label,
 .hero-stat-card span {
-  font-family: var(--mono);
-  font-size: 0.68rem;
-  color: var(--text-muted);
-  text-transform: uppercase;
-  margin-top: 2px;
+  font-family: var(--sans);
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #e5e7eb;
+  letter-spacing: 0.02em;
+  margin-top: 5px;
+  display: block;
+  white-space: nowrap;
 }
 
 .hero-stat-divider {
   width: 1px;
-  height: 32px;
-  background: var(--border-subtle);
+  height: 38px;
+  background: var(--border-medium);
+  flex-shrink: 0;
 }
 
 /* Centered Social Profile Links Bar */
@@ -772,33 +786,37 @@ button {
 
 .featured-metric-item strong {
   font-family: var(--mono);
-  font-size: 0.98rem;
+  font-size: 1.05rem;
+  font-weight: 700;
   color: #fff;
 }
 
 .featured-metric-item span {
-  font-size: 0.65rem;
-  color: var(--text-muted);
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--text-secondary);
   text-transform: uppercase;
+  letter-spacing: 0.03em;
 }
 
 .featured-card-body h3 {
-  font-size: 1.6rem;
+  font-size: 1.65rem;
   font-weight: 800;
   letter-spacing: -0.03em;
   color: #fff;
 }
 
 .featured-tagline {
-  color: var(--text-muted);
-  font-size: 0.92rem;
+  color: #e5e7eb;
+  font-size: 0.95rem;
+  font-weight: 500;
   margin-top: 4px;
 }
 
 .featured-summary {
   margin-top: 12px;
   color: var(--text-secondary);
-  font-size: 0.95rem;
+  font-size: 0.96rem;
   line-height: 1.65;
 }
 
@@ -1212,10 +1230,11 @@ button {
 
 .cat-badge {
   font-family: var(--mono);
-  font-size: 0.75rem;
+  font-size: 0.8rem;
   font-weight: 600;
-  color: var(--text-muted);
+  color: #e5e7eb;
   text-transform: uppercase;
+  letter-spacing: 0.03em;
 }
 
 .catalog-metrics-group {
@@ -1231,14 +1250,17 @@ button {
 
 .metric-pill strong {
   font-family: var(--mono);
-  font-size: 0.95rem;
+  font-size: 1.05rem;
+  font-weight: 700;
   color: #fff;
 }
 
 .metric-pill span {
-  font-size: 0.65rem;
-  color: var(--text-muted);
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--text-secondary);
   text-transform: uppercase;
+  letter-spacing: 0.03em;
 }
 
 .catalog-project-title {
@@ -1253,8 +1275,9 @@ button {
 }
 
 .catalog-tagline {
-  color: var(--text-muted);
-  font-size: 0.95rem;
+  color: #e5e7eb;
+  font-size: 0.96rem;
+  font-weight: 500;
   margin-top: 4px;
 }
 
@@ -1547,25 +1570,25 @@ button {
 
 .stage-num {
   font-family: var(--mono);
-  font-size: 0.66rem;
+  font-size: 0.78rem;
   color: var(--accent-red);
   font-weight: 700;
 }
 
 .stage-layer {
   font-family: var(--mono);
-  font-size: 0.62rem;
-  color: var(--text-muted);
+  font-size: 0.74rem;
+  color: #d1d5db;
 }
 
 .ws-status-badge {
   display: inline-flex;
   align-items: center;
   gap: 4px;
-  padding: 2px 6px;
+  padding: 3px 8px;
   border-radius: 4px;
   font-family: var(--mono);
-  font-size: 0.6rem;
+  font-size: 0.74rem;
   font-weight: 700;
 }
 
@@ -1575,40 +1598,40 @@ button {
 .ws-status--review { background: var(--amber-bg); color: #fbbf24; }
 
 .stage-name {
-  font-size: 0.84rem;
+  font-size: 0.92rem;
   font-weight: 700;
   color: #fff;
 }
 
 .stage-desc {
-  font-size: 0.76rem;
-  color: var(--text-secondary);
-  line-height: 1.45;
+  font-size: 0.85rem;
+  color: #d1d5db;
+  line-height: 1.5;
 }
 
 .stage-payload-box {
   background: rgba(0, 0, 0, 0.45);
   border-radius: 4px;
-  padding: 6px 10px;
+  padding: 8px 12px;
   margin-top: 4px;
   display: flex;
   flex-direction: column;
-  gap: 3px;
+  gap: 4px;
 }
 
 .payload-tag {
   display: flex;
   align-items: center;
   font-family: var(--mono);
-  font-size: 0.6rem;
+  font-size: 0.74rem;
   color: #fca5a5;
 }
 
 .stage-payload-box code {
   font-family: var(--mono);
-  font-size: 0.66rem;
+  font-size: 0.82rem;
   color: #34d399;
-  line-height: 1.35;
+  line-height: 1.45;
   overflow-x: auto;
 }
 
@@ -1665,43 +1688,44 @@ button {
 
 .layer-tag {
   font-family: var(--mono);
-  font-size: 0.64rem;
-  padding: 2px 6px;
+  font-size: 0.76rem;
+  padding: 3px 8px;
   border-radius: 4px;
-  background: rgba(255, 255, 255, 0.05);
-  color: var(--text-muted);
+  background: rgba(255, 255, 255, 0.08);
+  color: #d1d5db;
 }
 
 .layer-name {
-  font-size: 0.95rem;
+  font-size: 1rem;
   font-weight: 700;
   color: #fff;
 }
 
 .layer-desc {
-  font-size: 0.78rem;
-  color: var(--text-secondary);
-  line-height: 1.45;
+  font-size: 0.85rem;
+  color: #d1d5db;
+  line-height: 1.5;
 }
 
 .layer-impl {
   background: rgba(0, 0, 0, 0.35);
-  padding: 10px;
+  padding: 10px 12px;
   border-radius: 4px;
-  font-size: 0.74rem;
+  font-size: 0.82rem;
 }
 
 .impl-label {
   font-family: var(--mono);
-  font-size: 0.6rem;
-  color: var(--text-muted);
+  font-size: 0.74rem;
+  color: #9ca3af;
   text-transform: uppercase;
   display: block;
 }
 
 .layer-impl p {
-  color: var(--text-secondary);
-  margin-top: 2px;
+  color: #ffffff;
+  margin-top: 3px;
+  font-size: 0.82rem;
 }
 
 .layer-projects {
@@ -1710,13 +1734,13 @@ button {
   justify-content: space-between;
   padding-top: 8px;
   border-top: 1px solid var(--border-subtle);
-  font-size: 0.7rem;
+  font-size: 0.78rem;
 }
 
 .proj-label {
   font-family: var(--mono);
-  color: var(--text-muted);
-  font-size: 0.64rem;
+  color: #9ca3af;
+  font-size: 0.76rem;
 }
 
 .proj-pills {
@@ -1728,7 +1752,7 @@ button {
   display: inline-flex;
   align-items: center;
   gap: 3px;
-  font-size: 0.68rem;
+  font-size: 0.78rem;
   font-weight: 700;
   color: #fca5a5;
 }

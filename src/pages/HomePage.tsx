@@ -90,24 +90,24 @@ export function HomePage() {
             {/* Credential Metrics Strip */}
             <div className="hero-stats-row">
               <div className="hero-stat-card">
-                <strong>
+                <strong className="hero-stat-value">
                   <StatCounter value={9.45} decimals={2} />
                 </strong>
-                <span>CGPA · B.Tech CSE</span>
+                <span className="hero-stat-label">CGPA · B.Tech CSE</span>
               </div>
               <div className="hero-stat-divider" />
               <div className="hero-stat-card">
-                <strong>
+                <strong className="hero-stat-value">
                   <StatCounter value={2027} prefix="July " />
                 </strong>
-                <span>Graduation Year</span>
+                <span className="hero-stat-label">Graduation Year</span>
               </div>
               <div className="hero-stat-divider" />
               <div className="hero-stat-card">
-                <strong>
+                <strong className="hero-stat-value">
                   <StatCounter value={6} />
                 </strong>
-                <span>Systems Built</span>
+                <span className="hero-stat-label">Systems Built</span>
               </div>
             </div>
           </motion.div>
