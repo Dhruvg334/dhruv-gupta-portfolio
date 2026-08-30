@@ -337,24 +337,24 @@ export function HomePage() {
             </p>
 
             <div className="about-stats-grid">
-              <CardSpotlight className="stat-box">
-                <strong>
+              <div className="about-stat-card">
+                <strong className="about-stat-value">
                   <StatCounter value={9.45} decimals={2} />
                 </strong>
-                <span>CGPA · B.Tech CSE</span>
-              </CardSpotlight>
-              <CardSpotlight className="stat-box">
-                <strong>
+                <span className="about-stat-label">CGPA · KIIT CSE</span>
+              </div>
+              <div className="about-stat-card">
+                <strong className="about-stat-value">
                   <StatCounter value={2027} prefix="July " />
                 </strong>
-                <span>Graduation Year</span>
-              </CardSpotlight>
-              <CardSpotlight className="stat-box">
-                <strong>
-                  <StatCounter value={6} />
+                <span className="about-stat-label">Graduation Year</span>
+              </div>
+              <div className="about-stat-card">
+                <strong className="about-stat-value">
+                  AIR 1109
                 </strong>
-                <span>Systems Built</span>
-              </CardSpotlight>
+                <span className="about-stat-label">GATE DA 2026</span>
+              </div>
             </div>
           </motion.div>
         </div>
