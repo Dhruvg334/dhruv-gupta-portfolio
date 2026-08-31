@@ -75,7 +75,7 @@ export function CommandPalette({ isOpen, onClose, onToast }: CommandPaletteProps
       {
         id: 'nav-projects',
         title: 'Projects Directory',
-        subtitle: 'Catalog of 6 production systems & pipeline sandbox',
+        subtitle: `Catalog of ${projects.length} production systems & pipeline sandbox`,
         category: 'Navigation',
         icon: <FolderGit2 size={16} />,
         onSelect: () => {

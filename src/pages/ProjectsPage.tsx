@@ -17,13 +17,13 @@ import { CardSpotlight } from '../components/motion/CardSpotlight'
 import { GitHubMark } from '../components/SocialIcons'
 import { useDocumentTitle } from '../hooks/useDocumentTitle'
 
-const filterTabs = [
-  { id: 'all', label: 'All Systems (6)' },
-  { id: 'workflow', label: 'Civic & Full-Stack' },
+const filterTabs: { id: ProjectDomain; label: string }[] = [
+  { id: 'all', label: `All Systems (${projects.length})` },
+  { id: 'workflow', label: 'Civic & Supply Chain' },
   { id: 'graph', label: 'Industrial GraphRAG' },
-  { id: 'safety', label: 'Agent Security & Safety' },
-  { id: 'planning', label: 'Controlled Planning' },
-  { id: 'eval', label: 'Evaluation & Learning' },
+  { id: 'safety', label: 'Safety & Security' },
+  { id: 'planning', label: 'Planning & Careers' },
+  { id: 'eval', label: 'Carbon, News & Learning' },
 ]
 
 export function ProjectsPage() {
@@ -33,7 +33,7 @@ export function ProjectsPage() {
 
   useDocumentTitle(
     'Systems Directory & Case Studies · Dhruv Gupta',
-    'Explore 6 production systems built with verifiable architecture, deterministic business logic, and safety guardrails.'
+    `Explore ${projects.length} production systems built with verifiable architecture, deterministic business logic, and safety guardrails.`
   )
 
   const filteredProjects = useMemo(() => {
@@ -72,7 +72,7 @@ export function ProjectsPage() {
             <p className="page-eyebrow">Systems Directory</p>
             <h1 className="page-title">Production Systems & Case Studies</h1>
             <p className="page-subtitle">
-              Explore 6 AI systems built with verifiable architecture, deterministic business logic, and safety guardrails.
+              Explore {projects.length} AI systems built with verifiable architecture, deterministic business logic, and safety guardrails.
             </p>
           </motion.div>
         </div>

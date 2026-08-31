@@ -94,7 +94,7 @@ export function ProjectDetailPage() {
             <ArrowLeft size={16} /> Back to Systems Directory
           </Link>
           <div className="project-index-pill">
-            Project {project.number} of 06
+            Project {project.number} of {String(projects.length).padStart(2, '0')}
           </div>
         </div>
       </div>
@@ -375,7 +375,7 @@ export function ProjectDetailPage() {
             <CardSpotlight className="pagination-card-wrap">
               <Link to="/projects" className="pagination-card pagination-card--next">
                 <span className="pag-label">Back to Catalog <ArrowRight size={14} /></span>
-                <strong>All 6 Projects</strong>
+                <strong>All {projects.length} Projects</strong>
                 <p>Explore full architectural directory</p>
               </Link>
             </CardSpotlight>

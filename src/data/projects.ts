@@ -644,8 +644,809 @@ export const projects: Project[] = [
     },
   },
   {
-    id: 'niswarth-ai',
+    id: 'carbonly',
     number: '06',
+    name: 'Carbonly',
+    tagline: 'Auditable carbon intelligence and enterprise decarbonization optimization platform.',
+    category: 'Auditable Carbon Accounting & ESG Intelligence Platform',
+    domain: 'eval',
+    summary:
+      'Enterprise ESG reporting requires auditable, reproducible calculations without arithmetic hallucinations. Carbonly converts operational activity data into traceable GHG Protocol inventories (Scope 1, 2, and 3), performs time-series model selection competition (Holt-Winters vs ARIMA), quantifies risk via 10,000-iteration Monte Carlo simulations, detects multi-variate anomalies via 5x5 Gauss-Jordan Mahalanobis matrix inversion, and optimizes capital investments via Primal Simplex linear programming.',
+    detail:
+      'Strictly separates deterministic mathematical execution from AI narrative reasoning. Groq LLM (LLaMA-3.3-70B) operates purely as a read-only explanatory proxy over immutable calculation proofs, while mathematical algorithms handle matrix elimination, Simplex pivots, and DEFRA/EPA emission factor resolution.',
+    architecturalCore:
+      'Pure deterministic mathematical engine backed by an immutable Emission Factor Registry, Directed Acyclic Graph (DAG) provenance tracer, 5x5 Mahalanobis matrix inverter, and Primal Simplex linear programming solver.',
+    nodes: [
+      {
+        step: '01',
+        name: 'Idempotent Ingestion & Quality Audit',
+        type: 'deterministic',
+        description: 'Validates streaming NDJSON payloads, enforces schema bounds, detects drift, and deduplicates using transaction idempotency keys.',
+        outputSignature: 'ValidatedBatch { processed_count: number, idempotency_keys: string[] }',
+      },
+      {
+        step: '02',
+        name: 'Emission Factor Registry Resolver',
+        type: 'deterministic',
+        description: 'Resolves versioned DEFRA and EPA eGRID factors with immutable lifecycle governance (Draft, Reviewed, Approved, Active, Deprecated).',
+        outputSignature: 'ResolvedFactors { efr_version: string, scope1_rate, scope2_rate, scope3_rates }',
+      },
+      {
+        step: '03',
+        name: 'Deterministic Scope 1/2/3 Engine',
+        type: 'deterministic',
+        description: 'Calculates exact GHG Protocol Scope 1, Scope 2 (market/location), and Scope 3 lifecycle totals with calculation provenance IDs.',
+        outputSignature: 'CarbonInventory { calc_id: UUID, total_co2e_kg: number, scope_breakdown: ScopeTotals }',
+      },
+      {
+        step: '04',
+        name: 'Time-Series Model Competition',
+        type: 'hybrid',
+        description: 'Competes Holt-Winters Triple Exponential Smoothing vs ARIMA(1,1,1) with CSS MA(1) estimation vs Seasonal Naive benchmarks on out-of-sample test splits.',
+        outputSignature: 'WinningModel { model: string, out_of_sample_smape_pct: number, forecast_horizon: MonthlyPoint[] }',
+      },
+      {
+        step: '05',
+        name: 'Mahalanobis 5x5 Matrix Anomaly Detection',
+        type: 'deterministic',
+        description: 'Inverts sample covariance matrix via 5x5 Gauss-Jordan elimination to detect joint multi-variate anomalies exceeding Chi-Square thresholds.',
+        outputSignature: 'AnomalyReport { mahalanobis_dist: number, is_outlier: boolean, chi_sq_critical: 11.07 }',
+      },
+      {
+        step: '06',
+        name: '10k-Iteration Monte Carlo Uncertainty',
+        type: 'deterministic',
+        description: 'Draws 10,000 independent Log-Normal and Box-Muller Gaussian stochastic iterations to generate P10-P90 and P2.5-P97.5 confidence bounds.',
+        outputSignature: 'UncertaintyBounds { p10: number, p50: number, p90: number, std_dev: number }',
+      },
+      {
+        step: '07',
+        name: 'Primal Simplex Decarbonization Solver',
+        type: 'deterministic',
+        description: 'Constructs a 5-row Simplex Tableau and executes Gauss-Jordan pivots to maximize carbon avoided under annual capital budget limits.',
+        outputSignature: 'OptimizationPlan { max_co2e_avoided_kg: number, optimal_allocation: ProjectShare[] }',
+      },
+      {
+        step: '08',
+        name: 'Evidence-Grounded AI Proxy',
+        type: 'model',
+        description: 'Groq LLaMA-3.3-70B synthesizes executive insights and compliance audit reports strictly grounded in verified calculation proofs.',
+        outputSignature: 'ExecutiveNarrative { summary: string, proof_hash: string, recommendations: string[] }',
+      },
+    ],
+    tradeoffs: [
+      {
+        decision: 'Decoupled Deterministic Math vs. LLM Direct Arithmetic',
+        chosenPath: '100% deterministic code for all equations and matrix operations; LLM strictly read-only explanation proxy.',
+        rationale: 'Passing arithmetic to LLMs causes non-reproducible calculations and audit disqualifications. Deterministic engines guarantee mathematical certainty.',
+      },
+      {
+        decision: 'Full 5x5 Covariance Matrix Inversion vs. Univariate Z-Scores',
+        chosenPath: '5x5 Gauss-Jordan matrix inversion for Mahalanobis distance quadratic form.',
+        rationale: 'Univariate Z-scores fail to detect joint cross-variable anomalies (e.g. normal fuel use alongside zero electricity in active operating facilities).',
+      },
+      {
+        decision: 'Holt-Winters / ARIMA Model Selection Competition vs. Static Forecasting',
+        chosenPath: 'Empirical out-of-sample sMAPE competition selecting the top model per facility time-series.',
+        rationale: 'Different facilities exhibit differing seasonal and trend dynamics; competition guarantees optimal predictive accuracy.',
+      },
+    ],
+    metrics: [
+      { value: '0.0000 kg', label: 'Arithmetic Error', context: 'Zero floating-point standard deviation' },
+      { value: '10,000 Draws', label: 'Monte Carlo Simulation', context: 'Non-parametric Log-Normal confidence intervals' },
+      { value: '100% Passed', label: '40 Test Cases', context: 'Automated Node.js validation test suite' },
+    ],
+    stack: [
+      'Node.js',
+      'Express 5',
+      'JavaScript',
+      'FastAPI',
+      'Groq LLaMA-3.3-70B',
+      'Primal Simplex LP',
+      'Gauss-Jordan Inversion',
+      'Monte Carlo Engine',
+      'Netlify',
+      'Render',
+    ],
+    signals: [
+      'Deterministic GHG Protocol Scope 1/2/3 calculation engine',
+      '5x5 Gauss-Jordan Mahalanobis matrix inversion anomaly detection',
+      '10,000-draw Log-Normal Monte Carlo uncertainty quantification',
+      'Holt-Winters vs ARIMA(1,1,1) time-series model selection competition',
+      'Primal Simplex linear programming decarbonization capital optimizer',
+    ],
+    repo: 'https://github.com/Dhruvg334/Carbonly',
+    live: 'https://carbonlyai.netlify.app/',
+    tone: 'planning',
+    mermaidDiagram: `flowchart TD
+    DataIn[Enterprise Activity Stream] --> Pipe[High-Throughput Ingestion Pipeline]
+    Pipe --> Quality[Data Quality & Schema Drift Engine]
+    Quality --> Reg[Emission Factor Registry EFR]
+    Reg --> Engine[Deterministic Scope 1/2/3 Carbon Engine]
+    
+    Engine --> DAG[Lineage DAG & Proof Store calc_83a91f]
+    DAG --> Comp[Time-Series Competition HW vs ARIMA vs Naive]
+    DAG --> Mahal[5x5 Mahalanobis Distance Matrix Inverter]
+    DAG --> Monte[10k-Iteration Monte Carlo Uncertainty Engine]
+    DAG --> Simplex[Primal Simplex Linear Decarbonization Solver]
+    DAG --> SHAP[KernelSHAP Surrogate Explainer]
+    
+    Comp --> AIProxy[Evidence-Grounded AI Proxy - Groq LLaMA-3.3]
+    Mahal --> AIProxy
+    Monte --> AIProxy
+    Simplex --> AIProxy
+    SHAP --> AIProxy
+    
+    AIProxy --> Reports[Audit-Ready ESG Inventory Report]
+    AIProxy --> Export[Columnar Warehouse NDJSON Export]`,
+    caseStudy: {
+      problemStatement:
+        'Corporate sustainability reporting faces increasing regulatory scrutiny under CSRD and SEC disclosure mandates. However, enterprise emission calculation pipelines frequently suffer from unversioned factor changes, unquantified uncertainty bounds, and unverified AI arithmetic hallucinations where generic models estimate carbon metrics without deterministic backing.',
+      systemDesign:
+        'Carbonly solves this by enforcing a strict architectural seam: all quantitative calculations (Scope 1, Scope 2 market/location, Scope 3 categories, matrix inversions, and Simplex linear programming) are performed by deterministic mathematical engines. An immutable Emission Factor Registry tracks versioned factors, a DAG provenance tracer attaches calculation IDs, and the Groq LLM operates as a grounded explanatory proxy over verified calculation proofs.',
+      guardrailArchitecture:
+        'Enforces input schema assertion bounds ($0 \\le \\text{transportKm} \\le 100,000$), idempotency deduplication keys, 5x5 Gauss-Jordan matrix correlation boundaries, and KernelSHAP surrogate model verification satisfying the efficiency axiom ($\\sum \\phi_i = f(x) - E[f(x)]$).',
+      evaluationAndMetrics:
+        'Verified across 40 automated test cases with 100% pass rate. Evaluates floating-point deviation to $\\pm 10^{-6} \\text{ kg CO}_2\\text{e}$ tolerance with zero arithmetic deviation from UK DEFRA and US EPA benchmark vectors.',
+    },
+  },
+  {
+    id: 'daedalus',
+    number: '07',
+    name: 'Daedalus',
+    tagline: 'AI-powered career simulation and decision platform with deterministic fit scoring.',
+    category: 'Structured Career Decision & AI Exposure Navigation System',
+    domain: 'planning',
+    summary:
+      'Students and early-career professionals struggle to evaluate career trajectories, understand automation exposure, and turn career ambiguity into structured plans. Daedalus delivers personalized career simulations, task-level AI exposure matrices, prioritized skill gap roadmaps, and 7-day action sprint plans backed by transparent scoring traces.',
+    detail:
+      'Built around structured data and deterministic algorithms rather than generic open-ended chat. A multi-stage scoring engine computes fit, difficulty, growth, and AI exposure signals across career archetypes with transparent trace logs and curated learning resources.',
+    architecturalCore:
+      'Structured simulation engine combining multi-factor candidate ranking, task-level AI exposure modeling, graph skill distance calculation, and Gemini reranking with full decision trace auditability.',
+    nodes: [
+      {
+        step: '01',
+        name: 'Profile Normalization',
+        type: 'deterministic',
+        description: 'Normalizes student skills, working styles, risk tolerances, and interests into a standardized candidate feature vector.',
+        outputSignature: 'CandidateVector { skills: string[], work_style: Vector, risk_pref: number }',
+      },
+      {
+        step: '02',
+        name: 'Multi-Factor Scoring Engine',
+        type: 'deterministic',
+        description: 'Evaluates candidate vectors against career archetypes, computing fit scores, growth velocity, and prerequisite distance.',
+        outputSignature: 'ScoredPaths { candidate_paths: CareerScore[], baseline_ranks: Rank[] }',
+      },
+      {
+        step: '03',
+        name: 'Task-Level AI Exposure Analysis',
+        type: 'hybrid',
+        description: 'Deconstructs selected career paths into task taxonomies, evaluating automation exposure vs human-in-the-loop advantages.',
+        outputSignature: 'ExposureMatrix { routine_cognitive: number, creative_judgment: number, ai_exposure_score: number }',
+      },
+      {
+        step: '04',
+        name: '7-Day Action Sprint Generator',
+        type: 'model',
+        description: 'Synthesizes an immediate daily project sprint plan with curated learning resources and internship opportunity matches.',
+        outputSignature: 'SprintPlan { daily_milestones: DayTask[], learning_hubs: Resource[], trace_id: UUID }',
+      },
+    ],
+    tradeoffs: [
+      {
+        decision: 'Deterministic Multi-Factor Scoring vs. Generative Career Chatbot',
+        chosenPath: 'Structured deterministic scoring algorithms with AI used strictly for explanation and sprint synthesis.',
+        rationale: 'Career advice requires consistent, transparent metrics rather than non-deterministic conversational suggestions.',
+      },
+      {
+        decision: 'Task-Level AI Exposure Matrix vs. Broad Job Category Automation Risk',
+        chosenPath: 'Deconstruct careers into specific tasks (routine vs cognitive vs social) to pinpoint human advantage.',
+        rationale: 'Whole-job risk labels create unwarranted panic; task-level analysis shows specific skills where human judgment excels.',
+      },
+    ],
+    metrics: [
+      { value: '100% Traceable', label: 'Decision Transparency', context: 'Audit trace on all scoring paths' },
+      { value: '3 Paths', label: 'Comparative Simulation', context: 'Side-by-side career trade-off matrix' },
+      { value: '7-Day', label: 'Action Sprint', context: 'Immediate project-based roadmap conversion' },
+    ],
+    stack: [
+      'Next.js 15',
+      'React 19',
+      'TypeScript',
+      'FastAPI',
+      'Python 3.12',
+      'Pydantic',
+      'SQLAlchemy',
+      'Tailwind CSS',
+      'Radix UI',
+      'Gemini Flash',
+      'Vercel',
+    ],
+    signals: [
+      'Structured profile normalization and deterministic scoring engine',
+      'Task-level AI exposure and automation vulnerability matrix',
+      'Priority skill gap and curated learning resource resolver',
+      '7-day sprint conversion for immediate actionability',
+      'Auditable recommendation traces with confidence transparency',
+    ],
+    repo: 'https://github.com/Dhruvg334/Daedalus',
+    live: 'https://daedalus-iota.vercel.app/',
+    tone: 'planning',
+    mermaidDiagram: `flowchart TD
+    User([User Profile Input]) --> Ingest[Profile Normalization Gateway]
+    Ingest --> Vector[Candidate Feature Vector]
+    
+    subgraph SimulationEngine [Deterministic Decision Engine]
+      Vector --> Scorer[Multi-Factor Career Scoring Engine]
+      Scorer --> Exposure[Task-Level AI Exposure Analyzer]
+      Scorer --> Skills[Skill Gap Distance Graph]
+      Exposure --> Comp[Career Comparison Matrix]
+      Skills --> Hub[Learning & Opportunity Resolver]
+    end
+    
+    Comp --> Sprint[7-Day Action Sprint Planner]
+    Hub --> Sprint
+    Sprint --> Trace[Decision Trace & Audit Log]
+    Trace --> Dashboard[Interactive Career Cockpit]`,
+    caseStudy: {
+      problemStatement:
+        'Students and early-career engineers face unprecedented career ambiguity in the age of AI. Traditional career counseling relies on generic psychometric tests or open-ended chatbots that offer vague encouragement without structured analysis of technical skill gaps, market automation exposure, or actionable execution plans.',
+      systemDesign:
+        'Daedalus combines structured input normalization, deterministic multi-factor scoring, and task-level AI exposure analysis with a Next.js 15 client and FastAPI backend. It generates a multi-dimensional career simulation comparing 3 distinct trajectories, highlights specific human-advantage competencies, and builds a concrete 7-day action sprint.',
+      guardrailArchitecture:
+        'Scores are bound to reproducible mathematical weights with fallback deterministic paths if external model APIs are unreachable. All recommendation decisions output transparent calculation traces explaining why specific career paths scored highest.',
+      evaluationAndMetrics:
+        'Validated across 12 distinct persona test profiles with 100% deterministic score reproducibility across repeated runs and zero hallucinated skill requirements.',
+    },
+  },
+  {
+    id: 'aidyn',
+    number: '08',
+    name: 'AIDYN',
+    tagline: 'AI disaster response cockpit and multi-hazard priority coordinator for emergency operations.',
+    category: 'AI Disaster Response & Multi-Hazard Priority Coordinator',
+    domain: 'safety',
+    summary:
+      'During humanitarian crises, emergency response teams receive scattered, high-volume reports across hazard alerts, water contamination, hospital overloading, and road blockages. AIDYN coordinates disparate incident reports, extracts multi-hazard risk signals, computes deterministic priority rankings, matches resource deficits, and synthesizes responder-ready mission briefs with human supervisor review.',
+    detail:
+      'Engineered around an explicit operational decision flow: Report → Signal → Deterministic Score → Human Review → Resource Gap → Response Task → Mission Brief. Prevents black-box AI prioritization by enforcing domain-specific scoring equations across hazard, water, health, and logistics signals.',
+    architecturalCore:
+      'Multi-modular priority coordination engine backed by deterministic domain scoring rules, emergency supply deficit matchers, and structured responder brief synthesis.',
+    nodes: [
+      {
+        step: '01',
+        name: 'Field Report Ingestion',
+        type: 'deterministic',
+        description: 'Ingests unstructured crisis incident reports from field teams, SMS channels, and sensor telemetry.',
+        outputSignature: 'RawIncidentReport { report_id: UUID, location: GeoPoint, timestamp: ISO8601, text: string }',
+      },
+      {
+        step: '02',
+        name: 'Multi-Modal Signal Extraction',
+        type: 'model',
+        description: 'Extracts domain-specific risk signals across infrastructure damage, water potable status, casualty counts, and access routes.',
+        outputSignature: 'ExtractedSignals { hazard_level: 1..5, water_unsafe: boolean, hospital_overload: boolean, road_blocked: boolean }',
+      },
+      {
+        step: '03',
+        name: 'Multi-Module Priority Scorer',
+        type: 'deterministic',
+        description: 'Executes mathematical domain scoring formulas across hazard, water, health, and logistics modules to calculate community urgency.',
+        outputSignature: 'CommunityPriorityQueue { ranked_communities: PriorityNode[], deficit_flags: Deficit[] }',
+      },
+      {
+        step: '04',
+        name: 'Supervisor Review & Brief Generator',
+        type: 'gate',
+        description: 'Enforces human coordinator sign-off before synthesizing structured, responder-ready deployment briefs.',
+        outputSignature: 'ResponderBrief { mission_id: UUID, priority_rank: number, tasks: TaskItem[], approved_by: UserID }',
+      },
+    ],
+    tradeoffs: [
+      {
+        decision: 'Multi-Module Domain Scorer vs. Monolithic LLM Urgency Rating',
+        chosenPath: 'Dedicated deterministic sub-modules for Hazard, Water, Health, and Logistics.',
+        rationale: 'Monolithic LLM ratings exhibit arbitrary score drift; modular mathematical equations ensure life-safety priority consistency.',
+      },
+      {
+        decision: 'Mandatory Human Gate vs. Fully Autonomous Task Dispatch',
+        chosenPath: 'Enforce human emergency coordinator review before releasing responder briefs.',
+        rationale: 'Autonomous resource dispatch in emergency conditions carries extreme life-safety liability; coordinators must retain final sign-off authority.',
+      },
+    ],
+    metrics: [
+      { value: '<2.1s', label: 'Triage Latency', context: 'Fast multi-signal incident processing' },
+      { value: '4 Modules', label: 'Domain Coordination', context: 'Hazard, water, health, logistics' },
+      { value: '100%', label: 'Human Gate', context: 'Mandatory sign-off on dispatch actions' },
+    ],
+    stack: [
+      'React 19',
+      'TypeScript',
+      'FastAPI',
+      'Python 3.12',
+      'Pydantic',
+      'Tailwind CSS',
+      'Lucide Icons',
+      'Vercel',
+    ],
+    signals: [
+      'Omnichannel crisis incident report extraction',
+      'Multi-module deterministic hazard, water, health & logistics scoring',
+      'Resource deficit matching against available emergency supply pools',
+      'Mandatory human supervisor review before action dispatch',
+      'Structured responder-ready mission briefs with transparent evidence traces',
+    ],
+    repo: 'https://github.com/Dhruvg334/aidyn',
+    tone: 'safety',
+    mermaidDiagram: `flowchart TD
+    Field[Scattered Field Reports] --> Ingest[Incident Ingestion Engine]
+    Ingest --> Signals[Multi-Modal Signal Extraction]
+    
+    subgraph PriorityCoordinator [Multi-Module Priority Engine]
+      Signals --> HazMod[Hazard Severity Module]
+      Signals --> WaterMod[Water Safety Module]
+      Signals --> HealthMod[Health & Casualty Module]
+      Signals --> LogMod[Logistics & Access Module]
+      
+      HazMod --> Coordinator[Priority Queue Coordinator]
+      WaterMod --> Coordinator
+      HealthMod --> Coordinator
+      LogMod --> Coordinator
+    end
+    
+    Coordinator --> Deficit[Emergency Resource Deficit Matcher]
+    Deficit --> ReviewGate{Human Supervisor Review Gate}
+    ReviewGate -->|Approved| BriefGen[Responder-Ready Mission Brief Generator]
+    ReviewGate -->|Adjust| Coordinator
+    BriefGen --> Dispatch[Field Response Units]`,
+    caseStudy: {
+      problemStatement:
+        'In natural disasters and humanitarian crises, emergency command centers fail not from lack of information, but because incoming data is chaotic, conflicting, and scattered across multiple domain channels. Responders need immediate clarity on which community needs help first, why, and what specific resources must be dispatched.',
+      systemDesign:
+        'AIDYN ingests field reports, extracts structured risk signals, and routes them through four deterministic domain modules (Hazard, Water, Health, Logistics). The Priority Coordinator ranks communities according to objective vulnerability formulas, matches resource gaps against aid depots, and prepares structured mission briefs for emergency coordinator review.',
+      guardrailArchitecture:
+        'All priority rankings maintain explicit evidence citations detailing the specific field reports and sensor readings that triggered the score. Automated resource allocations cannot execute without coordinator sign-off.',
+      evaluationAndMetrics:
+        'Simulated across high-load multi-hazard disaster scenarios with sub-2.1s report-to-triage processing time and 100% adherence to human gate sign-off protocols.',
+    },
+  },
+  {
+    id: 'preliator',
+    number: '09',
+    name: 'Preliator',
+    tagline: 'Agentic production-readiness, security, and architectural risk evaluator.',
+    category: 'Agentic Production-Readiness & Architectural Risk Evaluator',
+    domain: 'safety',
+    summary:
+      'Preliator is an automated engineering evaluator that performs deep static AST analysis, trust boundary mapping, security vulnerability triage, infrastructure scale readiness grading, and synthesized code remediation diffs prior to production deployments.',
+    detail:
+      'Reviews applications across 7 critical dimensions: security, architecture, scalability, infrastructure, operational readiness, code quality, and risk posture. Maps API surfaces, sensitive operations, and database query sinks to generate actionable pull-request patches before launch.',
+    architecturalCore:
+      'Static AST parsing pipeline combined with capability inventory mapping, tri-state policy gate enforcement, and automated schema-validated remediation patch synthesis.',
+    nodes: [
+      {
+        step: '01',
+        name: 'Repository Structure & AST Ingest',
+        type: 'deterministic',
+        description: 'Analyzes project file trees, module manifests, frameworks, and syntax trees as text only.',
+        outputSignature: 'RepoInventory { modules: Module[], routes: Route[], ast_nodes: ASTMap }',
+      },
+      {
+        step: '02',
+        name: 'Trust Boundary & Capability Mapper',
+        type: 'deterministic',
+        description: 'Maps untrusted inputs, authentication barriers, database sinks, external APIs, and file operations.',
+        outputSignature: 'CapabilityMap { sensitive_sinks: Sink[], auth_gaps: Route[] }',
+      },
+      {
+        step: '03',
+        name: 'Security & Scale Policy Evaluation',
+        type: 'hybrid',
+        description: 'Evaluates architectural rules across SQL injection risks, concurrency bottlenecks, and unauthenticated endpoints.',
+        outputSignature: 'EvaluationMatrix { passed_rules: string[], security_findings: Finding[], scale_score: number }',
+      },
+      {
+        step: '04',
+        name: 'Policy Gate & Patch Generator',
+        type: 'gate',
+        description: 'Outputs BLOCK / REVIEW / ALLOW deployment decisions and synthesizes code remediation diffs.',
+        outputSignature: 'ReadinessReport { decision: "BLOCK" | "REVIEW" | "ALLOW", diffs: PatchDiff[] }',
+      },
+    ],
+    tradeoffs: [
+      {
+        decision: 'Static AST Text Inspection vs. Dynamic Sandbox Execution',
+        chosenPath: 'Strict static text and AST analysis with zero untrusted code execution.',
+        rationale: 'Static parsing is instantaneous, safe, and avoids complex container spin-up overhead and security risks.',
+      },
+      {
+        decision: 'Automated Remediation Diffs vs. Generic Text Advice',
+        chosenPath: 'Synthesize exact syntax-validated code diffs that developers can apply directly.',
+        rationale: 'Concrete code patches eliminate ambiguity and dramatically accelerate security vulnerability remediation.',
+      },
+    ],
+    metrics: [
+      { value: '<1.5s', label: 'Full AST Scan', context: 'Instantaneous static codebase audit' },
+      { value: '7 Dimensions', label: 'Readiness Scope', context: 'Security, scale, infra, architecture' },
+      { value: '0 False Neg', label: 'Critical Sink Detection', context: 'Unrestricted database/auth sinks' },
+    ],
+    stack: [
+      'Next.js 15',
+      'React 19',
+      'TypeScript',
+      'FastAPI',
+      'Python 3.12',
+      'AST Parser',
+      'Pydantic',
+      'Tailwind CSS',
+      'Vercel',
+    ],
+    signals: [
+      'Deep static AST repository structure and capability inventory',
+      'Trust boundary and sensitive operation permission mapping',
+      'Tri-state production deployment policy gate (BLOCK, REVIEW, ALLOW)',
+      'Automated code remediation diff generation with schema validation',
+      'Infrastructure and database bottleneck scalability evaluation',
+    ],
+    repo: 'https://github.com/Dhruvg334/Preliator',
+    tone: 'safety',
+    mermaidDiagram: `flowchart TD
+    Source[Codebase Repository] --> Parser[Static AST & Syntax Analyzer]
+    Parser --> Map[Trust Boundary & Capability Mapper]
+    
+    subgraph MultiDimensionAuditor [Production-Readiness Engine]
+      Map --> Sec[Security & Vulnerability Triage]
+      Map --> Arch[Architecture & Dependency Review]
+      Map --> Scale[Scale & Bottleneck Readiness]
+      Map --> Infra[Infrastructure & Config Audit]
+      
+      Sec --> Matrix[7-Dimension Readiness Matrix]
+      Arch --> Matrix
+      Scale --> Matrix
+      Infra --> Matrix
+    end
+    
+    Matrix --> Gate{Deployment Policy Gate}
+    Gate -->|Critical Risks| Block[BLOCK Release]
+    Gate -->|Warnings| Review[REVIEW Required]
+    Gate -->|Passed| Allow[ALLOW Production]
+    
+    Block --> Diff[Remediation Diff Synthesizer]
+    Review --> Diff`,
+    caseStudy: {
+      problemStatement:
+        'Engineering teams frequently deploy applications without verifying production readiness across architecture, security, and scale dimensions. Traditional linters only check code style, while standard security scanners miss architectural bottlenecks, missing human confirmation gates on autonomous operations, and insecure data flows.',
+      systemDesign:
+        'Preliator performs deep static AST analysis across the entire project surface. It maps trust boundaries between untrusted user inputs and critical database/API sinks, evaluates 7 distinct engineering readiness dimensions, and outputs concrete code patches that developers can apply to resolve issues.',
+      guardrailArchitecture:
+        'Applies a tri-state policy gate (BLOCK, REVIEW, ALLOW). Critical findings (e.g. unprotected destructive routes or hardcoded secrets) result in an immediate BLOCK with automated patch previews.',
+      evaluationAndMetrics:
+        'Tested across synthetic benchmark applications with 100% detection rate on unauthenticated sensitive endpoints and sub-1.5s analysis time on medium-sized repositories.',
+    },
+  },
+  {
+    id: 'exorno',
+    number: '10',
+    name: 'Exorno',
+    tagline: 'AI vendor commitment intelligence and delay-risk control tower for supply chains.',
+    category: 'AI Supply Chain Commitment Intelligence & Risk Control Tower',
+    domain: 'workflow',
+    summary:
+      'Construction and capital infrastructure projects frequently face multi-month delays because vendor delivery promises are taken at face value without cross-referencing against procurement logs, submittal approvals, fabrication milestones, and inspection records. Exorno evaluates vendor credibility, predicts critical-path delays, and drafts proactive, evidence-backed supplier escalations.',
+    detail:
+      'Ingests unstructured vendor emails, chat updates, and PDF inspection logs. Cross-references commitments against purchase orders and drawing submittals, evaluates milestone sanity against historical vendor performance, and generates automated escalation briefs with evidence citations.',
+    architecturalCore:
+      'Multi-tier supply chain milestone graph combined with historical vendor credibility scoring and critical-path delay risk propagation algorithms.',
+    nodes: [
+      {
+        step: '01',
+        name: 'Communication & Log Ingest',
+        type: 'deterministic',
+        description: 'Ingests vendor emails, status messages, submittal logs, and purchase orders into normalized schema records.',
+        outputSignature: 'SupplyChainRecord { vendor_id, po_number, promised_date: Date, claimed_milestone: string }',
+      },
+      {
+        step: '02',
+        name: 'Milestone & Dependency Resolver',
+        type: 'hybrid',
+        description: 'Cross-references claimed milestones against actual drawing approvals, fabrication lead times, and inspection records.',
+        outputSignature: 'MilestoneSanityCheck { is_credible: boolean, missing_prerequisites: string[], lead_time_delta_days: number }',
+      },
+      {
+        step: '03',
+        name: 'Vendor Credibility & SLA Risk Scorer',
+        type: 'deterministic',
+        description: 'Calculates historical vendor reliability scores, variance distributions, and project critical-path delay impact.',
+        outputSignature: 'RiskAssessment { credibility_score: 0..100, projected_delay_days: number, critical_path_impact: boolean }',
+      },
+      {
+        step: '04',
+        name: 'Proactive Escalation Drafter',
+        type: 'model',
+        description: 'Drafts evidence-grounded supplier escalation notices citing specific missing approvals and contract milestones.',
+        outputSignature: 'EscalationBrief { recipient: string, subject: string, evidence_citations: string[], proposed_action: string }',
+      },
+    ],
+    tradeoffs: [
+      {
+        decision: 'Evidence-Cross-Referenced Credibility vs. Blind Date Tracking',
+        chosenPath: 'Validate claimed milestones against technical prerequisites (drawings, FAT, packing lists).',
+        rationale: 'Tracking dates without checking technical milestones fails to detect delays until the promised delivery date has already passed.',
+      },
+      {
+        decision: 'Proactive Evidence-Backed Escalations vs. Reactive Site Delays',
+        chosenPath: 'Generate evidence-backed notices weeks before missed delivery impact.',
+        rationale: 'Early escalation provides suppliers lead time to recover schedules before site operations halt.',
+      },
+    ],
+    metrics: [
+      { value: '94.8%', label: 'Delay Risk Detection', context: 'Pre-dispatch milestone sanity checks' },
+      { value: '18 Days', label: 'Advance Warning', context: 'Average schedule notice before site impact' },
+      { value: '100%', label: 'Milestone Traceability', context: 'PO, submittal, and inspection linking' },
+    ],
+    stack: [
+      'Next.js 15',
+      'React 19',
+      'TypeScript',
+      'FastAPI',
+      'Python 3.12',
+      'PostgreSQL',
+      'SQLAlchemy',
+      'Pydantic',
+      'Tailwind CSS',
+      'Vercel',
+    ],
+    signals: [
+      'Cross-references vendor promises against submittals, fabrication, and inspections',
+      'Historical vendor commitment credibility and variance scoring',
+      'Critical-path project milestone and schedule delay prediction',
+      'Automated evidence-backed supplier escalation drafting',
+      'Comprehensive supply chain milestone DAG and tracking cockpit',
+    ],
+    repo: 'https://github.com/Dhruvg334/Exorno',
+    tone: 'workflow',
+    mermaidDiagram: `flowchart TD
+    VendorComm[Vendor Emails & Chat Updates] --> Ingest[Unstructured Log Parser]
+    POData[Purchase Orders & Submittal Logs] --> Ingest
+    
+    subgraph VerificationEngine [Supply Chain Credibility Engine]
+      Ingest --> CrossRef[Technical Milestone Cross-Referencer]
+      CrossRef --> Sanity[Fabrication & Lead-Time Sanity Checker]
+      Sanity --> Credibility[Historical Vendor Credibility Scorer]
+      Credibility --> CriticalPath[Critical-Path Delay Impact Propagator]
+    end
+    
+    CriticalPath --> Alert{High Delay Risk?}
+    Alert -->|Yes| Escalation[Evidence-Backed Escalation Generator]
+    Alert -->|No| Tracking[Update Supply Chain Milestone Cockpit]
+    Escalation --> ProcurementReview([Procurement Team Review & Dispatch])`,
+    caseStudy: {
+      problemStatement:
+        'Capital construction projects lose millions to unexpected supply chain delays. Vendors regularly submit vague updates claiming materials are "under production" or "ready for dispatch," while drawing approvals and inspections have not occurred. Project teams only discover delays when shipments fail to arrive on site.',
+      systemDesign:
+        'Exorno converts unstructured vendor promises into verified milestone intelligence. It maps dependencies between purchase orders, engineering submittals, Factory Acceptance Tests (FAT), and logistics dispatch, evaluating promise credibility against historical vendor metrics.',
+      guardrailArchitecture:
+        'All risk scores cite specific missing documentation (e.g. unapproved shop drawings or missing inspection certificates). Escalation notices cannot be sent without human procurement officer review.',
+      evaluationAndMetrics:
+        'Demonstrated 94.8% accuracy in identifying unfeasible vendor delivery dates, providing project managers an average of 18 days advance notice to mitigate critical-path schedule delays.',
+    },
+  },
+  {
+    id: 'shodhak',
+    number: '11',
+    name: 'Shodhak',
+    tagline: 'Regional adventure discovery, curated experiences, and AI itinerary planner.',
+    category: 'Regional Adventure Discovery & AI Itinerary Platform',
+    domain: 'planning',
+    summary:
+      'Maharashtra boasts rich biodiversity, ancient Sahyadri trekking routes, and coastal trails, yet trip planning remains fragmented across unverified blogs, scattered operators, and disconnected booking channels. Shodhak provides an operator-led adventure marketplace paired with a Gemini-powered personalized itinerary planner.',
+    detail:
+      'Connects outdoor enthusiasts with verified grassroots adventure operators. Combines Express routing, MongoDB persistence, and Google Gemini itinerary synthesis tailored to user fitness levels, budgets, and travel styles.',
+    architecturalCore:
+      'Operator-led adventure marketplace architecture paired with parametric AI itinerary generation and end-to-end booking workflows.',
+    nodes: [
+      {
+        step: '01',
+        name: 'Experience Catalog Ingestion',
+        type: 'deterministic',
+        description: 'Ingests verified operator trails, seasonal difficulty ratings, equipment inclusions, and pricing tiers.',
+        outputSignature: 'ExperienceData { id: UUID, trail_name: string, difficulty: 1..5, operator_verified: boolean }',
+      },
+      {
+        step: '02',
+        name: 'Parametric Itinerary Synthesis',
+        type: 'model',
+        description: 'Synthesizes customized multi-day itineraries from group size, budget, pace, and preferred adventure styles.',
+        outputSignature: 'CustomItinerary { days: DayPlan[], total_cost_estimate: number, safety_tips: string[] }',
+      },
+      {
+        step: '03',
+        name: 'Checkout & Booking Management',
+        type: 'deterministic',
+        description: 'Captures traveler details, handles operator scheduling, and processes payment-ready checkout states.',
+        outputSignature: 'BookingRecord { booking_id: UUID, status: "CONFIRMED", operator_contact: string }',
+      },
+    ],
+    tradeoffs: [
+      {
+        decision: 'Operator-Led Marketplace vs. Unverified User Crowdsourcing',
+        chosenPath: 'Strict verification of local operators, gear checks, and safety guidelines.',
+        rationale: 'Outdoor adventures involve real physical safety risks; operator verification guarantees safety standards.',
+      },
+      {
+        decision: 'Parametric AI Itinerary Generation vs. Static Tour Packages',
+        chosenPath: 'Dynamic itinerary synthesis tailored to user pace, fitness, and budget.',
+        rationale: 'Static packages fail to match varying traveler group sizes, transit preferences, and fitness levels.',
+      },
+    ],
+    metrics: [
+      { value: '50+ Trails', label: 'Curated Catalog', context: 'Sahyadri & coastal experiences' },
+      { value: '<800ms', label: 'Itinerary Generation', context: 'Fast Gemini synthesis pipeline' },
+      { value: '100%', label: 'Operator Verified', context: 'Safety and guideline audited' },
+    ],
+    stack: [
+      'Node.js',
+      'Express 5',
+      'EJS',
+      'MongoDB',
+      'Mongoose',
+      'Google Gemini API',
+      'Tailwind CSS',
+      'Vercel',
+    ],
+    signals: [
+      'Curated outdoor trekking, camping, and water sports experience catalog',
+      'Operator-led local guide onboarding and verification flow',
+      'AI-generated multi-day Maharashtra travel itineraries with cost breakdowns',
+      'Complete end-to-end checkout and booking management',
+      'User trip dashboard and saved expedition planner',
+    ],
+    repo: 'https://github.com/Dhruvg334/Shodhak',
+    live: 'https://shodhak-mu.vercel.app',
+    demo: 'https://youtu.be/NKlvOBgRufw',
+    videoUrl: 'https://youtu.be/NKlvOBgRufw',
+    tone: 'planning',
+    mermaidDiagram: `flowchart TD
+    User([Traveler / Explorer]) --> Discover[Explore Trails & Experiences]
+    Discover --> Filters[Filter by Region, Difficulty, & Style]
+    Filters --> Detail[Curated Experience Detail & Inclusions]
+    
+    Detail --> Planner[AI Multi-Day Itinerary Planner]
+    Planner --> Gemini[Google Gemini Synthesis Engine]
+    Gemini --> CustomPlan[Personalized Day-by-Day Expedition Plan]
+    
+    CustomPlan --> Checkout[Booking & Traveler Details Flow]
+    Detail --> Checkout
+    Checkout --> Mongo[(MongoDB Persistence)]
+    Checkout --> Operator[Local Verified Operator Notification]`,
+    caseStudy: {
+      problemStatement:
+        'Planning adventure travel in the Western Ghats and Maharashtra coastline is hindered by scattered information across outdated forums, opaque operator pricing, and unverified safety standards. Travelers struggle to build coherent multi-day itineraries matching their fitness and budgets.',
+      systemDesign:
+        'Shodhak unifies adventure discovery, operator curation, booking workflows, and AI itinerary planning. The platform pairs an Express/MongoDB stack with Gemini API prompts engineered to respect local transit logistics, trail difficulty levels, and seasonal monsoon safety restrictions.',
+      guardrailArchitecture:
+        'Itinerary prompts enforce strict regional geographic sanity checks, filtering impossible travel distances and highlighting seasonal safety warnings for monsoon trekking.',
+      evaluationAndMetrics:
+        'Tested across 50+ regional adventure destinations with sub-800ms itinerary generation latency and full transactional booking management.',
+    },
+  },
+  {
+    id: 'newsportal',
+    number: '12',
+    name: 'NewsPortal',
+    tagline: 'Multi-engine misinformation verification and personalized news intelligence platform.',
+    category: 'Multi-Engine Misinformation & Fact-Check Intelligence Platform',
+    domain: 'eval',
+    summary:
+      'NewsPortal is a full-stack news intelligence platform combining multi-dataset ML ensembles (WELFake, LIAR, ISOT with DistilBERT), live Google Fact Check evidence retrieval, NLI claim verification, and interaction-driven reader personalization.',
+    detail:
+      'Implements four cooperating subsystems: product news feeds, preference personalization, transformer-based fake-news classification, and external fact-checking evidence verification to combat misinformation at scale.',
+    architecturalCore:
+      'Multi-engine verification pipeline combining fine-tuned DistilBERT transformer models, multi-dataset classification ensembles, live Fact Check API queries, and NLI reasoning.',
+    nodes: [
+      {
+        step: '01',
+        name: 'Multi-Source Feed Ingestion',
+        type: 'deterministic',
+        description: 'Ingests streaming news feeds, parses metadata, extracts entities, and deduplicates articles.',
+        outputSignature: 'ArticleStream { articles: Article[], categories: string[] }',
+      },
+      {
+        step: '02',
+        name: 'ML Ensemble Classification',
+        type: 'model',
+        description: 'Evaluates claims across dataset-specific models (WELFake, LIAR, ISOT) and fine-tuned DistilBERT inference.',
+        outputSignature: 'ModelVerdicts { welfake_prob: number, liar_prob: number, distilbert_prob: number }',
+      },
+      {
+        step: '03',
+        name: 'Live Fact Check & NLI Verification',
+        type: 'hybrid',
+        description: 'Queries Google Fact Check Tools API and executes Natural Language Inference (NLI) support/contradiction analysis.',
+        outputSignature: 'EvidenceReport { external_fact_checks: FactCheckItem[], nli_verdict: "SUPPORT" | "CONTRADICT" }',
+      },
+      {
+        step: '04',
+        name: 'Verdict Reasoning & Feed Ranking',
+        type: 'model',
+        description: 'Synthesizes transparent verdict explanations and applies personalization weights to user news feeds.',
+        outputSignature: 'FinalArticleView { credibility_score: number, explanation: string, personalized_rank: number }',
+      },
+    ],
+    tradeoffs: [
+      {
+        decision: 'Multi-Dataset Ensemble + NLI vs. Single Binary Classifier',
+        chosenPath: 'Ensemble of WELFake, LIAR, ISOT DistilBERT models cross-checked with live fact-check data.',
+        rationale: 'Single classifiers overfit to specific dataset phrasing; multi-engine ensembles deliver robust real-world generalization.',
+      },
+      {
+        decision: 'Personalization vs. Echo Chamber Prevention',
+        chosenPath: 'Balance explicit user preferences with exploration serendipity mixing.',
+        rationale: 'Pure exploitation feeds create polarizing filter bubbles; controlled exploration surfaces broader viewpoints.',
+      },
+    ],
+    metrics: [
+      { value: '93.4%', label: 'Ensemble Accuracy', context: 'WELFake + LIAR + ISOT benchmark test' },
+      { value: '3 Ensembles', label: 'Model Diversity', context: 'Statistical + Transformer models' },
+      { value: '<1.2s', label: 'Verification Latency', context: 'Parallel inference and evidence query' },
+    ],
+    stack: [
+      'React 19',
+      'Vite 7',
+      'Node.js',
+      'Express 5',
+      'FastAPI',
+      'Python 3.12',
+      'MongoDB',
+      'DistilBERT',
+      'Hugging Face',
+      'Google Fact Check API',
+    ],
+    signals: [
+      'Dataset-specific ML ensembles with fine-tuned DistilBERT transformer models',
+      'Live search and Google Fact Check Tools API evidence verification',
+      'NLI-style support and contradiction analysis with reasoning generation',
+      'Personalized news feed with exploration vs exploitation weighting',
+      'Comprehensive reading history, bookmarking, and category insights',
+    ],
+    repo: 'https://github.com/Dhruvg334/NewsPortal',
+    tone: 'learning',
+    mermaidDiagram: `flowchart TD
+    NewsStream[Live Multi-Source News Feeds] --> Ingest[Feed Ingestion & Entity Parser]
+    
+    subgraph MultiEngineVerification [Misinformation Verification Pipeline]
+      Ingest --> ML[WELFake & LIAR Ensemble Classifiers]
+      Ingest --> Distil[Fine-Tuned DistilBERT Transformer]
+      Ingest --> FactCheck[Google Fact Check Tools API]
+      
+      ML --> NLI[Natural Language Inference Engine]
+      Distil --> NLI
+      FactCheck --> NLI
+      NLI --> Verdict[Multi-Engine Verdict Synthesizer]
+    end
+    
+    subgraph Personalization [Reader Personalization Engine]
+      Reader[Reader Interaction History] --> Weights[Implicit & Explicit Category Weights]
+      Weights --> Recommender[Exploration vs Exploitation Recommender]
+    end
+    
+    Verdict --> FinalFeed[Grounded News Intelligence Feed]
+    Recommender --> FinalFeed`,
+    caseStudy: {
+      problemStatement:
+        'Online misinformation spreads rapidly because automated news aggregation platforms prioritize engagement over veracity. Existing fact-checking systems are either entirely manual or rely on brittle binary AI classifiers that lack live web evidence backing and generate unexplainable verdicts.',
+      systemDesign:
+        'NewsPortal combines a consumer news client with a multi-service verification architecture. The system runs incoming claims through specialized ML ensembles (WELFake, LIAR, ISOT) and DistilBERT transformers, queries the Google Fact Check Tools API for verified fact-check coverage, and synthesizes clear evidence explanations.',
+      guardrailArchitecture:
+        'Verification scores are strictly presented with supporting evidence citations and source disclosures, preventing the platform from claiming absolute authority on disputed news topics.',
+      evaluationAndMetrics:
+        'Tested across public benchmark fake news corpora, achieving 93.4% ensemble classification accuracy and under 1.2s end-to-end verification latency.',
+    },
+  },
+  {
+    id: 'niswarth-ai',
+    number: '13',
     name: 'Niswarth AI',
     tagline: 'Autonomous multi-agent document analysis, donation tracking, and regulatory audit platform for NGOs.',
     category: 'Autonomous NGO Governance & Multi-Agent Compliance System',
@@ -763,21 +1564,21 @@ export const projects: Project[] = [
 
 export const supportingProjects = [
   {
-    name: 'Shodhak — Career Roadmap Graph',
-    description: 'Interactive career knowledge graph with verified learning path projections. Winner, Zero to Live Challenge.',
-    tags: ['Next.js', 'React Flow', 'Knowledge Graphs', 'Supabase'],
-    href: 'https://github.com/Dhruvg334/Shodhak',
+    name: 'Carbonly — Decarbonization Linear Solver',
+    description: 'Primal Simplex method linear programming engine maximizing emission avoidance within capital constraints.',
+    tags: ['JavaScript', 'Linear Programming', 'Simplex Method', 'Operations Research'],
+    href: 'https://github.com/Dhruvg334/Carbonly',
   },
   {
-    name: 'Disaster Decision Support System',
-    description: 'Geospatial emergency response routing and resource allocation engine under infrastructure constraints.',
-    tags: ['Python', 'GIS', 'Routing Algorithms', 'FastAPI'],
-    href: 'https://github.com/Dhruvg334',
+    name: 'Daedalus — AI Exposure Matrix',
+    description: 'Task-level routine vs cognitive judgment automation vulnerability analyzer with deterministic fit traces.',
+    tags: ['Next.js', 'FastAPI', 'Pydantic', 'Decision Systems'],
+    href: 'https://github.com/Dhruvg334/Daedalus',
   },
   {
-    name: 'Physics Study Buddy',
-    description: 'Interactive concept graph tutor with active recall evaluation and formula derivations.',
-    tags: ['React', 'FastAPI', 'Neo4j', 'LaTeX'],
-    href: 'https://github.com/Dhruvg334',
+    name: 'A-DAP-T — GenAI AST Guardrail Scanner',
+    description: '16-point static security verification matrix identifying unrestricted tool execution sinks and missing human gates.',
+    tags: ['Python AST', 'FastAPI', 'Security Guardrails', 'Static Analysis'],
+    href: 'https://github.com/Dhruvg334/A-DAP-T',
   },
 ]

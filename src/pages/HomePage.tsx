@@ -105,7 +105,7 @@ export function HomePage() {
               <div className="hero-stat-divider" />
               <div className="hero-stat-card">
                 <strong className="hero-stat-value">
-                  <StatCounter value={6} />
+                  <StatCounter value={projects.length} />
                 </strong>
                 <span className="hero-stat-label">Systems Built</span>
               </div>
