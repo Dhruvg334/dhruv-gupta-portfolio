@@ -1,6 +1,6 @@
 # Dhruv Gupta — AI Systems Engineer Portfolio
 
-> Profile and system architectures for Dhruv Gupta, an AI systems builder focused on deterministic software architectures around LLMs, retrieval, evaluation, safety gates, and full-stack workflows.
+> System architectures, engineering specifications, and production case studies for Dhruv Gupta, an AI systems builder focused on deterministic software architectures around LLMs, retrieval, evaluation, safety gates, and full-stack workflows.
 
 ## Summary
 - **Name**: Dhruv Gupta
@@ -14,50 +14,94 @@
 - **Live Portfolio**: https://dhruvg334.github.io/dhruv-gupta-portfolio/
 
 ## Engineering Core Philosophy
-1. **Evidence Before Confidence**: Output must trace back to vector retrieval, knowledge graphs, or explicit assumptions rather than ungrounded model completion.
-2. **Deterministic Where It Matters**: Guardrails, release gates, and validation schemas must be deterministic; models should be used for linguistic transformation and contextual extraction.
-3. **Human Review for Consequential Actions**: Consequential mutations require explicit human review states, permission scopes, and immutable audit logs.
-4. **Evaluation Over Vibes**: Rigorous deterministic test harnesses (retrieval recall, concept extraction accuracy, gate precision) over subjective demo reviews.
+1. **Evidence Before Confidence**: Output must trace back to vector retrieval, knowledge graphs, or explicit mathematical proofs rather than ungrounded model hallucinations.
+2. **Deterministic Where It Matters**: Guardrails, release gates, accounting math, optimization solvers, and validation schemas must be deterministic; models handle linguistic transformation and structured entity extraction.
+3. **Human Review for Consequential Actions**: Consequential mutations (dispatching municipal crews, sending escalation notices, altering calendars, modifying databases) require explicit human review states, permission scopes, and immutable audit logs.
+4. **Evaluation Over Vibes**: Rigorous deterministic test harnesses (retrieval recall, concept extraction accuracy, gate precision, arithmetic error) over subjective demo reviews.
 
-## Flagship Systems
+## Flagship Systems & Case Studies (13 Production Systems)
 
-### 1. Civitas — Multimodal Spatial Incident Intelligence Engine
-- **Focus**: Zero-trust civic intake pipeline converting unverified citizen WhatsApp reports, geotagged photos, and voice notes into auditable municipal work orders.
-- **Tech Stack**: Next.js, FastAPI, PostGIS, pgvector, H3 Hexagonal Hierarchical Spatial Index, LangGraph, Supabase.
-- **Key Architecture**: Binary magic-byte & EXIF verification, H3 hexagonal hotspot clustering, BM25+Dense RRF policy routing, tamper-evident SHA-256 digital seals.
-- **Repository**: https://github.com/Dhruvg334/Civitas
-- **Live Demo**: https://civitas-delta.vercel.app
+### 01. Civitas — Multimodal Civic Incident Intelligence System
+- **Focus**: Omnichannel civic intake pipeline converting citizen reports across Web PWA, WhatsApp, Telegram, and Open311 into policy-grounded municipal work orders.
+- **Tech Stack**: Next.js 16, React 19, FastAPI, PostGIS, H3 Hexagonal Spatial Index, LangGraph, Groq, CLIP, Leaflet.
+- **Key Architecture**: Client-side canvas downsampling (40MB to <1.2MB in <200ms), H3 Res 8/9 hotspot clustering, BM25+Dense RRF policy routing ($k=60$, 99.2% accuracy), 64-bit dHash anti-fraud verification, SHA-256 audit seals.
+- **Repository**: https://github.com/Dhruvg334/civitas
+- **Live App**: https://civitas-web.vercel.app
 
-### 2. Mnemos — Industrial GraphRAG & Operational Intelligence
-- **Focus**: Turning complex industrial maintenance records, manuals, and field knowledge into evidence-backed investigation traces.
-- **Tech Stack**: Next.js, FastAPI, PostgreSQL, pgvector, Neo4j, LangChain.
-- **Key Architecture**: Hybrid vector-graph retrieval, entity-relationship extraction, provenance node inspection, governed agent traces.
-- **Repository**: https://github.com/Dhruvg334/mnemos
-- **Live Demo**: https://mnemos-lake.vercel.app
+### 02. Mnemos — Industrial Knowledge Intelligence & GraphRAG
+- **Focus**: Asset-centric operational memory platform turning fragmented maintenance records, manuals, and sensor logs into verifiable root-cause diagnostics.
+- **Tech Stack**: Next.js 16, React 19, FastAPI, PostgreSQL, pgvector, Neo4j, Redis, LangGraph, Docker.
+- **Key Architecture**: Asset hierarchy resolution, hybrid vector/lexical/graph retrieval, 11-stage LangGraph supervisor, durable review pauses in PostgreSQL for critical actions.
+- **Repository**: https://github.com/Dhruvg334/Mnemos
+- **Live App**: https://mnemos-lake.vercel.app
 
-### 3. A-DAP-T — AI Agent Safety & Release Readiness Review
-- **Focus**: Pre-release audit scanner for agentic applications surfacing risky tools, missing approval gates, prompt injection risks, and credential exposures.
-- **Tech Stack**: Next.js, TypeScript, FastAPI, Firebase, Gemini API.
-- **Key Architecture**: Deterministic AST & rule-based review engine, ALLOW/REVIEW/BLOCK release decisions, human-in-the-loop review reports.
-- **Repository**: https://github.com/Dhruvg334/a-dap-t
-- **Live Demo**: https://a-dap-t.vercel.app
+### 03. A-DAP-T — Static AI-Agent Security Review Platform
+- **Focus**: Pre-release AST audit scanner for agentic applications surfacing risky tools, missing approval gates, prompt injection risks, and credential exposures.
+- **Tech Stack**: Next.js, React 19, TypeScript, FastAPI, Python 3.12, AST Parser, Firebase Auth, Gemini API.
+- **Key Architecture**: 100% static text and AST inspection with zero code execution, 16-point guardrail verification matrix, tri-state release gates (BLOCK / REVIEW / ALLOW).
+- **Repository**: https://github.com/Dhruvg334/A-DAP-T
+- **Live App**: https://a-dap-t.vercel.app
 
-### 4. EduSynth (Tessarion) — Source-Grounded Learning & Evaluation Suite
-- **Focus**: Active recall learning platform where users teach concepts back, receive source-grounded diagnosis, and inspect concept relationships with full evaluation suites.
-- **Tech Stack**: Next.js, Supabase, Qdrant, Neo4j, Vitest.
-- **Key Architecture**: Deterministic evaluation suite measuring retrieval precision, concept extraction accuracy, diagnosis validity, and mastery recovery.
+### 04. ChronOS — Adaptive Execution & Constraint-Aware Planning
+- **Focus**: Personal capacity and schedule solver parsing brain dumps into non-overlapping calendar events with two-way Google Calendar synchronization.
+- **Tech Stack**: React 19, Vite, TypeScript, FastAPI, Python 3.12, Supabase, pgvector, Google Calendar API.
+- **Key Architecture**: Topological collision-free interval packing, 158 backend + 37 frontend tests, reversible sync transactions with rollback receipts.
+- **Repository**: https://github.com/Dhruvg334/Chronos
+- **Live App**: https://chronos-dhruv.netlify.app
+
+### 05. Tessarion — Graph-Grounded Learning & Evaluation Platform
+- **Focus**: Source-grounded active recall learning suite using prerequisite knowledge graphs, teach-back diagnostics, and automated regression test harnesses.
+- **Tech Stack**: Next.js 16, React 19, TypeScript, Supabase, Neo4j, Qdrant, Cytoscape.js, Vitest.
+- **Key Architecture**: Neo4j prerequisite DAG, misconception classification, 50+ automated Vitest test cases, 100% textbook source citation linking.
 - **Repository**: https://github.com/Dhruvg334/Tessarion
-- **Live Demo**: https://tessarion.vercel.app
 
-### 5. ChronOS — Controlled Agentic Planning & Execution Recovery
-- **Focus**: Adaptive execution system converting commitments, calendar constraints, and working preferences into realistic plans with approval-based recovery.
-- **Tech Stack**: React, FastAPI, Supabase, pgvector, Google Calendar API.
-- **Key Architecture**: Model-assisted planning bounded by deterministic collision, capacity, dependency, and protected-time validators.
-- **Repository**: https://github.com/Dhruvg334/chronos
+### 06. Carbonly — Auditable Carbon Intelligence & Decarbonization Platform
+- **Focus**: Enterprise GHG Protocol accounting engine delivering deterministic Scope 1/2/3 calculations, time-series competition, and linear programming budget optimization.
+- **Tech Stack**: Node.js, Express 5, JavaScript, FastAPI, Groq LLaMA-3.3-70B, Primal Simplex LP, Gauss-Jordan Inversion, Netlify, Render.
+- **Key Architecture**: Decoupled deterministic engine ($0.000000\text{ kg}$ error), 5x5 Gauss-Jordan Mahalanobis matrix anomaly detection, 10,000-iteration Monte Carlo uncertainty, Primal Simplex solver.
+- **Repository**: https://github.com/Dhruvg334/Carbonly
+- **Live App**: https://carbonlyai.netlify.app/
 
-### 6. Niswarth AI — Full-Stack AI Workflows & NGO Governance
-- **Focus**: NGO campaign, volunteer, and field update coordination platform with human-reviewed impact reporting inside tenant-isolated workspaces.
-- **Tech Stack**: React, Vite, Supabase (Row-Level Security), Gemini API, GitHub Actions.
-- **Key Architecture**: RLS multi-tenant security, draft/review/approval states, immutable AI action logs, automated deployment CI.
+### 07. Daedalus — AI-Powered Career Simulation Engine
+- **Focus**: Structured career simulation platform providing deterministic fit scoring, task-level AI automation exposure matrices, and 7-day action sprint plans.
+- **Tech Stack**: Next.js 15, React 19, TypeScript, FastAPI, Python 3.12, Pydantic, SQLAlchemy, Tailwind CSS, Gemini Flash, Vercel.
+- **Key Architecture**: Candidate feature vector normalization, multi-factor scoring algorithms, granular routine vs cognitive judgment AI exposure breakdown, auditable recommendation traces.
+- **Repository**: https://github.com/Dhruvg334/Daedalus
+- **Live App**: https://daedalus-iota.vercel.app/
+
+### 08. AIDYN — AI Disaster Response & Multi-Hazard Priority Coordinator
+- **Focus**: Crisis-response cockpit converting field incident reports into deterministic priority queues, resource deficit matches, and responder-ready briefs.
+- **Tech Stack**: React 19, TypeScript, FastAPI, Python 3.12, Pydantic, Tailwind CSS, Vercel.
+- **Key Architecture**: 4-module deterministic scoring (Hazard, Water, Health, Logistics), resource deficit allocation engine, mandatory human emergency supervisor gate.
+- **Repository**: https://github.com/Dhruvg334/aidyn
+
+### 09. Preliator — Agentic Production-Readiness & Security Evaluator
+- **Focus**: Automated engineering auditor performing deep static AST analysis, trust boundary mapping, security triage, and synthesized remediation diffs prior to launch.
+- **Tech Stack**: Next.js 15, React 19, TypeScript, FastAPI, Python 3.12, AST Parser, Pydantic, Vercel.
+- **Key Architecture**: 7-dimension readiness evaluation (Security, Scale, Infra, Architecture, Quality, Ops, Posture), tri-state policy gate, automated code patch generation.
+- **Repository**: https://github.com/Dhruvg334/Preliator
+
+### 10. Exorno — AI Supply Chain Commitment Intelligence & Risk Control Tower
+- **Focus**: Construction supply chain intelligence cross-referencing vendor communication against purchase orders, submittals, and inspections to predict delay risk.
+- **Tech Stack**: Next.js 15, React 19, TypeScript, FastAPI, Python 3.12, PostgreSQL, SQLAlchemy, Pydantic, Vercel.
+- **Key Architecture**: Milestone dependency DAG, historical vendor variance scoring, critical-path schedule delay propagator, proactive evidence-backed escalation generator.
+- **Repository**: https://github.com/Dhruvg334/Exorno
+
+### 11. Shodhak — Regional Adventure Discovery & Gemini Itinerary Platform
+- **Focus**: Operator-led adventure marketplace connecting outdoor enthusiasts with verified grassroots guides across Maharashtra trails, paired with AI itinerary planning.
+- **Tech Stack**: Node.js, Express 5, EJS, MongoDB, Mongoose, Google Gemini API, Tailwind CSS, Vercel.
+- **Key Architecture**: Verified operator curation, parametric multi-day itinerary synthesis with transit buffer sanity, transactional booking and checkout workflows.
+- **Repository**: https://github.com/Dhruvg334/Shodhak
+- **Live App**: https://shodhak-mu.vercel.app
+
+### 12. NewsPortal — Multi-Engine Misinformation & Fact-Check Platform
+- **Focus**: News intelligence platform combining multi-dataset ML ensembles, live Google Fact Check API retrieval, NLI claim verification, and reader personalization.
+- **Tech Stack**: React 19, Vite 7, Node.js, Express 5, FastAPI, Python 3.12, MongoDB, DistilBERT, Google Fact Check Tools API.
+- **Key Architecture**: Dataset-specific ML ensembles (WELFake, LIAR, ISOT) with DistilBERT transformer models, NLI support/contradiction analysis, exploration vs exploitation recommender.
+- **Repository**: https://github.com/Dhruvg334/NewsPortal
+
+### 13. Niswarth AI — NGO Governance & Autonomous Fiscal Auditor
+- **Focus**: Non-profit document intelligence and compliance platform extracting fiscal entities from receipts, verifying bylaws, and generating audit-ready impact reports.
+- **Tech Stack**: Python, FastAPI, LangGraph, PostgreSQL, pgvector, Docker, React 19, TypeScript.
+- **Key Architecture**: Multi-agent LangGraph supervisor (Fiscal Auditor + Regulatory Bylaw agents), deterministic ledger math, PostgreSQL Row-Level Security (RLS) tenant isolation, SHA-256 seal.
 - **Repository**: https://github.com/Dhruvg334/Niswarth-AI
-- **Live Demo**: https://niswarth-ai.vercel.app

@@ -49,7 +49,7 @@ const contactIntents: ContactIntent[] = [
     label: 'System Architecture Discussion',
     icon: Cpu,
     defaultSubject: 'Architecture Discussion / Questions',
-    placeholder: 'Hi Dhruv, I checked out your Civitas / Mnemos / ChronOS case studies and had a question about...',
+    placeholder: 'Hi Dhruv, I checked out your Civitas / Mnemos / Carbonly / ChronOS case studies and had a question about...',
   },
   {
     id: 'general',

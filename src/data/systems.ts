@@ -205,4 +205,106 @@ export const sandboxScenarios: SandboxScenario[] = [
       },
     ],
   },
+  {
+    id: 'scenario-carbon',
+    title: 'Enterprise Carbon Accounting & Anomaly Inversion',
+    badge: 'Carbonly / Decarbonization LP',
+    userPrompt:
+      'Ingest quarterly manufacturing energy logs, detect multivariate fuel/electricity anomalies, and optimize decarbonization spend under a $500k budget.',
+    context:
+      'Enterprise activity stream with 45,000 monthly utility entries across 12 industrial manufacturing facilities.',
+    stages: [
+      {
+        title: 'Zero-Hallucination Scope 1/2/3 Ingestion',
+        layer: 'Deterministic Carbon Engine',
+        type: 'validator',
+        status: 'GROUNDED',
+        details:
+          'Resolved DEFRA and EPA eGRID factors with immutable EFR versioning; computed exact Scope 1, 2, and 3 emissions with zero arithmetic error.',
+        inspectableOutput:
+          '{ calc_id: "calc_83a91f", scope1_tco2e: 1420.5, scope2_location_tco2e: 890.2, scope3_tco2e: 3105.8, math_drift: "0.000000" }',
+      },
+      {
+        title: '5x5 Gauss-Jordan Mahalanobis Inversion',
+        layer: 'Multivariate Matrix Engine',
+        type: 'gate',
+        status: 'PASSED',
+        details:
+          'Inverted 5x5 sample covariance matrix via Gauss-Jordan elimination; detected joint fuel/electricity outlier (D² = 16.4 > critical χ² 11.07).',
+        inspectableOutput:
+          '{ mahalanobis_d2: 16.4, critical_chi2: 11.07, anomaly_detected: true, root_cause: "Facility 04 auxiliary turbine fuel spike" }',
+      },
+      {
+        title: 'Primal Simplex Linear Budget Optimization',
+        layer: 'Operations Research Solver',
+        type: 'validator',
+        status: 'GROUNDED',
+        details:
+          'Executed Simplex pivots across solar PPA, heat pump retrofit, and fleet electrification to maximize tCO2e avoided under $500k constraint.',
+        inspectableOutput:
+          '{ max_co2e_avoided_tons: 2480.0, optimal_spend: { solar_ppa: "$240k", heat_pumps: "$180k", ev_fleet: "$80k" } }',
+      },
+      {
+        title: 'Evidence-Grounded AI Proxy Synthesis',
+        layer: 'Groq LLaMA-3.3-70B Explainer',
+        type: 'synthesis',
+        status: 'PASSED',
+        details:
+          'Synthesized audit-ready ESG disclosure narrative citing exact calculation IDs and mathematical proofs without hallucinating values.',
+        inspectableOutput:
+          '{ esg_narrative_generated: true, proof_id: "calc_83a91f", csrd_compliant: true }',
+      },
+    ],
+  },
+  {
+    id: 'scenario-disaster',
+    title: 'Multi-Hazard Emergency Incident Coordination',
+    badge: 'AIDYN / Crisis Priority Engine',
+    userPrompt:
+      'Flash flood inundates Ward 7: drinking water contamination reported, regional clinic over capacity, and arterial evacuation road submerged.',
+    context:
+      'Omnichannel disaster reports from field responders, SMS hotlines, and hydrological telemetry during cyclone event.',
+    stages: [
+      {
+        title: 'Omnichannel Incident & Signal Extraction',
+        layer: 'Disaster Ingestion Engine',
+        type: 'retrieval',
+        status: 'GROUNDED',
+        details:
+          'Extracted hazard depth (1.8m), potable water pathogen status (FAILED), clinic bed occupancy (118%), and bridge washout coordinates.',
+        inspectableOutput:
+          '{ incident_id: "CRISIS-902", flood_depth_m: 1.8, water_unsafe: true, clinic_capacity_pct: 118, route_blocked: "NH-48 Bridge" }',
+      },
+      {
+        title: 'Deterministic Multi-Module Scoring',
+        layer: '4-Module Priority Coordinator',
+        type: 'validator',
+        status: 'PASSED',
+        details:
+          'Evaluated hazard, water, health, and logistics scoring equations; assigned Ward 7 Priority Score 94.2/100 (Tier 1 Critical).',
+        inspectableOutput:
+          '{ priority_score: 94.2, tier: "CRITICAL_TIER_1", immediate_vulnerability_pop: 4200 }',
+      },
+      {
+        title: 'Emergency Resource Deficit Matcher',
+        layer: 'Supply Chain Allocation Gate',
+        type: 'gate',
+        status: 'GROUNDED',
+        details:
+          'Matched water purification units (Depot South) and medical evacuation inflatable rafts (Depot East) to bypass severed bridges.',
+        inspectableOutput:
+          '{ allocated_assets: ["2x Water Purification RO-400", "4x Flood Evacuation Rafts"], bypass_route: "State Highway 12" }',
+      },
+      {
+        title: 'Emergency Commander Review & Brief Dispatch',
+        layer: 'Human Supervisor Gate',
+        type: 'approval',
+        status: 'REVIEW REQUIRED',
+        details:
+          'Paused dispatch for emergency coordinator electronic sign-off; synthesized structured mission briefing for first responders.',
+        inspectableOutput:
+          '{ mission_brief_id: "MB-771", commander_status: "PENDING_APPROVAL", dispatch_ready: true }',
+      },
+    ],
+  },
 ]

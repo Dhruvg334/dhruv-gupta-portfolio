@@ -282,7 +282,7 @@ export function HomePage() {
 
           <div className="center-cta-wrap">
             <Link to="/projects" className="btn btn--primary btn--large">
-              Explore All 6 Architectural Case Studies <ArrowRight size={16} />
+              Explore All {projects.length} Architectural Case Studies <ArrowRight size={16} />
             </Link>
           </div>
         </div>

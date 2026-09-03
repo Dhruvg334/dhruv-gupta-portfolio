@@ -349,6 +349,69 @@ export function ResumePage() {
                 </ul>
               </div>
 
+              {/* Carbonly */}
+              <div className="resume-entry">
+                <div className="entry-header">
+                  <div className="entry-title-group">
+                    <div className="proj-title-row">
+                      <h3 className="entry-role-title">Carbonly – Auditable Carbon Intelligence & Decarbonization Platform</h3>
+                      <div className="resume-proj-links no-print">
+                        <a href="https://carbonlyai.netlify.app/" target="_blank" rel="noopener noreferrer" className="pill-link">
+                          <ExternalLink size={11} /> Live
+                        </a>
+                        <a href="https://github.com/Dhruvg334/Carbonly" target="_blank" rel="noopener noreferrer" className="pill-link">
+                          <GitHubMark size={11} /> Code
+                        </a>
+                      </div>
+                    </div>
+                    <span className="entry-stack">
+                      Node.js, Express 5, JavaScript, FastAPI, Groq LLaMA-3.3-70B, Primal Simplex LP, Gauss-Jordan Inversion
+                    </span>
+                  </div>
+                </div>
+                <ul className="entry-bullets">
+                  <li>
+                    Built an enterprise GHG Protocol Scope 1, 2, and 3 carbon accounting platform with 100% deterministic arithmetic consistency (0.0000 kg drift) and immutable emission factor registry governance.
+                  </li>
+                  <li>
+                    Engineered a 5x5 Gauss-Jordan Mahalanobis covariance matrix inversion engine for multivariate utility anomaly detection and a 10,000-iteration Monte Carlo stochastic uncertainty simulator.
+                  </li>
+                  <li>
+                    Developed a Primal Simplex method linear programming solver to optimize capital allocation across decarbonization initiatives under strict annual budget constraints.
+                  </li>
+                </ul>
+              </div>
+
+              {/* Daedalus */}
+              <div className="resume-entry">
+                <div className="entry-header">
+                  <div className="entry-title-group">
+                    <div className="proj-title-row">
+                      <h3 className="entry-role-title">Daedalus – AI-Powered Career Simulation Engine</h3>
+                      <div className="resume-proj-links no-print">
+                        <a href="https://daedalus-iota.vercel.app/" target="_blank" rel="noopener noreferrer" className="pill-link">
+                          <ExternalLink size={11} /> Live
+                        </a>
+                        <a href="https://github.com/Dhruvg334/Daedalus" target="_blank" rel="noopener noreferrer" className="pill-link">
+                          <GitHubMark size={11} /> Code
+                        </a>
+                      </div>
+                    </div>
+                    <span className="entry-stack">
+                      Next.js 15, React 19, TypeScript, FastAPI, Python 3.12, Pydantic, SQLAlchemy, Tailwind CSS, Gemini Flash
+                    </span>
+                  </div>
+                </div>
+                <ul className="entry-bullets">
+                  <li>
+                    Engineered a structured career decision platform combining candidate profile vector normalization, multi-factor fit scoring, and comparative trajectory simulations.
+                  </li>
+                  <li>
+                    Constructed a granular task-level AI exposure and automation vulnerability matrix distinguishing routine cognitive tasks from human-judgment competencies, converted into immediate 7-day action sprints.
+                  </li>
+                </ul>
+              </div>
+
               {/* Tessarion */}
               <div className="resume-entry">
                 <div className="entry-header">
