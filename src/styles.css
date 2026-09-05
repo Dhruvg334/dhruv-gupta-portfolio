@@ -1433,7 +1433,7 @@ button {
 
 .scenario-pills-row {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 10px;
 }
 
@@ -1684,36 +1684,41 @@ button {
 
 /* 12-Layer System Matrix */
 .workspace-matrix-view {
-  padding: 28px;
+  padding: clamp(18px, 2.5vw, 28px);
 }
 
 .matrix-cards-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 16px;
 }
 
 .matrix-grid-card {
+  min-width: 0;
   background: var(--bg-card-elevated);
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-md);
-  padding: 18px;
+  padding: 20px;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 12px;
   cursor: pointer;
-  transition: all 0.18s ease;
+  transition: all 0.2s ease;
+  overflow: hidden;
 }
 
-.matrix-grid-card:hover, .matrix-grid-card.active {
-  border-color: var(--border-strong);
+.matrix-grid-card:hover,
+.matrix-grid-card.active {
+  border-color: rgba(230, 83, 69, 0.4);
   background: var(--bg-card-hover);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
 }
 
 .card-topline {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 8px;
 }
 
 .num-icon {
@@ -1724,84 +1729,122 @@ button {
 
 .layer-num {
   font-family: var(--mono);
-  font-size: 0.75rem;
-  font-weight: 700;
+  font-size: 0.78rem;
+  font-weight: 800;
   color: var(--accent-red);
 }
 
 .layer-icon {
   color: var(--text-muted);
+  display: flex;
+  align-items: center;
 }
 
 .layer-tag {
   font-family: var(--mono);
-  font-size: 0.76rem;
+  font-size: 0.72rem;
+  font-weight: 600;
   padding: 3px 8px;
-  border-radius: 4px;
-  background: rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-sm);
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid var(--border-subtle);
   color: #d1d5db;
+  letter-spacing: 0.02em;
 }
 
 .layer-name {
-  font-size: 1rem;
+  font-size: 0.98rem;
   font-weight: 700;
-  color: #fff;
+  color: #ffffff;
+  line-height: 1.35;
+  margin: 0;
 }
 
 .layer-desc {
-  font-size: 0.85rem;
-  color: #d1d5db;
-  line-height: 1.5;
+  font-size: 0.84rem;
+  color: #9ca3af;
+  line-height: 1.55;
+  margin: 0;
 }
 
 .layer-impl {
   background: rgba(0, 0, 0, 0.35);
+  border: 1px solid rgba(255, 255, 255, 0.05);
   padding: 10px 12px;
-  border-radius: 4px;
-  font-size: 0.82rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.8rem;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
 }
 
 .impl-label {
   font-family: var(--mono);
-  font-size: 0.74rem;
-  color: #9ca3af;
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: var(--text-muted);
   text-transform: uppercase;
+  letter-spacing: 0.05em;
   display: block;
 }
 
 .layer-impl p {
-  color: #ffffff;
-  margin-top: 3px;
-  font-size: 0.82rem;
+  color: #e5e7eb;
+  margin: 0;
+  font-size: 0.8rem;
+  line-height: 1.45;
 }
 
 .layer-projects {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding-top: 8px;
+  flex-direction: column;
+  gap: 8px;
+  padding-top: 12px;
   border-top: 1px solid var(--border-subtle);
-  font-size: 0.78rem;
+  margin-top: auto;
 }
 
 .proj-label {
   font-family: var(--mono);
-  color: #9ca3af;
-  font-size: 0.76rem;
+  color: var(--text-muted);
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
 }
 
 .proj-pills {
   display: flex;
+  flex-wrap: wrap;
   gap: 6px;
 }
 
 .proj-pill {
   display: inline-flex;
   align-items: center;
-  gap: 3px;
-  font-size: 0.78rem;
-  font-weight: 700;
+  gap: 4px;
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  font-weight: 600;
   color: #fca5a5;
+  background: rgba(230, 83, 69, 0.08);
+  border: 1px solid rgba(230, 83, 69, 0.22);
+  border-radius: var(--radius-sm);
+  padding: 2px 7px;
+  white-space: nowrap;
+}
+
+@media (max-width: 1120px) {
+  .matrix-cards-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
+  }
+}
+
+@media (max-width: 680px) {
+  .matrix-cards-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
 }
 
 /* ==========================================================================
