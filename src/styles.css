@@ -183,11 +183,23 @@ button {
 }
 
 /* Page Header Banner (for subpages) */
-.page-header-section {
-  padding: 130px 0 40px;
+.page-header-section,
+.page-hero {
+  padding: 130px 0 44px;
   background: radial-gradient(circle at 20% 30%, rgba(168, 32, 39, 0.15), transparent 45%),
               #09080b;
   border-bottom: 1px solid var(--border-subtle);
+}
+
+.page-eyebrow {
+  color: var(--accent-red);
+  font-family: var(--mono);
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+  display: inline-block;
 }
 
 .page-title {
@@ -195,7 +207,8 @@ button {
   font-weight: 800;
   letter-spacing: -0.03em;
   color: #fff;
-  line-height: 1.1;
+  line-height: 1.15;
+  margin: 0;
 }
 
 .page-subtitle {
@@ -1376,6 +1389,40 @@ button {
   gap: 8px;
 }
 
+@media (max-width: 768px) {
+  .catalog-project-card {
+    padding: 24px 20px;
+  }
+
+  .catalog-card-top {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 14px;
+  }
+
+  .catalog-metrics-group {
+    width: 100%;
+    justify-content: flex-start;
+    gap: 18px;
+    flex-wrap: wrap;
+  }
+
+  .metric-pill {
+    align-items: flex-start;
+    text-align: left;
+  }
+
+  .catalog-card-footer {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 16px;
+  }
+
+  .catalog-ext-links {
+    flex-wrap: wrap;
+  }
+}
+
 /* ==========================================================================
    Interactive Architecture Workspace (Simulator & Matrix)
    ========================================================================== */
@@ -1384,6 +1431,7 @@ button {
   background: #0d0a0c;
   border-top: 1px solid var(--border-subtle);
   border-bottom: 1px solid var(--border-subtle);
+  scroll-margin-top: 80px;
 }
 
 .workspace-container {
@@ -1858,8 +1906,22 @@ button {
 
 .archive-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 20px;
+}
+
+@media (max-width: 1024px) {
+  .archive-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+  }
+}
+
+@media (max-width: 640px) {
+  .archive-grid {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
 }
 
 .archive-card {
