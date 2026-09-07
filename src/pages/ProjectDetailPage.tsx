@@ -1,5 +1,5 @@
-import { useState, useMemo } from 'react'
-import { useParams, Link, Navigate } from 'react-router-dom'
+import { useState, useMemo, useEffect, useRef } from 'react'
+import { useParams, Link, Navigate, useNavigate } from 'react-router-dom'
 import { motion, useReducedMotion } from 'motion/react'
 import {
   ArrowLeft,
@@ -16,6 +16,12 @@ import {
   Share2,
   Copy,
   Check,
+  Sparkles,
+  ChevronDown,
+  ArrowUp,
+  Layers,
+  Filter,
+  Terminal,
 } from 'lucide-react'
 import { projects } from '../data/projects'
 import { MermaidDiagram } from '../components/MermaidDiagram'
@@ -36,9 +42,14 @@ const sectionAnchors = [
 
 export function ProjectDetailPage() {
   const { id } = useParams<{ id: string }>()
+  const navigate = useNavigate()
   const reduceMotion = useReducedMotion()
   const [toastMsg, setToastMsg] = useState<string | null>(null)
   const [copiedSigStep, setCopiedSigStep] = useState<string | null>(null)
+  const [selectedNodeType, setSelectedNodeType] = useState<string>('all')
+  const [activeSection, setActiveSection] = useState<string>('section-problem')
+  const [isSwitcherOpen, setIsSwitcherOpen] = useState<boolean>(false)
+  const switcherRef = useRef<HTMLDivElement>(null)
 
   const projectIndex = useMemo(() => {
     return projects.findIndex((p) => p.id === id)
@@ -56,6 +67,73 @@ export function ProjectDetailPage() {
     `${project.name} (${project.number}) · Case Study — Dhruv Gupta`,
     project.summary
   )
+
+  // ScrollSpy for sidebar TOC
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setActiveSection(entry.target.id)
+          }
+        })
+      },
+      { rootMargin: '-100px 0px -55% 0px', threshold: 0 }
+    )
+
+    sectionAnchors.forEach((sec) => {
+      const el = document.getElementById(sec.id)
+      if (el) observer.observe(el)
+    })
+
+    return () => observer.disconnect()
+  }, [id])
+
+  // Keyboard navigation: ArrowLeft for prev, ArrowRight for next
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (
+        e.target instanceof HTMLInputElement ||
+        e.target instanceof HTMLTextAreaElement ||
+        e.metaKey ||
+        e.ctrlKey ||
+        e.altKey
+      ) {
+        return
+      }
+      if (e.key === 'ArrowLeft' && prevProject) {
+        navigate(`/projects/${prevProject.id}`)
+      } else if (e.key === 'ArrowRight' && nextProject) {
+        navigate(`/projects/${nextProject.id}`)
+      }
+    }
+
+    window.addEventListener('keydown', handleKeyDown)
+    return () => window.removeEventListener('keydown', handleKeyDown)
+  }, [prevProject, nextProject, navigate])
+
+  // Close project switcher on outside click
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (switcherRef.current && !switcherRef.current.contains(e.target as Node)) {
+        setIsSwitcherOpen(false)
+      }
+    }
+    document.addEventListener('mousedown', handleClickOutside)
+    return () => document.removeEventListener('mousedown', handleClickOutside)
+  }, [])
+
+  // Node type categories
+  const nodeTypes = useMemo(() => {
+    const types = Array.from(new Set(project.nodes.map((n) => n.type)))
+    return ['all', ...types]
+  }, [project.nodes])
+
+  // Filtered nodes
+  const filteredNodes = useMemo(() => {
+    if (selectedNodeType === 'all') return project.nodes
+    return project.nodes.filter((n) => n.type === selectedNodeType)
+  }, [project.nodes, selectedNodeType])
 
   const handleShare = () => {
     const url = window.location.href
@@ -93,8 +171,51 @@ export function ProjectDetailPage() {
           <Link to="/projects" className="back-link">
             <ArrowLeft size={16} /> Back to Systems Directory
           </Link>
-          <div className="project-index-pill">
-            Project {project.number} of {String(projects.length).padStart(2, '0')}
+
+          {/* Quick Project Switcher Dropdown */}
+          <div className="project-switcher-wrap" ref={switcherRef}>
+            <button
+              type="button"
+              className={`project-switcher-btn ${isSwitcherOpen ? 'active' : ''}`}
+              onClick={() => setIsSwitcherOpen(!isSwitcherOpen)}
+              aria-expanded={isSwitcherOpen}
+              aria-label="Switch to another system case study"
+              title="Click to jump to another project"
+            >
+              <span>
+                Project {project.number} of {String(projects.length).padStart(2, '0')}
+              </span>
+              <ChevronDown size={14} className={`switcher-icon ${isSwitcherOpen ? 'open' : ''}`} />
+            </button>
+
+            {isSwitcherOpen && (
+              <div className="project-switcher-dropdown">
+                <div className="switcher-dropdown-header">
+                  <span>Switch System ({projects.length} Total)</span>
+                </div>
+                <div className="switcher-items-list" role="menu">
+                  {projects.map((p) => {
+                    const isCurrent = p.id === project.id
+                    return (
+                      <Link
+                        key={p.id}
+                        to={`/projects/${p.id}`}
+                        className={`switcher-item ${isCurrent ? 'active' : ''}`}
+                        onClick={() => setIsSwitcherOpen(false)}
+                        role="menuitem"
+                      >
+                        <span className="switcher-num">{p.number}</span>
+                        <div className="switcher-meta">
+                          <strong className="switcher-title">{p.name}</strong>
+                          <span className="switcher-tagline">{p.category}</span>
+                        </div>
+                        {isCurrent && <Check size={14} className="text-accent ml-auto" />}
+                      </Link>
+                    )
+                  })}
+                </div>
+              </div>
+            )}
           </div>
         </div>
       </div>
@@ -125,6 +246,17 @@ export function ProjectDetailPage() {
                 </CardSpotlight>
               ))}
             </div>
+
+            {/* Architectural Core Principle Callout */}
+            {project.architecturalCore && (
+              <div className="detail-core-card">
+                <div className="core-card-header">
+                  <Sparkles size={14} className="text-accent" />
+                  <span className="core-card-tag">Architectural Core Principle</span>
+                </div>
+                <p className="core-card-text">{project.architecturalCore}</p>
+              </div>
+            )}
 
             {/* Direct Action Links */}
             <div className="detail-actions-row">
@@ -168,14 +300,26 @@ export function ProjectDetailPage() {
               </div>
             </motion.section>
 
-            {/* 2. Architecture & Topology (Mermaid) */}
+            {/* 2. Architecture & Topology (Mermaid + System Design) */}
             <motion.section id="section-architecture" className="detail-block" {...reveal}>
               <div className="block-header">
                 <span className="block-number">02</span>
                 <h2>Architecture & Topology</h2>
               </div>
+
+              {/* Comprehensive System Design Narrative */}
+              {project.caseStudy.systemDesign && (
+                <div className="system-design-block">
+                  <div className="system-design-header">
+                    <Layers size={15} className="text-accent" />
+                    <strong>End-to-End System Design & Data Flow</strong>
+                  </div>
+                  <p>{project.caseStudy.systemDesign}</p>
+                </div>
+              )}
+
               <p className="block-intro">
-                System topology visualizing data flow, isolation boundaries, and verification gates.
+                Interactive topology visualizing data flow, isolation boundaries, deterministic solvers, and verification gates.
               </p>
               <MermaidDiagram chart={project.mermaidDiagram} title={`${project.name} System Topology`} />
             </motion.section>
@@ -187,11 +331,42 @@ export function ProjectDetailPage() {
                 <h2>Execution Nodes & Typed Contracts</h2>
               </div>
               <p className="block-intro">
-                Deterministic step execution sequence with strict input/output typed schemas.
+                Deterministic step execution sequence with strict input/output typed schemas. Filter by node type to inspect safety gates and algorithmic steps.
               </p>
 
+              {/* Node Type Filter Pills */}
+              <div className="node-filter-bar">
+                <div className="filter-bar-lead">
+                  <Filter size={13} className="text-muted" />
+                  <span>Filter by Node Type:</span>
+                </div>
+                <div className="node-filter-pills" role="tablist" aria-label="Filter execution nodes">
+                  {nodeTypes.map((type) => {
+                    const count =
+                      type === 'all'
+                        ? project.nodes.length
+                        : project.nodes.filter((n) => n.type === type).length
+                    const isSelected = selectedNodeType === type
+                    return (
+                      <button
+                        key={type}
+                        type="button"
+                        className={`node-filter-btn ${isSelected ? 'active' : ''}`}
+                        onClick={() => setSelectedNodeType(type)}
+                        role="tab"
+                        aria-selected={isSelected}
+                      >
+                        <span className="filter-type-name">{type}</span>
+                        <span className="filter-type-count">{count}</span>
+                      </button>
+                    )
+                  })}
+                </div>
+              </div>
+
+              {/* Timeline Cards */}
               <div className="nodes-timeline">
-                {project.nodes.map((node) => (
+                {filteredNodes.map((node) => (
                   <CardSpotlight key={node.step} className="node-item-card">
                     <div className="node-card-top">
                       <div className="node-step-tag">
@@ -207,18 +382,25 @@ export function ProjectDetailPage() {
 
                     <div className="node-signature-wrap">
                       <div className="node-signature-header">
-                        <span className="sig-label">Output Contract:</span>
+                        <div className="sig-label-group">
+                          <Terminal size={12} className="text-accent" />
+                          <span className="sig-label">Output Contract Signature:</span>
+                        </div>
                         <button
                           type="button"
                           className="sig-copy-btn"
                           onClick={() => handleCopySignature(node.step, node.outputSignature)}
-                          aria-label={`Copy Node ${node.step} signature`}
+                          aria-label={`Copy Node ${node.step} contract signature`}
                           title="Copy Output Contract"
                         >
                           {copiedSigStep === node.step ? (
-                            <Check size={12} className="text-emerald" />
+                            <span className="sig-copied-text">
+                              <Check size={12} className="text-emerald" /> Copied
+                            </span>
                           ) : (
-                            <Copy size={12} />
+                            <span className="sig-copy-action">
+                              <Copy size={12} /> Copy
+                            </span>
                           )}
                         </button>
                       </div>
@@ -235,7 +417,11 @@ export function ProjectDetailPage() {
                 <span className="block-number">04</span>
                 <h2>Governance, Guardrails & Human Gates</h2>
               </div>
-              <div className="prose-block">
+              <div className="prose-block guardrail-prose-block">
+                <div className="prose-callout-header">
+                  <ShieldCheck size={16} className="text-accent" />
+                  <strong>Multi-Tiered Deterministic Guardrail Architecture</strong>
+                </div>
                 <p>{project.caseStudy.guardrailArchitecture}</p>
               </div>
             </motion.section>
@@ -246,7 +432,11 @@ export function ProjectDetailPage() {
                 <span className="block-number">05</span>
                 <h2>Evaluation & Quality Benchmarks</h2>
               </div>
-              <div className="prose-block">
+              <div className="prose-block benchmark-prose-block">
+                <div className="prose-callout-header">
+                  <FileText size={16} className="text-emerald" />
+                  <strong>Empirical Test Suites & Benchmark Precision</strong>
+                </div>
                 <p>{project.caseStudy.evaluationAndMetrics}</p>
               </div>
             </motion.section>
@@ -257,6 +447,9 @@ export function ProjectDetailPage() {
                 <span className="block-number">06</span>
                 <h2>Architectural Decisions & Tradeoffs</h2>
               </div>
+              <p className="block-intro">
+                Real-world engineering constraints, considered alternatives, and technical justifications.
+              </p>
               <div className="tradeoffs-grid">
                 {project.tradeoffs.map((t, idx) => (
                   <CardSpotlight key={idx} className="tradeoff-card">
@@ -281,17 +474,20 @@ export function ProjectDetailPage() {
           {/* Sidebar Sticky Specs Column with Section Jump Links */}
           <aside className="detail-sidebar-column">
             <div className="sticky-sidebar-card">
-              {/* Quick Jump Navigation */}
+              {/* Quick Jump Navigation with Active ScrollSpy */}
               <div className="spec-group">
-                <span className="spec-label">Table of Contents</span>
+                <div className="spec-group-header">
+                  <span className="spec-label">Table of Contents</span>
+                </div>
                 <nav className="sidebar-jump-nav" aria-label="Case study sections">
                   {sectionAnchors.map((item) => {
                     const Icon = item.icon
+                    const isActive = activeSection === item.id
                     return (
                       <a
                         key={item.id}
                         href={`#${item.id}`}
-                        className="sidebar-jump-link"
+                        className={`sidebar-jump-link ${isActive ? 'active' : ''}`}
                       >
                         <Icon size={13} />
                         <span>{item.label}</span>
@@ -301,13 +497,23 @@ export function ProjectDetailPage() {
                 </nav>
               </div>
 
+              {/* Scroll to Top helper */}
+              <button
+                type="button"
+                className="scroll-top-btn"
+                onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+                title="Return to top of page"
+              >
+                <ArrowUp size={13} /> Return to Top
+              </button>
+
               <div className="spec-group">
-                <span className="spec-label">Domain</span>
+                <span className="spec-label">Domain Category</span>
                 <strong className="spec-value">{project.category}</strong>
               </div>
 
               <div className="spec-group">
-                <span className="spec-label">Primary Stack</span>
+                <span className="spec-label">Primary Tech Stack</span>
                 <div className="sidebar-tech-pills">
                   {project.stack.map((t) => (
                     <span key={t} className="tech-pill">{t}</span>
@@ -350,36 +556,42 @@ export function ProjectDetailPage() {
 
       {/* Pagination Navigation Footer */}
       <section className="detail-pagination-section">
-        <div className="shell detail-pagination-grid">
-          {prevProject ? (
-            <CardSpotlight className="pagination-card-wrap">
-              <Link to={`/projects/${prevProject.id}`} className="pagination-card pagination-card--prev">
-                <span className="pag-label"><ArrowLeft size={14} /> Previous Project</span>
-                <strong>{prevProject.name}</strong>
-                <p>{prevProject.tagline}</p>
-              </Link>
-            </CardSpotlight>
-          ) : (
-            <div className="pagination-card pagination-card--disabled" />
-          )}
+        <div className="shell">
+          <div className="pagination-keyboard-hint no-print">
+            <span>Use keyboard <kbd>←</kbd> and <kbd>→</kbd> arrow keys to switch case studies</span>
+          </div>
 
-          {nextProject ? (
-            <CardSpotlight className="pagination-card-wrap">
-              <Link to={`/projects/${nextProject.id}`} className="pagination-card pagination-card--next">
-                <span className="pag-label">Next Project <ArrowRight size={14} /></span>
-                <strong>{nextProject.name}</strong>
-                <p>{nextProject.tagline}</p>
-              </Link>
-            </CardSpotlight>
-          ) : (
-            <CardSpotlight className="pagination-card-wrap">
-              <Link to="/projects" className="pagination-card pagination-card--next">
-                <span className="pag-label">Back to Catalog <ArrowRight size={14} /></span>
-                <strong>All {projects.length} Projects</strong>
-                <p>Explore full architectural directory</p>
-              </Link>
-            </CardSpotlight>
-          )}
+          <div className="detail-pagination-grid">
+            {prevProject ? (
+              <CardSpotlight className="pagination-card-wrap">
+                <Link to={`/projects/${prevProject.id}`} className="pagination-card pagination-card--prev">
+                  <span className="pag-label"><ArrowLeft size={14} /> Previous Project</span>
+                  <strong>{prevProject.name}</strong>
+                  <p>{prevProject.tagline}</p>
+                </Link>
+              </CardSpotlight>
+            ) : (
+              <div className="pagination-card pagination-card--disabled" />
+            )}
+
+            {nextProject ? (
+              <CardSpotlight className="pagination-card-wrap">
+                <Link to={`/projects/${nextProject.id}`} className="pagination-card pagination-card--next">
+                  <span className="pag-label">Next Project <ArrowRight size={14} /></span>
+                  <strong>{nextProject.name}</strong>
+                  <p>{nextProject.tagline}</p>
+                </Link>
+              </CardSpotlight>
+            ) : (
+              <CardSpotlight className="pagination-card-wrap">
+                <Link to="/projects" className="pagination-card pagination-card--next">
+                  <span className="pag-label">Back to Catalog <ArrowRight size={14} /></span>
+                  <strong>All {projects.length} Projects</strong>
+                  <p>Explore full architectural directory</p>
+                </Link>
+              </CardSpotlight>
+            )}
+          </div>
         </div>
       </section>
     </div>
