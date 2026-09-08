@@ -30,6 +30,7 @@ import { CardSpotlight } from '../components/motion/CardSpotlight'
 import { GitHubMark } from '../components/SocialIcons'
 import { useDocumentTitle } from '../hooks/useDocumentTitle'
 import { Toast } from '../components/Toast'
+import { sanitizeUrl } from '../utils/security'
 
 const sectionAnchors = [
   { id: 'section-problem', label: '1. Problem & Context', icon: BookOpen },
@@ -260,18 +261,18 @@ export function ProjectDetailPage() {
 
             {/* Direct Action Links */}
             <div className="detail-actions-row">
-              <a href={project.repo} target="_blank" rel="noopener noreferrer" className="btn btn--primary">
+              <a href={sanitizeUrl(project.repo)} target="_blank" rel="noopener noreferrer" className="btn btn--primary">
                 <GitHubMark size={16} /> View Code on GitHub
               </a>
 
               {project.live && (
-                <a href={project.live} target="_blank" rel="noopener noreferrer" className="btn btn--secondary">
+                <a href={sanitizeUrl(project.live)} target="_blank" rel="noopener noreferrer" className="btn btn--secondary">
                   <ExternalLink size={16} /> Open Live Product
                 </a>
               )}
 
               {project.demo && (
-                <a href={project.demo} target="_blank" rel="noopener noreferrer" className="btn btn--ghost">
+                <a href={sanitizeUrl(project.demo)} target="_blank" rel="noopener noreferrer" className="btn btn--ghost">
                   <Play size={16} /> Watch Demo Video
                 </a>
               )}
@@ -535,16 +536,16 @@ export function ProjectDetailPage() {
 
               <div className="spec-group sidebar-links-group">
                 <span className="spec-label">Repository & Links</span>
-                <a href={project.repo} target="_blank" rel="noopener noreferrer" className="sidebar-link">
+                <a href={sanitizeUrl(project.repo)} target="_blank" rel="noopener noreferrer" className="sidebar-link">
                   <GitHubMark size={14} /> GitHub Repository
                 </a>
                 {project.live && (
-                  <a href={project.live} target="_blank" rel="noopener noreferrer" className="sidebar-link">
+                  <a href={sanitizeUrl(project.live)} target="_blank" rel="noopener noreferrer" className="sidebar-link">
                     <ExternalLink size={14} /> Production Deployment
                   </a>
                 )}
                 {project.demo && (
-                  <a href={project.demo} target="_blank" rel="noopener noreferrer" className="sidebar-link">
+                  <a href={sanitizeUrl(project.demo)} target="_blank" rel="noopener noreferrer" className="sidebar-link">
                     <Play size={14} /> Video Demonstration
                   </a>
                 )}

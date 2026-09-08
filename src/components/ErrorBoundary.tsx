@@ -1,5 +1,6 @@
 import { Component, ErrorInfo, ReactNode } from 'react'
 import { AlertCircle, RefreshCw, Home } from 'lucide-react'
+import { safeStorage } from '../utils/security'
 
 interface Props {
   children: ReactNode
@@ -30,22 +31,22 @@ export class ErrorBoundary extends Component<Props, State> {
       error.name === 'ChunkLoadError'
 
     if (isChunkLoadError) {
-      const hasRetried = sessionStorage.getItem('chunk_load_retried')
+      const hasRetried = safeStorage.get('chunk_load_retried')
       if (!hasRetried) {
-        sessionStorage.setItem('chunk_load_retried', 'true')
+        safeStorage.set('chunk_load_retried', 'true')
         window.location.reload()
       }
     }
   }
 
   private handleReload = () => {
-    sessionStorage.removeItem('chunk_load_retried')
+    safeStorage.remove('chunk_load_retried')
     this.setState({ hasError: false })
     window.location.reload()
   }
 
   private handleGoHome = () => {
-    sessionStorage.removeItem('chunk_load_retried')
+    safeStorage.remove('chunk_load_retried')
     this.setState({ hasError: false })
     window.location.href = window.location.origin + window.location.pathname + '#/'
     window.location.reload()

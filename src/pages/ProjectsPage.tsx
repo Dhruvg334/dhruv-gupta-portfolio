@@ -16,6 +16,7 @@ import { ArchitectureWorkspace } from '../components/ArchitectureWorkspace'
 import { CardSpotlight } from '../components/motion/CardSpotlight'
 import { GitHubMark } from '../components/SocialIcons'
 import { useDocumentTitle } from '../hooks/useDocumentTitle'
+import { sanitizeUrl } from '../utils/security'
 
 const filterTabs: { id: ProjectDomain; label: string }[] = [
   { id: 'all', label: `All Systems (${projects.length})` },
@@ -115,7 +116,7 @@ export function ProjectsPage() {
                 type="text"
                 placeholder="Search by stack, keyword, or name..."
                 value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
+                onChange={(e) => setSearchQuery(e.target.value.slice(0, 100))}
                 className="catalog-search-input"
                 aria-label="Filter projects by keyword or tech stack"
                 maxLength={100}
@@ -228,16 +229,16 @@ export function ProjectsPage() {
 
                         <div className="catalog-ext-links">
                           {p.live && (
-                            <a href={p.live} target="_blank" rel="noopener noreferrer" className="btn btn--secondary" title="Open Live Application">
+                            <a href={sanitizeUrl(p.live)} target="_blank" rel="noopener noreferrer" className="btn btn--secondary" title="Open Live Application">
                               <ExternalLink size={14} /> Live
                             </a>
                           )}
                           {p.demo && (
-                            <a href={p.demo} target="_blank" rel="noopener noreferrer" className="btn btn--ghost" title="Watch Demo Video">
+                            <a href={sanitizeUrl(p.demo)} target="_blank" rel="noopener noreferrer" className="btn btn--ghost" title="Watch Demo Video">
                               <Play size={14} /> Demo
                             </a>
                           )}
-                          <a href={p.repo} target="_blank" rel="noopener noreferrer" className="btn btn--ghost" title="View Source on GitHub">
+                          <a href={sanitizeUrl(p.repo)} target="_blank" rel="noopener noreferrer" className="btn btn--ghost" title="View Source on GitHub">
                             <GitHubMark size={14} /> GitHub
                           </a>
                         </div>
@@ -273,7 +274,7 @@ export function ProjectsPage() {
                 <CardSpotlight className="archive-card">
                   <a
                     className="archive-card-link-wrap"
-                    href={proj.href}
+                    href={sanitizeUrl(proj.href)}
                     target="_blank"
                     rel="noopener noreferrer"
                   >

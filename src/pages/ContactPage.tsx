@@ -20,6 +20,7 @@ import {
 import { Toast } from '../components/Toast'
 import { GitHubMark, LinkedInMark, DevpostMark } from '../components/SocialIcons'
 import { useDocumentTitle } from '../hooks/useDocumentTitle'
+import { validateEmail, sanitizeTextInput, checkRateLimit } from '../utils/security'
 
 interface ContactIntent {
   id: string
@@ -113,13 +114,72 @@ export function ContactPage() {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    setIsSubmitting(true)
+
     const form = e.currentTarget
     const formData = new FormData(form)
 
+    // 1. Bot Honeypot Check: if _gotcha is filled, silently discard without calling external API
+    const honeypot = formData.get('_gotcha')
+    if (honeypot && typeof honeypot === 'string' && honeypot.trim().length > 0) {
+      setSubmitted(true)
+      return
+    }
+
+    // 2. Client-side Rate Limiting (15s cooldown to prevent automated flood)
+    const rateCheck = checkRateLimit('contact_submit', 15000)
+    if (!rateCheck.allowed) {
+      showToast(`Please wait ${rateCheck.remainingSec}s before sending another note.`)
+      return
+    }
+
+    // 3. Input Sanitization & Clamping
+    const rawName = (formData.get('name') as string) || ''
+    const rawEmail = (formData.get('email') as string) || ''
+    const rawOrg = (formData.get('organization') as string) || ''
+    const rawSubject = (formData.get('subject') as string) || ''
+    const rawMsg = (formData.get('message') as string) || ''
+
+    const cleanName = sanitizeTextInput(rawName, 100)
+    const cleanEmail = rawEmail.trim()
+    const cleanOrg = sanitizeTextInput(rawOrg, 100)
+    const cleanSubject = sanitizeTextInput(rawSubject, 150)
+    const cleanMsg = sanitizeTextInput(rawMsg, 3000)
+
+    // 4. Strict Validation
+    if (!cleanName || cleanName.length < 2) {
+      showToast('Please provide your name (at least 2 characters).')
+      return
+    }
+
+    if (!validateEmail(cleanEmail)) {
+      showToast('Please provide a valid email address.')
+      return
+    }
+
+    if (!cleanSubject || cleanSubject.length < 3) {
+      showToast('Please provide a descriptive subject.')
+      return
+    }
+
+    if (!cleanMsg || cleanMsg.length < 10) {
+      showToast('Please write a message with at least 10 characters.')
+      return
+    }
+
+    setIsSubmitting(true)
+
+    // 5. Construct sanitized payload
+    const sanitizedPayload = new FormData()
+    sanitizedPayload.append('_intent', selectedIntent.label)
+    sanitizedPayload.append('name', cleanName)
+    sanitizedPayload.append('email', cleanEmail)
+    if (cleanOrg) sanitizedPayload.append('organization', cleanOrg)
+    sanitizedPayload.append('subject', cleanSubject)
+    sanitizedPayload.append('message', cleanMsg)
+
     fetch('https://formspree.io/f/mqakbvzv', {
       method: 'POST',
-      body: formData,
+      body: sanitizedPayload,
       headers: {
         Accept: 'application/json',
       },
@@ -221,6 +281,16 @@ export function ContactPage() {
               ) : (
                 <form onSubmit={handleSubmit} className="contact-form-body">
                   <input type="hidden" name="_intent" value={selectedIntent.label} />
+
+                  {/* Anti-spam bot trap field (hidden from assistive tech and visual users) */}
+                  <div style={{ display: 'none' }} aria-hidden="true">
+                    <input
+                      type="text"
+                      name="_gotcha"
+                      tabIndex={-1}
+                      autoComplete="off"
+                    />
+                  </div>
 
                   <div className="form-field-pair">
                     <label>

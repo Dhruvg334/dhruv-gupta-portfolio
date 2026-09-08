@@ -14,6 +14,7 @@ import { CardSpotlight } from '../components/motion/CardSpotlight'
 import { StatCounter } from '../components/motion/StatCounter'
 import { GitHubMark, LinkedInMark, DevpostMark } from '../components/SocialIcons'
 import { useDocumentTitle } from '../hooks/useDocumentTitle'
+import { sanitizeUrl } from '../utils/security'
 
 const clearPrinciples = [
   {
@@ -267,11 +268,11 @@ export function HomePage() {
                       Read Case Study <ArrowRight size={14} />
                     </Link>
                     {p.live && (
-                      <a href={p.live} target="_blank" rel="noopener noreferrer" className="btn btn--secondary">
+                      <a href={sanitizeUrl(p.live)} target="_blank" rel="noopener noreferrer" className="btn btn--secondary">
                         <ExternalLink size={14} /> Live App
                       </a>
                     )}
-                    <a href={p.repo} target="_blank" rel="noopener noreferrer" className="btn btn--ghost">
+                    <a href={sanitizeUrl(p.repo)} target="_blank" rel="noopener noreferrer" className="btn btn--ghost">
                       <GitHubMark size={14} /> GitHub
                     </a>
                   </div>
