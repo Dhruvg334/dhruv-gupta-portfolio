@@ -81,4 +81,15 @@ export interface SystemLayerItem {
   keyProjects: string[]
 }
 
+export interface SupportingProject {
+  name: string
+  description: string
+  tags: string[]
+  href: string
+  live?: string
+  repo?: string
+  badge?: string
+  docsUrl?: string
+}
+
 export type ContactMode = 'contact' | 'resume'

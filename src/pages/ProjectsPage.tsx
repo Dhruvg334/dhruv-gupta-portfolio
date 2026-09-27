@@ -51,6 +51,18 @@ export function ProjectsPage() {
     })
   }, [selectedDomain, searchQuery])
 
+  const filteredSupporting = useMemo(() => {
+    if (!searchQuery.trim()) return supportingProjects
+    const q = searchQuery.toLowerCase()
+    return supportingProjects.filter(
+      (p) =>
+        p.name.toLowerCase().includes(q) ||
+        p.description.toLowerCase().includes(q) ||
+        p.tags.some((t) => t.toLowerCase().includes(q)) ||
+        (p.badge && p.badge.toLowerCase().includes(q))
+    )
+  }, [searchQuery])
+
   const reveal = reduceMotion
     ? {}
     : {
@@ -114,7 +126,7 @@ export function ProjectsPage() {
               <Search size={15} className="search-icon" />
               <input
                 type="text"
-                placeholder="Search by stack, keyword, or name..."
+                placeholder="Search by stack, keyword, or name (e.g. Sanitas, PostGIS)..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value.slice(0, 100))}
                 className="catalog-search-input"
@@ -157,8 +169,18 @@ export function ProjectsPage() {
                   exit={{ opacity: 0 }}
                 >
                   <Layers size={36} className="text-muted" />
-                  <h3>No systems match your criteria</h3>
-                  <p>Try searching for a different keyword (e.g. Civitas, PostGIS, FastAPI, Neo4j, LangGraph) or clear filters.</p>
+                  <h3>No flagship systems match "{searchQuery.slice(0, 30)}"</h3>
+                  {filteredSupporting.length > 0 ? (
+                    <p>
+                      Found <strong>{filteredSupporting.length}</strong> matching build in the{' '}
+                      <a href="#engineering-archive" className="archive-scroll-link">
+                        Engineering Archive
+                      </a>{' '}
+                      below ({filteredSupporting.map((s) => s.name.split('—')[0].trim()).join(', ')}).
+                    </p>
+                  ) : (
+                    <p>Try searching for a different keyword (e.g. Civitas, Sanitas, PostGIS, FastAPI, Neo4j, LangGraph) or clear filters.</p>
+                  )}
                   <button
                     type="button"
                     className="btn btn--secondary"
@@ -256,43 +278,80 @@ export function ProjectsPage() {
       <ArchitectureWorkspace />
 
       {/* Supporting Builds & Archive Section */}
-      <section className="section archive-section">
+      <section className="section archive-section" id="engineering-archive">
         <div className="shell">
           <motion.div className="section-heading" {...reveal}>
             <p className="section-label">Engineering Archive</p>
             <div>
               <h2>Supporting builds & specialized tools.</h2>
               <p>
-                Earlier projects and experimental builds across career graphs, SOP automation, and disaster decision support.
+                Specialized engineering builds and experimental systems across clinical document verification, AST guardrail scanning, linear solvers, and automation exposure.
               </p>
             </div>
           </motion.div>
 
-          <div className="archive-grid">
-            {supportingProjects.map((proj) => (
-              <motion.div key={proj.name} {...reveal}>
-                <CardSpotlight className="archive-card">
-                  <a
-                    className="archive-card-link-wrap"
-                    href={sanitizeUrl(proj.href)}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <div className="archive-content">
-                      <h3>{proj.name}</h3>
-                      <p>{proj.description}</p>
+          {filteredSupporting.length === 0 ? (
+            <div className="archive-empty-inline">
+              <p>No supporting archive builds matched "{searchQuery}".</p>
+            </div>
+          ) : (
+            <div className="archive-grid">
+              {filteredSupporting.map((proj) => (
+                <motion.div key={proj.name} {...reveal}>
+                  <CardSpotlight className="archive-card">
+                    <div className="archive-card-inner">
+                      <div className="archive-card-header">
+                        <div className="archive-title-wrap">
+                          <h3 className="archive-card-title">
+                            <a
+                              href={sanitizeUrl(proj.live || proj.href)}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="archive-title-link"
+                            >
+                              {proj.name}
+                            </a>
+                          </h3>
+                          {proj.badge && <span className="archive-badge">{proj.badge}</span>}
+                        </div>
+                      </div>
+
+                      <p className="archive-desc">{proj.description}</p>
+
                       <div className="archive-tags">
                         {proj.tags.map((t) => (
                           <span key={t} className="archive-tag">{t}</span>
                         ))}
                       </div>
+
+                      <div className="archive-actions-row">
+                        {proj.live && (
+                          <a
+                            href={sanitizeUrl(proj.live)}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="btn btn--secondary btn--sm"
+                            title="Open Live Deployment"
+                          >
+                            <ExternalLink size={13} /> Live App
+                          </a>
+                        )}
+                        <a
+                          href={sanitizeUrl(proj.repo || proj.href)}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="btn btn--ghost btn--sm"
+                          title="View Source on GitHub"
+                        >
+                          <GitHubMark size={13} /> GitHub
+                        </a>
+                      </div>
                     </div>
-                    <ArrowRight size={18} className="archive-arrow" />
-                  </a>
-                </CardSpotlight>
-              </motion.div>
-            ))}
-          </div>
+                  </CardSpotlight>
+                </motion.div>
+              ))}
+            </div>
+          )}
         </div>
       </section>
     </div>

@@ -1,4 +1,4 @@
-import { Project } from '../types'
+import { Project, SupportingProject } from '../types'
 
 export const projects: Project[] = [
   {
@@ -1562,23 +1562,46 @@ export const projects: Project[] = [
   },
 ]
 
-export const supportingProjects = [
+export const supportingProjects: SupportingProject[] = [
+  {
+    name: 'Sanitas — AI Clinical Document Reviewer',
+    description:
+      'Evidence-grounded review pipeline for synthetic clinical records. Features adaptive PyMuPDF/Gemini multi-modal ingestion, deterministic quote validation gates, document-level contradiction checks, explicit clinical uncertainty modeling, and Neon PostgreSQL audit persistence with durable review URLs.',
+    tags: ['Next.js 16', 'FastAPI', 'Google Gemini 3.8', 'PyMuPDF', 'Neon PostgreSQL', 'Pydantic v2', 'Evidence Verification'],
+    href: 'https://github.com/Dhruvg334/Sanitas',
+    live: 'https://sanitas-peach.vercel.app',
+    repo: 'https://github.com/Dhruvg334/Sanitas',
+    badge: 'Clinical Ingestion & Verification',
+    docsUrl: 'https://sanitas-peach.vercel.app/docs',
+  },
   {
     name: 'Carbonly — Decarbonization Linear Solver',
-    description: 'Primal Simplex method linear programming engine maximizing emission avoidance within capital constraints.',
+    description:
+      'Primal Simplex method linear programming engine maximizing emission avoidance within capital constraints and deterministic supply bounds.',
     tags: ['JavaScript', 'Linear Programming', 'Simplex Method', 'Operations Research'],
     href: 'https://github.com/Dhruvg334/Carbonly',
+    live: 'https://carbonlyai.netlify.app/',
+    repo: 'https://github.com/Dhruvg334/Carbonly',
+    badge: 'Operations Research & Solvers',
   },
   {
     name: 'Daedalus — AI Exposure Matrix',
-    description: 'Task-level routine vs cognitive judgment automation vulnerability analyzer with deterministic fit traces.',
+    description:
+      'Task-level routine vs cognitive judgment automation vulnerability analyzer with deterministic fit traces and mathematical defensibility.',
     tags: ['Next.js', 'FastAPI', 'Pydantic', 'Decision Systems'],
     href: 'https://github.com/Dhruvg334/Daedalus',
+    live: 'https://daedalus-iota.vercel.app/',
+    repo: 'https://github.com/Dhruvg334/Daedalus',
+    badge: 'Labor Automation Modeling',
   },
   {
     name: 'A-DAP-T — GenAI AST Guardrail Scanner',
-    description: '16-point static security verification matrix identifying unrestricted tool execution sinks and missing human gates.',
+    description:
+      '16-point static security verification matrix identifying unrestricted tool execution sinks, prompt leakage, and missing human confirmation gates.',
     tags: ['Python AST', 'FastAPI', 'Security Guardrails', 'Static Analysis'],
     href: 'https://github.com/Dhruvg334/A-DAP-T',
+    live: 'https://a-dap-t.vercel.app',
+    repo: 'https://github.com/Dhruvg334/A-DAP-T',
+    badge: 'Static AST Security Scanner',
   },
 ]

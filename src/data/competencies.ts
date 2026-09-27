@@ -55,7 +55,7 @@ export const systemArchitectureLayers: SystemLayerItem[] = [
     tag: 'Governance',
     description: 'Explicit review, diff inspection, and approval barriers before executing consequential mutations or report publishing.',
     implementationExample: 'Emergency disaster coordinator dispatch gate, municipal work order sign-off, procurement escalation approval.',
-    keyProjects: ['AIDYN', 'Civitas', 'Exorno', 'Niswarth AI', 'ChronOS'],
+    keyProjects: ['AIDYN', 'Civitas', 'Exorno', 'Niswarth AI', 'ChronOS', 'Sanitas'],
   },
   {
     number: '08',
@@ -63,7 +63,7 @@ export const systemArchitectureLayers: SystemLayerItem[] = [
     tag: 'Model Tier',
     description: 'Dynamic model dispatching tailored for structured JSON output, low-latency reasoning, and grounded citation generation.',
     implementationExample: 'Groq LLaMA-3.3 fast inference, strict Pydantic/Zod schema enforcement, zero-shot fallback.',
-    keyProjects: ['Carbonly', 'Civitas', 'Mnemos', 'A-DAP-T'],
+    keyProjects: ['Carbonly', 'Civitas', 'Mnemos', 'A-DAP-T', 'Sanitas'],
   },
   {
     number: '09',
